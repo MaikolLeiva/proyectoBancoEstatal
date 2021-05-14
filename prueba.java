@@ -1,0 +1,3 @@
+public Prueba{
+	String Maikol;
+}::
