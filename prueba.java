@@ -1,3 +1,3 @@
 public Prueba{
-	String Maikol;
+	String Maikol = "sad";
 }::
