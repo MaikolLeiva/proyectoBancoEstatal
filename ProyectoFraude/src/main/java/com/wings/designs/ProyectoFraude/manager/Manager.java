@@ -1,4 +1,4 @@
-package com.wings.designs.ProyectoFraude;
+package com.wings.designs.ProyectoFraude.manager;
 
 import org.springframework.lang.NonNull;
 

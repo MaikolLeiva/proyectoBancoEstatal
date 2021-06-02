@@ -1,4 +1,4 @@
-package com.wings.designs.ProyectoFraude;
+package com.wings.designs.ProyectoFraude.users;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

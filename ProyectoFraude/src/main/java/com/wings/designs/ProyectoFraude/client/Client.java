@@ -1,7 +1,7 @@
-package com.wings.designs.ProyectoFraude;
+package com.wings.designs.ProyectoFraude.client;
 
 import javax.persistence.*;
-import javax.sound.midi.Sequence;
+
 
 @Entity (name="Client")
 public class Client {

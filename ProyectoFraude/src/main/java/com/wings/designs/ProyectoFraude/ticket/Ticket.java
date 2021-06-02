@@ -1,4 +1,4 @@
-package com.wings.designs.ProyectoFraude;
+package com.wings.designs.ProyectoFraude.ticket;
 
 import javax.persistence.*;
 
