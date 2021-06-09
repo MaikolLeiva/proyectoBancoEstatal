@@ -9,9 +9,11 @@ public class Client {
 
 
     @Id
+
     @Column(
-            name="RUT",
-            updatable = false
+            name="rut",
+            updatable = false,
+            nullable = false
 
     )
     private String rut;
@@ -22,7 +24,7 @@ public class Client {
     )
     private String fullName;
     @Column(
-            name="Direccion",
+            name="direccion",
             nullable = false,
             columnDefinition = "TEXT"
 
@@ -45,16 +47,17 @@ public class Client {
     )
     private Long accountNumber;
 
-    public Client( String rut, String fullName, String address, String mail, Long accountNumber) {
+
+    public Client() {
+
+    }
+
+    public Client(String rut, String fullName, String address, String mail, Long accountNumber) {
         this.rut = rut;
         this.fullName = fullName;
         this.address = address;
         this.mail = mail;
         this.accountNumber = accountNumber;
-    }
-
-    public Client() {
-
     }
 
 
