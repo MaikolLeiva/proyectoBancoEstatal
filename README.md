@@ -9,23 +9,25 @@ Mientras que los ejecutivos podrán ver y solucionar los casos de ser necesario.
 Este proyecto usa una api Spring que tomara uso de las vistas para los casos web y movil.
 En la carpeta "ProyectoFraude" se encuentra la api, para trabajar con la api se debe abrir esta carpeta como un proyecto en su IDE.
 Dado que esta api funciona con una base de datos psql "postgress" tendra que generar las tablas en su usuario. Estas tablas siendo:
-Bank_database tabla
-  client
-    rut
-    fullName
-    address
-    mail
-    accountNumber
-  manager
-    rut
-    fullName
-  ticket
-    id
-    cardType
-    comment
-  users
-    rut
-    password
+
+Bank_database
+
+    client
+      rut
+      fullName
+      address
+      mail
+      accountNumber
+    manager
+      rut
+      fullName
+    ticket
+      id
+      cardType
+      comment
+    users
+      rut
+      password
 Una ves debera modificar los datos de:
 "proyectoBancoEstatal/ProyectoFraude/src/main/resources/application.properties"
 Dentro del archivo se podran ver los datos que debera modificar.
