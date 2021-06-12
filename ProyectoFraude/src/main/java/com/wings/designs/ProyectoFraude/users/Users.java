@@ -1,155 +1,98 @@
 /*
-* Copyright
-* */
+ * Copyright (c) 2021. Wings Design.
+ */
 package com.wings.designs.ProyectoFraude.users;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
-
+/**
+ *Represents a user of the system with his attributes and it's representation in the Database.
+ * @author Nicolas Henriquez
+ * @author Sebastian Zapata
+ * @author Ignacio Cabrera
+ * @author Maikol Leiva
+ * @version 1.0
+ * */
 @Entity(name= "Users")
 public class Users {
     @Id
-    @SequenceGenerator(
-            name="users-sequence",
-            sequenceName = "users_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "users_sequence"
-
-    )
-    @Column(
-            name="id",
-            updatable = false
-
-    )
+    @SequenceGenerator(name="users-sequence",sequenceName="users_sequence", allocationSize = 1 )
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "users_sequence")
+    @Column(name="id",updatable = false)
     private Long id;
-    @Column(
-            name="rut",
-            updatable = false,
-            nullable =false
-
-    )
+    @Column(name="rut",updatable = false,nullable =false)
     private String rut;
-    @Column(
-            name="password",
-            nullable = false
-
-    )
+    @Column(name="password",nullable = false)
     private String password;
-    @Column(
-            name="full_name",
-            nullable = false
-
-    )
-
+    @Column(name="fullname",nullable = false)
+    @JsonProperty("fullname")
     private String fullName;
-    @Column(
-            name="address",
-            nullable = false,
-            columnDefinition = "TEXT"
-
-    )
+    @Column(name="address",nullable = false,columnDefinition = "TEXT")
     private String address;
-    @Column(
-            name="email",
-            updatable = false,
-            unique = true
-
-    )
+    @Column(name="email",updatable = false,unique = true)
     private String email;
-    @Column(
-            name="account",
-            updatable = false
-
-    )
+    @Column(name="account_number",updatable = false)
     private Long account;
-    @Column(
-            name="userType"
+    @Column(name="phone_number",updatable = false)
+    @JsonProperty("phone_number")
+    private Long phoneNumber;
+    @Column(name="user_type")
+    private enumUserType userType;
 
-
-    )
-    private String userType;
-
-
-
-    public Users(String rut, String password, String fullName,
-                 String address, String email, Long account) {
+    /**
+     * Constructor that receives all the attributes as parameters, except for the id.
+     * @param rut Represent the rut of the person. A unique number assigned for every citizen that lives in Chile.
+     * @param password Is the password of  the user, it has to be encrypted.
+     * @param fullName Is the complete name of the user.
+     * @param address Is the address of the user.
+     * @param email Is the email of the user.
+     * @param account Is the account number of the user.
+     * @param phoneNumber Is the phone number of the user.
+     * @param userType Is the type of rol that the user have.
+     */
+    public Users(String rut, String password, String fullName,String address, String email, Long account,
+                 Long phoneNumber,enumUserType userType) {
         this.rut = rut;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
         this.email = email;
         this.account = account;
-        this.userType="CLIENTE";
+        this.phoneNumber= phoneNumber;
+        this.userType=userType;
     }
 
+    /**
+     * An Empty Constructor
+     */
     public Users() {
-
     }
-
     public Long getId() {
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getRut() {
         return rut;
     }
-
-    public void setRut(String rutUser) {
-        this.rut = rutUser;
-    }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String passwordUser) {
         this.password = passwordUser;
     }
-
     public String getFullName() {
         return fullName;
     }
-
-    public void setFullName(String fullNameUser) {
-        this.fullName = fullNameUser;
-    }
-
     public String getAddress() {
         return address;
     }
-
-    public void setAddress(String addressUser) {
-        this.address = addressUser;
-    }
-
     public String getEmail() {
         return email;
     }
-
-    public void setEmail(String emailUser) {
-        this.email = emailUser;
-    }
-
     public Long getAccount() {
         return account;
     }
-
-    public void setAccount(Long accountNumber) {
-        this.account = accountNumber;
-    }
-
-    public String getUserType() {
+    public enumUserType getUserType() {
         return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
     }
 
     @Override
@@ -162,8 +105,19 @@ public class Users {
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", account=" + account +
-                ", userType='" + userType + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", userType=" + userType +
                 '}';
+    }
+
+    /**
+     * Enum that defines all the possibles roles that the user can have.
+     * <code>CLIENT<code/> allow users to create tickets.
+     * <code>MANAGER<code/> allow users to take and close tickets.
+     */
+    enum enumUserType{
+        CLIENT,
+        MANAGER
     }
 }
 
