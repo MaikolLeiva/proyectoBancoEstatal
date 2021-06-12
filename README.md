@@ -1,4 +1,4 @@
-# ProyectoBancoEstata
+# ProyectoBancoEstatal
 
 # Descripcion
 La compañía "Banco Estatal" S.A encargo un sistema para gestionar todos sus casos de fraudes bancarios este pudiendo funcionar tanto en web como móvil, esta aplicación está pensada para el uso de personal de banco y de clientes.
