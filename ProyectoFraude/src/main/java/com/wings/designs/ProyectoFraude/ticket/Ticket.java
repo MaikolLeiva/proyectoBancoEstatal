@@ -22,23 +22,40 @@ public class Ticket {
     )
     private Long id;
     @Column(
-            name="tipo_tarjeta",
+            name="client_rut",
             updatable = false,
-            nullable = false,
-            columnDefinition = "TEXT"
+            nullable = false
+
+    )
+    private String clientRut;
+    @Column(
+            name="manager_rut"
+    )
+    private String managerRut;
+    @Column(
+            name="card_type"
 
     )
     private String cardType;
+
     @Column(
-            name="Motivo",
+            name="comment",
             updatable = false
     )
     private String comment;
+    @Column(
+            name="status",
+            nullable = false
+    )
+    private String status;
 
-    public Ticket(Long id, String cardType, String comment) {
-        this.id = id;
+
+    public Ticket(String clientRut, String cardType, String comment, String status) {
+        this.managerRut=null;
+        this.clientRut = clientRut;
         this.cardType = cardType;
         this.comment = comment;
+        this.status = status;
     }
 
     public Ticket() {
@@ -51,6 +68,22 @@ public class Ticket {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getClientRut() {
+        return clientRut;
+    }
+
+    public void setClientRut(String clientRut) {
+        this.clientRut = clientRut;
+    }
+
+    public String getManagerRut() {
+        return managerRut;
+    }
+
+    public void setManagerRut(String managerRut) {
+        this.managerRut = managerRut;
     }
 
     public String getCardType() {
@@ -69,12 +102,23 @@ public class Ticket {
         this.comment = comment;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
+                ", clientRut='" + clientRut + '\'' +
+                ", managerRut='" + managerRut + '\'' +
                 ", cardType='" + cardType + '\'' +
                 ", comment='" + comment + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
