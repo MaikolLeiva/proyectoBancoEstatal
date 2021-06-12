@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Wings Design.
+ */
+
 package com.wings.designs.ProyectoFraude.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
