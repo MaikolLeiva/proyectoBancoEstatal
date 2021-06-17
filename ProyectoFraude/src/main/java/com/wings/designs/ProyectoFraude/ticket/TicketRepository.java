@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 /**
- *Layer that manages the requests made for the database that are related to the entity Users.
+ *Layer that manages the requests made for the database that are related to the entity User.
  */
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {

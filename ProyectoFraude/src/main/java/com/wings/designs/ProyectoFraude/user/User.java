@@ -1,9 +1,11 @@
 /*
  * Copyright (c) 2021. Wings Design.
  */
-package com.wings.designs.ProyectoFraude.users;
+package com.wings.designs.ProyectoFraude.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wings.designs.ProyectoFraude.user.role.Role;
+
 import javax.persistence.*;
 /**
  *Represents a user of the system with his attributes and it's representation in the Database.
@@ -13,11 +15,11 @@ import javax.persistence.*;
  * @author Maikol Leiva
  * @version 1.0
  * */
-@Entity(name= "Users")
-public class Users {
+@Entity(name= "user_account")
+public class User {
     @Id
-    @SequenceGenerator(name="users-sequence",sequenceName="users_sequence", allocationSize = 1 )
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "users_sequence")
+    @SequenceGenerator(name="user-sequence",sequenceName="user_sequence", allocationSize = 1 )
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator = "user_sequence")
     @Column(name="id",updatable = false)
     private Long id;
     @Column(name="rut",updatable = false,nullable =false)
@@ -31,13 +33,22 @@ public class Users {
     private String address;
     @Column(name="email",updatable = false,unique = true)
     private String email;
-    @Column(name="account_number",updatable = false)
+    @Column(name="account_number",unique = true,updatable = false)
     private Long account;
     @Column(name="phone_number",updatable = false)
     @JsonProperty("phone_number")
     private Long phoneNumber;
-    @Column(name="user_type")
-    private enumUserType userType;
+
+    @ManyToOne()
+    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Role role;
+
+    /**
+     * An Empty Constructor
+     */
+    public User() {
+    }
 
     /**
      * Constructor that receives all the attributes as parameters, except for the id.
@@ -48,25 +59,21 @@ public class Users {
      * @param email Is the email of the user.
      * @param account Is the account number of the user.
      * @param phoneNumber Is the phone number of the user.
-     * @param userType Is the type of rol that the user have.
+     * @param role Is the type of rol that the user have.
      */
-    public Users(String rut, String password, String fullName,String address, String email, Long account,
-                 Long phoneNumber,enumUserType userType) {
+    public User(String rut, String password, String fullName, String address, String email, Long account,
+                Long phoneNumber, Role role) {
         this.rut = rut;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
         this.email = email;
         this.account = account;
-        this.phoneNumber= phoneNumber;
-        this.userType=userType;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 
-    /**
-     * An Empty Constructor
-     */
-    public Users() {
-    }
+
     public Long getId() {
         return id;
     }
@@ -91,13 +98,11 @@ public class Users {
     public Long getAccount() {
         return account;
     }
-    public enumUserType getUserType() {
-        return userType;
-    }
+    public Role getRole() {return role;}
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", rut='" + rut + '\'' +
                 ", password='" + password + '\'' +
@@ -106,18 +111,12 @@ public class Users {
                 ", email='" + email + '\'' +
                 ", account=" + account +
                 ", phoneNumber=" + phoneNumber +
-                ", userType=" + userType +
+                ", role=" + role +
                 '}';
     }
-
-    /**
-     * Enum that defines all the possibles roles that the user can have.
-     * <code>CLIENT<code/> allow users to create tickets.
-     * <code>MANAGER<code/> allow users to take and close tickets.
-     */
-    enum enumUserType{
-        CLIENT,
-        MANAGER
-    }
 }
+
+
+
+
 

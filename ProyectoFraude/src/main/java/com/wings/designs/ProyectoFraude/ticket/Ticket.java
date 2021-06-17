@@ -93,7 +93,7 @@ public class Ticket {
      * Enum that defines all the possibles states of the ticket.
      * <code>OPEN<code/> means that the ticket haven't been taken by a manager.
      * <code>PENDING<code/> means that the ticket was taken by a manager but still under review.
-     * <code>CLOSED<code/> means that the was finally resolved by a manager.
+     * <code>CLOSED<code/> means that the ticket was finally resolved by a manager.
      */
     enum enumStatesOfTicket{
         OPEN,
