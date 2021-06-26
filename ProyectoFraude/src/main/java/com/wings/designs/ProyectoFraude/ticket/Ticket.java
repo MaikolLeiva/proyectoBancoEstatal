@@ -8,22 +8,22 @@ import javax.persistence.*;
 /**
  * Represents a ticket for a fraudulent case made for an user.
  */
-@Entity(name= "Ticket")
+@Entity(name = "Ticket")
 public class Ticket {
     @Id
-    @SequenceGenerator(name="ticket_sequence",sequenceName = "ticket_sequence",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "ticket_sequence")
-    @Column(name="codigo_caso",updatable = false)
+    @SequenceGenerator(name = "ticket_sequence", sequenceName = "ticket_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_sequence")
+    @Column(name = "codigo_caso", updatable = false)
     private Long id;
-    @Column(name="client_rut",updatable = false,nullable = false)
+    @Column(name = "client_rut", updatable = false, nullable = false)
     private String clientRut;
-    @Column(name="manager_rut")
+    @Column(name = "manager_rut")
     private String managerRut;
-    @Column(name="card_type")
+    @Column(name = "card_type")
     private enumTypesOfCards cardType;
-    @Column(name="comment",updatable = false)
+    @Column(name = "comment", updatable = false)
     private String comment;
-    @Column(name="status",nullable = false)
+    @Column(name = "status", nullable = false)
     private enumStatesOfTicket status;
     /**
      * Main constructor that receives all attributes as parameters, except for the id and managerRut.
@@ -33,7 +33,7 @@ public class Ticket {
      * @param status Is the current status of the ticket.
      */
     public Ticket(String clientRut, enumTypesOfCards cardType, String comment, enumStatesOfTicket status) {
-        this.managerRut=null;
+        this.managerRut = null;
         this.clientRut = clientRut;
         this.cardType = cardType;
         this.comment = comment;
@@ -106,7 +106,7 @@ public class Ticket {
      * <code>DEBIT<code/> Represents that the card is a debit card of the bank.
      * <code>CREDIT<code/> Represents that the card is a credit card of the bank.
      */
-    enum enumTypesOfCards{
+    enum enumTypesOfCards {
         CREDIT,
         DEBIT
     }

@@ -36,23 +36,23 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @TransactionalEventListener
     public void onApplicationEvent(final ContextRefreshedEvent event) {
 
-        if(alreadySetup){
+        if (alreadySetup) {
             return;
         }
-        final Privilege readTicketPrivilege = createPrivilege(Privilege.enumPrivilege.READ_TICKET);
-        final Privilege writeTicketPrivilege = createPrivilege(Privilege.enumPrivilege.WRITE_TICKET);
-        final Privilege readUserPrivilege = createPrivilege(Privilege.enumPrivilege.READ_USER);
+        final Privilege readTicketPrivilege = createPrivilege(Privilege.EnumPrivilege.READ_TICKET);
+        final Privilege writeTicketPrivilege = createPrivilege(Privilege.EnumPrivilege.WRITE_TICKET);
+        final Privilege readUserPrivilege = createPrivilege(Privilege.EnumPrivilege.READ_USER);
         final List<Privilege> clientPrivileges = new ArrayList<>(Arrays.asList(writeTicketPrivilege));
         final List<Privilege> managerPrivileges = new ArrayList<>(Arrays.asList(readTicketPrivilege, readUserPrivilege));
-        createRole(Role.enumRole.MANAGER, managerPrivileges);
-        createRole(Role.enumRole.CLIENT, clientPrivileges);
-        Role managerRole = roleRepository.findByName(Role.enumRole.MANAGER);
-        Role clientRole = roleRepository.findByName(Role.enumRole.CLIENT);
-        createManagerUsers("231231231-8","Sebastian Murkio","sebamurcio@hotmail.com",
-                "Nueva Ventura 2213","1234",2L,managerRole);
-        createManagerUsers("31214124-8","Hans Hennings","hans@hotmail.com",
-                "Terris 1123","1234",3L,clientRole);
-        alreadySetup=true;
+        createRole(Role.enumRole.ROLE_MANAGER, managerPrivileges);
+        createRole(Role.enumRole.ROLE_CLIENT, clientPrivileges);
+        Role managerRole = roleRepository.findByName(Role.enumRole.ROLE_MANAGER);
+        Role clientRole = roleRepository.findByName(Role.enumRole.ROLE_CLIENT);
+        createManagerUsers("231231231-8", "Sebastian Murkio", "sebamurcio@hotmail.com",
+                "Nueva Ventura 2213", "1234", 2L, managerRole);
+        createManagerUsers("31214124-8", "Hans Hennings", "hans@hotmail.com",
+                "Terris 1123", "1234", 3L, clientRole);
+        alreadySetup = true;
 
     }
 
@@ -65,7 +65,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
      */
 
     @Transactional
-    Privilege createPrivilege(final Privilege.enumPrivilege name) {
+    Privilege createPrivilege(final Privilege.EnumPrivilege name) {
         Privilege privilege = privilegeRepository.findByName(name);
         if (privilege == null) {
             privilege = new Privilege(name);
@@ -95,14 +95,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Transactional
     User createManagerUsers(final String rut, final String fullName, final String email, final String address,
                             final String password, Long phoneNumber, final Role role) {
-        Optional<User> user = userRepository.findUsersByRut(rut) ;
+        Optional<User> user = userRepository.findUsersByRut(rut);
         Optional<User> user2 = userRepository.findUsersByEmail(email);
         User newUser = null;
         if (!user.isPresent() && !user2.isPresent()) {
-            newUser = new User(rut ,passwordEncoder.encode(password),fullName,address,email,
-                    null,phoneNumber,role);
+            newUser = new User(rut, passwordEncoder.encode(password), fullName, address, email,
+                    null, phoneNumber, role);
         }
-        newUser= userRepository.save(newUser);
+        newUser = userRepository.save(newUser);
         return newUser;
     }
 }

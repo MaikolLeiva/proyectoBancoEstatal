@@ -34,7 +34,7 @@ public class UserService {
      * {@link User User}. If there's no users in the system, returns an empty
      * list
      */
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
     /**
@@ -59,10 +59,10 @@ public class UserService {
                 userRepository.findUsersByRutUser(user.getRut());
         Optional<User> usersOptional2 =
                 userRepository.findUsersByEmail(user.getEmail());
-        if (usersOptional.isPresent()){
+        if (usersOptional.isPresent()) {
             throw new IllegalStateException("Rut tomado");
         }
-        if (usersOptional2.isPresent()){
+        if (usersOptional2.isPresent()) {
             throw new IllegalStateException("Correo tomado");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));

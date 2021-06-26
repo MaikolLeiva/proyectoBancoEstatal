@@ -35,8 +35,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
             if (!user.isPresent()) {
                 throw new UsernameNotFoundException("No user found with rut: " + rut);
             }
-            return new org.springframework.security.core.userdetails.User(user.get().getRut(),user.get().getPassword(),
-                    true,true,true,true,
+            return new org.springframework.security.core.userdetails.User(user.get().getRut(), user.get().getPassword(),
+                    true, true, true, true,
                     getAuthorities(user.get().getRole())
                     );
         } catch (final Exception e) {
@@ -49,6 +49,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
     private List<String> getPrivileges(Role role) {
         List<String> privileges = new ArrayList<>();
         List<Privilege> collection = new ArrayList<>(role.getPrivileges());
+        privileges.add(role.getName().name());
         for (Privilege item : collection) {
             privileges.add(item.getName().name());
         }

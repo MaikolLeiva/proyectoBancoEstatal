@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
+public interface PrivilegeRepository extends JpaRepository<Privilege, Long> {
 
     /**
      * Obtain the raw of the table Privilege that matches the privilege name given. The raw is given as a instance of
@@ -17,5 +17,5 @@ public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
      * @return Null if theres's no raw with that privilege name, if not, returns an instance of
      * {@link com.wings.designs.ProyectoFraude.user.privilege.Privilege} that represents the raw found.
      */
-    Privilege findByName(Privilege.enumPrivilege name) ;
+    Privilege findByName(Privilege.EnumPrivilege name);
 }

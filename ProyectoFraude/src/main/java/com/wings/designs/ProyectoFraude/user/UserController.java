@@ -26,7 +26,7 @@ public class UserController {
      * implement the requests.
      */
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
     /**
@@ -37,7 +37,7 @@ public class UserController {
      * empty list.
      */
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.getUsers();
     }
     /**
@@ -47,7 +47,7 @@ public class UserController {
      * come in a JSON content type.
      */
     @PostMapping("/create")
-    public void registerNewUser(@RequestBody User user){
+    public void registerNewUser(@RequestBody User user) {
         userService.addNewUser(user);
     }
 }

@@ -12,12 +12,12 @@ import java.util.Collection;
 @Entity
 public class Role {
     @Id
-    @SequenceGenerator(name="role-sequence",sequenceName="role_sequence", allocationSize = 1 )
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "role_sequence")
-    @Column(name="id",updatable = false)
+    @SequenceGenerator(name = "role-sequence", sequenceName = "role_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_sequence")
+    @Column(name = "id", updatable = false)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private enumRole name;
 
     @ManyToMany
@@ -41,13 +41,16 @@ public class Role {
     }
 
 
-
     public Collection<Privilege> getPrivileges() {
         return privileges;
     }
 
     public void setPrivileges(Collection<Privilege> privileges) {
         this.privileges = privileges;
+    }
+
+    public enumRole getName() {
+        return name;
     }
 
     @Override
@@ -62,7 +65,7 @@ public class Role {
      * <code>MANAGER<code/> allow users to take and close tickets.
      */
     public enum enumRole{
-        CLIENT,
-        MANAGER
+        ROLE_CLIENT,
+        ROLE_MANAGER
     }
 }

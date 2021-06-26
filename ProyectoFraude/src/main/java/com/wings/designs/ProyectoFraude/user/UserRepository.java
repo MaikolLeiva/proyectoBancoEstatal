@@ -11,7 +11,7 @@ import java.util.Optional;
  *Layer that manages the requests made for the database that are related to the entity User.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * Search for an user in the system database by it's Id, if that user exists returns that user.
      * @param id Id of the {@link User User} that is wanted.

@@ -13,29 +13,29 @@ import java.util.Collection;
 @Entity
 public class Privilege {
     @Id
-    @SequenceGenerator(name="privilege-sequence",sequenceName="privilege_sequence", allocationSize = 1 )
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator = "privilege_sequence")
-    @Column(name="id",updatable = false)
+    @SequenceGenerator(name = "privilege-sequence", sequenceName = "privilege_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "privilege_sequence")
+    @Column(name = "id", updatable = false)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(name="name",nullable = false)
-    private enumPrivilege name;
+    @Column(name = "name", nullable = false)
+    private EnumPrivilege name;
     @ManyToMany(mappedBy = "privileges")
     private Collection<Role> roles;
 
     /**
      * Empty Constructor
      */
-    public Privilege() {}
+    public Privilege() { }
     /**
      * Main constructor.
      * @param name it's the name of the privilege formatted as enum.
      */
-    public Privilege(enumPrivilege name) {
+    public Privilege(final EnumPrivilege name) {
         this.name = name;
     }
 
-    public enumPrivilege getName() {
+    public EnumPrivilege getName() {
         return name;
     }
 
@@ -43,7 +43,6 @@ public class Privilege {
     public String toString() {
         return "Privilege [name=" + name + "]" + "[id=" + id + "]";
     }
-
 
 
 
@@ -55,7 +54,7 @@ public class Privilege {
      * <code>WRITE_TICKET<code/> For post request that involves
      * {@link com.wings.designs.ProyectoFraude.ticket.Ticket tickets}.
      */
-    public enum enumPrivilege{
+    public enum EnumPrivilege {
         READ_USER,
         READ_TICKET,
         WRITE_TICKET
