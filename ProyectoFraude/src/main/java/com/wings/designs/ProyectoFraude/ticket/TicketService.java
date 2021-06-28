@@ -4,7 +4,7 @@
 
 package com.wings.designs.ProyectoFraude.ticket;
 
-import com.wings.designs.ProyectoFraude.users.UsersService;
+import com.wings.designs.ProyectoFraude.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.List;
 public class TicketService {
 
     private final TicketRepository ticketRepository;
-    private final UsersService usersService;
+    private final UserService userService;
 
-    public TicketService(TicketRepository ticketRepository, UsersService usersService) {
+    public TicketService(TicketRepository ticketRepository, UserService userService) {
         this.ticketRepository = ticketRepository;
-        this.usersService = usersService;
+        this.userService = userService;
     }
 
 

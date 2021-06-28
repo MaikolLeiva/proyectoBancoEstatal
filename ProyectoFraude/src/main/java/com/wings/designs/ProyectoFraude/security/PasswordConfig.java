@@ -11,13 +11,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class PasswordConfig {
+
+
     /**
      * When called it returns an instance of BcryptPassEncoder, witch can be later used to encrypt a password.
      * The strength of the password can be changed modifying the parameter of the instance returned.
      * @return PasswordEncoder
      */
     @Bean
-    public PasswordEncoder passwordEncoder (){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(31);
 
     }

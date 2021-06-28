@@ -25,13 +25,13 @@ public class TicketConfig {
     CommandLineRunner commandLineRunnerTicket (TicketRepository repository){
 
         return args -> {
-            Ticket testTicket = new Ticket("2123123123-k",Ticket.enumTypesOfCards.CREDIT,"hasdadadsad",
+            Ticket testTicket = new Ticket("2123123123-k",Ticket.enumTypesOfCards.CREDIT, "hasdadadsad",
                     Ticket.enumStatesOfTicket.OPEN);
-            Ticket testTicket2 = new Ticket("213123-k",Ticket.enumTypesOfCards.DEBIT,"xczxc",
+            Ticket testTicket2 = new Ticket("213123-k", Ticket.enumTypesOfCards.DEBIT, "xczxc",
                     Ticket.enumStatesOfTicket.CLOSED);
-            Ticket testTicket3 = new Ticket("421414-k",Ticket.enumTypesOfCards.DEBIT,"cccvvz",
+            Ticket testTicket3 = new Ticket("421414-k", Ticket.enumTypesOfCards.DEBIT, "cccvvz",
                     Ticket.enumStatesOfTicket.PENDING);
-            Ticket testTicket4 = new Ticket("2525256-k",Ticket.enumTypesOfCards.DEBIT,"jsakdjlasdj",
+            Ticket testTicket4 = new Ticket("2525256-k", Ticket.enumTypesOfCards.DEBIT, "jsakdjlasdj",
                     Ticket.enumStatesOfTicket.OPEN);
             repository.saveAll(Arrays.asList(testTicket, testTicket2, testTicket3, testTicket4));
         };
