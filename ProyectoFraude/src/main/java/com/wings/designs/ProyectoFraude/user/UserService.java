@@ -46,6 +46,9 @@ public class UserService {
     public Optional<User> getUserById(Long id){
         return userRepository.findUsersById(id);
     }
+    public Optional<User> getUserByRut(String rut){
+        return userRepository.findUsersByRut(rut);
+    }
     /**
      * Take a instance of {@link User User} and before adding it to the system
      * look if other users has the same RUT or the same email, if that's the case the user is not put in to the system.
@@ -57,15 +60,9 @@ public class UserService {
     public void addNewUser(User user) {
         Optional<User> usersOptional =
                 userRepository.findUsersByRutUser(user.getRut());
-        Optional<User> usersOptional2 =
-                userRepository.findUsersByEmail(user.getEmail());
         if (usersOptional.isPresent()) {
             throw new IllegalStateException("Rut tomado");
         }
-        if (usersOptional2.isPresent()) {
-            throw new IllegalStateException("Correo tomado");
-        }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 }

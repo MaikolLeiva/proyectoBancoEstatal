@@ -2,6 +2,7 @@
  * Copyright (c) 2021. Wings Design.
  */
 
+/*
 package com.wings.designs.ProyectoFraude.ticket;
 
 
@@ -14,13 +15,15 @@ import java.util.Arrays;
 @Configuration
 public class TicketConfig {
 
-    /**
+    */
+/**
      * Initialize the system with a few tickets in the database.
      * @param repository An object from the class
      * {@link com.wings.designs.ProyectoFraude.ticket.TicketRepository TicketRepository} that allows to use the business
      * layer for the class {@link com.wings.designs.ProyectoFraude.ticket.Ticket Ticket}.
      * @return Code sentences to create multiple tickets,that are executed after the application started.
-     */
+     *//*
+
     @Bean
     CommandLineRunner commandLineRunnerTicket (TicketRepository repository){
 
@@ -37,3 +40,4 @@ public class TicketConfig {
         };
     }
 }
+*/

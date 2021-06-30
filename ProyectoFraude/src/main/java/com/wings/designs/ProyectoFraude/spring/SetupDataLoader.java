@@ -48,10 +48,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createRole(Role.enumRole.ROLE_CLIENT, clientPrivileges);
         Role managerRole = roleRepository.findByName(Role.enumRole.ROLE_MANAGER);
         Role clientRole = roleRepository.findByName(Role.enumRole.ROLE_CLIENT);
-        createManagerUsers("231231231-8", "Sebastian Murkio", "sebamurcio@hotmail.com",
-                "Nueva Ventura 2213", "1234", 2L, managerRole);
-        createManagerUsers("31214124-8", "Hans Hennings", "hans@hotmail.com",
-                "Terris 1123", "1234", 3L, clientRole);
+        createManagerUsers("231231231-8", "1234", managerRole);
+        createManagerUsers("31214124-8", "1234", clientRole);
         alreadySetup = true;
 
     }
@@ -93,16 +91,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return role;
     }
     @Transactional
-    User createManagerUsers(final String rut, final String fullName, final String email, final String address,
-                            final String password, Long phoneNumber, final Role role) {
+    User createManagerUsers(final String rut, final String password, final Role role) {
         Optional<User> user = userRepository.findUsersByRut(rut);
-        Optional<User> user2 = userRepository.findUsersByEmail(email);
         User newUser = null;
-        if (!user.isPresent() && !user2.isPresent()) {
-            newUser = new User(rut, passwordEncoder.encode(password), fullName, address, email,
-                    null, phoneNumber, role);
+        if (!user.isPresent()) {
+            newUser = new User(rut, passwordEncoder.encode(password), role);
+            newUser = userRepository.save(newUser);
         }
-        newUser = userRepository.save(newUser);
         return newUser;
     }
 }

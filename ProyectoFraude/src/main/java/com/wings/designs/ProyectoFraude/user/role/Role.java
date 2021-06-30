@@ -9,10 +9,10 @@ import com.wings.designs.ProyectoFraude.user.privilege.Privilege;
 import javax.persistence.*;
 import java.util.Collection;
 
-@Entity
+@Entity(name = "role")
 public class Role {
     @Id
-    @SequenceGenerator(name = "role-sequence", sequenceName = "role_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "role_sequence", sequenceName = "role_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_sequence")
     @Column(name = "id", updatable = false)
     private Long id;
