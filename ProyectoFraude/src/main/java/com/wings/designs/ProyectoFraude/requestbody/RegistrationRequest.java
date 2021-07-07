@@ -2,9 +2,7 @@
  * Copyright (c) 2021. Wings Design.
  */
 
-package com.wings.designs.ProyectoFraude.registration;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package com.wings.designs.ProyectoFraude.requestbody;
 
 public class RegistrationRequest {
     private String rut;
