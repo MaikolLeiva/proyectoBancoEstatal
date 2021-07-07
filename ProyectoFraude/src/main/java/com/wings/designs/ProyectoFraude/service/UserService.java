@@ -1,8 +1,11 @@
 /*
  * Copyright (c) 2021. Wings Design.
  */
-package com.wings.designs.ProyectoFraude.user;
+package com.wings.designs.ProyectoFraude.service;
 
+import com.wings.designs.ProyectoFraude.controller.UserController;
+import com.wings.designs.ProyectoFraude.persistence.model.User;
+import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,8 +13,8 @@ import java.util.List;
 import java.util.Optional;
 /**
  * Serves as the layer that is behind the logic for the requests made in the
- * {@link com.wings.designs.ProyectoFraude.user.UserController RestController} and also communicates with the
- * {@link com.wings.designs.ProyectoFraude.user.UserRepository Repository layer}.
+ * {@link UserController RestController} and also communicates with the
+ * {@link UserRepository Repository layer}.
  */
 @Service
 public class UserService {
@@ -21,7 +24,7 @@ public class UserService {
     /**
      * Main constructor.
      * @param userRepository An object of the class
-     * {@link com.wings.designs.ProyectoFraude.user.UserRepository UserRepository} that is needed to communicate with
+     * {@link UserRepository UserRepository} that is needed to communicate with
      * the database.
      */
     public UserService(UserRepository userRepository) {

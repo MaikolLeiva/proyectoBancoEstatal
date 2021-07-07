@@ -7,7 +7,7 @@ package com.wings.designs.ProyectoFraude.security;
 import com.wings.designs.ProyectoFraude.jwt.JwtConfig;
 import com.wings.designs.ProyectoFraude.jwt.JwtTokenVerfier;
 import com.wings.designs.ProyectoFraude.jwt.JwtUsernameAndPasswordAuthenticationFilter;
-import com.wings.designs.ProyectoFraude.user.privilege.Privilege;
+import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

@@ -4,8 +4,7 @@
 
 package com.wings.designs.ProyectoFraude.registration;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class RegistrationRequest {
     private String rut;
@@ -17,6 +16,7 @@ public class RegistrationRequest {
     private Long phoneNumber;
 
     public RegistrationRequest() {
+        // Nothing here.
     }
 
     public RegistrationRequest(String rut, String password, String fullName, String address, String email, Long account,

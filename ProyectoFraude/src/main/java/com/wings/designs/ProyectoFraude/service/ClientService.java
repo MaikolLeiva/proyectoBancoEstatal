@@ -2,18 +2,17 @@
  * Copyright (c) 2021. Wings Design.
  */
 
-package com.wings.designs.ProyectoFraude.client;
+package com.wings.designs.ProyectoFraude.service;
 
+import com.wings.designs.ProyectoFraude.persistence.model.Client;
+import com.wings.designs.ProyectoFraude.persistence.model.Role;
+import com.wings.designs.ProyectoFraude.persistence.model.User;
+import com.wings.designs.ProyectoFraude.persistence.repository.ClientRepository;
+import com.wings.designs.ProyectoFraude.persistence.repository.RoleRepository;
 import com.wings.designs.ProyectoFraude.registration.RegistrationRequest;
-import com.wings.designs.ProyectoFraude.user.User;
-import com.wings.designs.ProyectoFraude.user.UserService;
-import com.wings.designs.ProyectoFraude.user.role.Role;
-import com.wings.designs.ProyectoFraude.user.role.RoleRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final UserService userService;
     private final RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public ClientService(ClientRepository clientRepository, UserService userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.clientRepository = clientRepository;

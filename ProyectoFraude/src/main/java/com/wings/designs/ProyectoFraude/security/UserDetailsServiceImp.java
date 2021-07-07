@@ -4,10 +4,10 @@
 
 package com.wings.designs.ProyectoFraude.security;
 
-import com.wings.designs.ProyectoFraude.user.User;
-import com.wings.designs.ProyectoFraude.user.UserRepository;
-import com.wings.designs.ProyectoFraude.user.privilege.Privilege;
-import com.wings.designs.ProyectoFraude.user.role.Role;
+import com.wings.designs.ProyectoFraude.persistence.model.User;
+import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
+import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
+import com.wings.designs.ProyectoFraude.persistence.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
