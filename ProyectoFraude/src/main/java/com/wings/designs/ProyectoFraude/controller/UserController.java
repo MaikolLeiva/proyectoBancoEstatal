@@ -1,8 +1,10 @@
 /*
  * Copyright (c) 2021. Wings Design.
  */
-package com.wings.designs.ProyectoFraude.user;
+package com.wings.designs.ProyectoFraude.controller;
 
+import com.wings.designs.ProyectoFraude.persistence.model.User;
+import com.wings.designs.ProyectoFraude.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -22,7 +24,7 @@ public class UserController {
     /**
      * Main constructor of the class.
      * @param userService An object of the class
-     * {@link com.wings.designs.ProyectoFraude.user.UserService UserService} which contains methods needed to
+     * {@link UserService UserService} which contains methods needed to
      * implement the requests.
      */
     @Autowired

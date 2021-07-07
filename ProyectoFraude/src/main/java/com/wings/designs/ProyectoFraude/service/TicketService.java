@@ -2,9 +2,10 @@
  * Copyright (c) 2021. Wings Design.
  */
 
-package com.wings.designs.ProyectoFraude.ticket;
+package com.wings.designs.ProyectoFraude.service;
 
-import com.wings.designs.ProyectoFraude.user.UserService;
+import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
+import com.wings.designs.ProyectoFraude.persistence.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

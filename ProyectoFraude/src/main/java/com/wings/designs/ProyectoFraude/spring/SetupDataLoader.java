@@ -4,12 +4,12 @@
 
 package com.wings.designs.ProyectoFraude.spring;
 
-import com.wings.designs.ProyectoFraude.user.User;
-import com.wings.designs.ProyectoFraude.user.UserRepository;
-import com.wings.designs.ProyectoFraude.user.privilege.Privilege;
-import com.wings.designs.ProyectoFraude.user.privilege.PrivilegeRepository;
-import com.wings.designs.ProyectoFraude.user.role.Role;
-import com.wings.designs.ProyectoFraude.user.role.RoleRepository;
+import com.wings.designs.ProyectoFraude.persistence.model.User;
+import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
+import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
+import com.wings.designs.ProyectoFraude.persistence.repository.PrivilegeRepository;
+import com.wings.designs.ProyectoFraude.persistence.model.Role;
+import com.wings.designs.ProyectoFraude.persistence.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -48,10 +48,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createRole(Role.enumRole.ROLE_CLIENT, clientPrivileges);
         Role managerRole = roleRepository.findByName(Role.enumRole.ROLE_MANAGER);
         Role clientRole = roleRepository.findByName(Role.enumRole.ROLE_CLIENT);
-        createManagerUsers("231231231-8", "Sebastian Murkio", "sebamurcio@hotmail.com",
-                "Nueva Ventura 2213", "1234", 2L, managerRole);
-        createManagerUsers("31214124-8", "Hans Hennings", "hans@hotmail.com",
-                "Terris 1123", "1234", 3L, clientRole);
+        createManagerUsers("231231231-8", "1234", managerRole);
+        createManagerUsers("31214124-8", "1234", clientRole);
         alreadySetup = true;
 
     }
@@ -60,7 +58,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
      * Receives the name of the Privilege, and if the name is not found in the Privilege table, then add a Privilege
      * to the database with that name.
      * @param name it's the name of the Privilege
-     * @return A {@link com.wings.designs.ProyectoFraude.user.privilege.Privilege Privilege} object that represent the
+     * @return A {@link Privilege Privilege} object that represent the
      * privilege added, if the privilege wasn't added, then return null.
      */
 
@@ -93,16 +91,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return role;
     }
     @Transactional
-    User createManagerUsers(final String rut, final String fullName, final String email, final String address,
-                            final String password, Long phoneNumber, final Role role) {
+    User createManagerUsers(final String rut, final String password, final Role role) {
         Optional<User> user = userRepository.findUsersByRut(rut);
-        Optional<User> user2 = userRepository.findUsersByEmail(email);
         User newUser = null;
-        if (!user.isPresent() && !user2.isPresent()) {
-            newUser = new User(rut, passwordEncoder.encode(password), fullName, address, email,
-                    null, phoneNumber, role);
+        if (!user.isPresent()) {
+            newUser = new User(rut, passwordEncoder.encode(password), role);
+            newUser = userRepository.save(newUser);
         }
-        newUser = userRepository.save(newUser);
         return newUser;
     }
 }
