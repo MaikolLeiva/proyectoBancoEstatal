@@ -1,9 +1,9 @@
 # FrontProyectoBancoEstatal
 
 # Descripción
-La compañía "Banco Estatal" S.A encargo un sistema para gestionar todos sus casos de fraudes bancarios este pudiendo funcionar tanto en web como móvil, esta aplicación está pensada para el uso de personal de banco y de clientes.
-Para todos los clientes este podrá levantar una solicitud de fraude para sus tarjetas iniciando sección con su cuenta. De no tener una cuenta la pagina dará la opción de registrarse.
-Mientras que los ejecutivos podrán ver y solucionar los casos de ser necesario. También contaran con la posibilidad de generar un PDF con todos los casos vistos por el al hacerlo el cliente recibirá un correo.
+La compañía "Banco Estatal" S.A encargó un sistema para gestionar todos sus casos de fraudes bancarios, este pudiendo funcionar tanto en web como móvil, esta aplicación está pensada para el uso de personal de banco y de clientes.
+Para todos los clientes este podrá levantar una solicitud de fraude para sus tarjetas iniciando sesión con su cuenta. De no tener una cuenta la pagina dará la opción de registrarse.
+Mientras que los ejecutivos podrán ver y solucionar los casos de ser necesario. También contarán con la posibilidad de generar un PDF con todos los casos vistos por él, al hacerlo el cliente recibirá un correo.
 
 # Instalación y uso
 Este proyecto usa react para la creación de la página web que será utilizada en este proyecto.
