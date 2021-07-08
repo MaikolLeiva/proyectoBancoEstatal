@@ -67,7 +67,7 @@ public class Client {
     /**
      * Is the phone number that the Client provides for contact.
      */
-    @Column(name = "phone_number", updatable = false)
+    @Column(name = "phone_number", updatable = false , nullable = false)
     @JsonProperty("phone_number")
     private Long phoneNumber;
 

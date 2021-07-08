@@ -7,19 +7,15 @@ package com.wings.designs.ProyectoFraude.requestbody;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RegistrationRequest {
-    private String rut;
-    private String password;
+    private final String rut;
+    private final String password;
     @JsonProperty("fullname")
-    private String fullName;
-    private String address;
-    private String email;
-    private Long account;
+    private final String fullName;
+    private final String address;
+    private final String email;
+    private final Long account;
     @JsonProperty("phone_number")
-    private Long phoneNumber;
-
-    public RegistrationRequest() {
-        // Nothing here.
-    }
+    private final Long phoneNumber;
 
     public RegistrationRequest(String rut, String password, String fullName, String address, String email, Long account,
                                Long phoneNumber) {
