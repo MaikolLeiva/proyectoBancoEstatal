@@ -36,8 +36,16 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> getClientById(Long id){
+    public Optional<Client> findClientById(Long id){
         return clientRepository.findClientById(id);
+    }
+
+    public Client getClientById(Long id) {
+        return clientRepository.getClientById(id);
+    }
+
+    public Client getClientByUser(User user) {
+        return clientRepository.getClientByUser(user);
     }
 
     public void addNewClient(RegistrationRequest registrationRequest) {

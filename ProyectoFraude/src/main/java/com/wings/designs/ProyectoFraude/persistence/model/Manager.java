@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a Manager of the system with his attributes and it's representation in the Database.
+ * Represents a Manager of the system with his attributes and it's representation
+ * in the Database.
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera

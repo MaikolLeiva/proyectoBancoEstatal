@@ -5,23 +5,34 @@
 package com.wings.designs.ProyectoFraude.controller;
 
 import com.wings.designs.ProyectoFraude.persistence.model.Client;
-import com.wings.designs.ProyectoFraude.requestbody.RegistrationRequest;
+import com.wings.designs.ProyectoFraude.requestbody.NewTicketRequest;
 import com.wings.designs.ProyectoFraude.service.ClientService;
+import com.wings.designs.ProyectoFraude.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/clients")
 public class ClientController {
+    public final TicketService ticketService;
     public final ClientService clientService;
+
     @Autowired
-    public ClientController(ClientService clientService) {
+    public ClientController(TicketService ticketService, ClientService clientService) {
+        this.ticketService = ticketService;
         this.clientService = clientService;
     }
+
     @GetMapping
     public List<Client> getClients() {
         return clientService.getClients();
     }
+
+
+
 
 }
