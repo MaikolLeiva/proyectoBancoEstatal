@@ -4,13 +4,17 @@
 
 package com.wings.designs.ProyectoFraude.requestbody;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class RegistrationRequest {
     private String rut;
     private String password;
+    @JsonProperty("fullname")
     private String fullName;
     private String address;
     private String email;
     private Long account;
+    @JsonProperty("phone_number")
     private Long phoneNumber;
 
     public RegistrationRequest() {

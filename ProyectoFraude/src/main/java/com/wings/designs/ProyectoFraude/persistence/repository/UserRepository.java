@@ -22,14 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM user_account u WHERE u.id=?1")
     Optional<User> findUsersById(Long id);
     /**
-     * Search for an user in the system database by his Rut, if that user exists returns that user.
-     * @param rutUser Rut of the {@link User User} that is wanted.
-     * @return {@link User User} with the Rut specified or null if the user does
-     * not exists.
-     */
-    @Query("SELECT u FROM user_account u WHERE u.rut=?1")
-    Optional<User> findUsersByRutUser(String rutUser);
-    /**
      * Search for an user in the system database by his rut, if that user exists returns that user.
      * @param rut email of the {@link User User} that is looked for.
      * @return {@link User User} with the rut specified or null if the user
@@ -37,5 +29,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     @Query("SELECT u FROM user_account u WHERE u.rut=?1")
     Optional<User> findUsersByRut(String rut);
+
+    /**
+     * Search for an user in the system database by his Rut, if that user exists returns that user.
+     * @param rutUser Rut of the {@link User User} that is wanted.
+     * @return {@link User User} with the Rut specified or null if the user does
+     * not exists.
+     */
+    @Query("SELECT u FROM user_account u WHERE u.rut=?1")
+    User getUserByRut(String rutUser);
 
 }

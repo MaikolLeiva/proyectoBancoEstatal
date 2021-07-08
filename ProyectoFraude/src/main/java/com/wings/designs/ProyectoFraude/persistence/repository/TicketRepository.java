@@ -3,11 +3,15 @@
  */
 package com.wings.designs.ProyectoFraude.persistence.repository;
 
+import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
+
 /**
  *Layer that manages the requests made for the database that are related to the entity User.
  */
@@ -29,5 +33,11 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
      */
     @Query("FROM Ticket  WHERE manager=?1 order by id")
     List<Ticket> findTicketByManagerRut(String rut);
+
+    @Query("FROM Ticket WHERE cardType=?1 AND status<>?2 AND client.id = :#{#client.id}")
+    Optional<Ticket> findTicketByCardTypeAndClientAndStatusNotLike(Ticket.enumTypesOfCards cardType,
+                                                                   Ticket.enumStatesOfTicket state,
+                                                                   @Param("client")  Client client);
+
 
 }

@@ -5,8 +5,10 @@
 package com.wings.designs.ProyectoFraude.persistence.repository;
 
 import com.wings.designs.ProyectoFraude.persistence.model.Client;
+import com.wings.designs.ProyectoFraude.persistence.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -47,5 +49,15 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("SELECT c FROM client c WHERE c.email=?1")
     Optional<Client> findClientsByEmail(String email);
 
+    /**
+     * Get the client with the given id.
+     * @param id The id of the client wanted.
+     * @return A client with that id if exists, otherwise returns null.
+     */
+    @Query("SELECT c FROM client c WHERE c.id=?1")
+    Client getClientById(Long id);
+
+    @Query("SELECT c FROM client c WHERE c.user.id = :#{#user.id}")
+    Client getClientByUser(@Param("user") User user);
 
 }

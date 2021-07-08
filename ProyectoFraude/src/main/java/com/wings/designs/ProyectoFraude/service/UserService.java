@@ -49,8 +49,11 @@ public class UserService {
     public Optional<User> getUserById(Long id){
         return userRepository.findUsersById(id);
     }
-    public Optional<User> getUserByRut(String rut){
+    public Optional<User> findUserByRut(String rut){
         return userRepository.findUsersByRut(rut);
+    }
+    public User getUsersByRut(String rut){
+        return userRepository.getUserByRut(rut);
     }
     /**
      * Take a instance of {@link User User} and before adding it to the system
@@ -62,7 +65,7 @@ public class UserService {
      */
     public void addNewUser(User user) {
         Optional<User> usersOptional =
-                userRepository.findUsersByRutUser(user.getRut());
+                userRepository.findUsersByRut(user.getRut());
         if (usersOptional.isPresent()) {
             throw new IllegalStateException("Rut tomado");
         }

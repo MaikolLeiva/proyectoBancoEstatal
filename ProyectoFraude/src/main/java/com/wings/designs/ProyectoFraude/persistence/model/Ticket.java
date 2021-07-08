@@ -29,6 +29,7 @@ public class Ticket {
     /**
      * It's the name of the type of card assigned with the ticket.
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "card_type")
     private enumTypesOfCards cardType;
 
@@ -41,6 +42,7 @@ public class Ticket {
     /**
      * It's the current status of the ticket.
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private enumStatesOfTicket status;
 
@@ -136,7 +138,7 @@ public class Ticket {
     /**
      * Enum that defines all the possibles states of the ticket.
      */
-    enum enumStatesOfTicket {
+    public enum enumStatesOfTicket {
         /**
          * This status means that the ticket haven't been taken by a manager.
          */
@@ -156,7 +158,7 @@ public class Ticket {
     /**
      * Enum that defines the possibles types of a bank's card.
      */
-    enum enumTypesOfCards {
+    public enum enumTypesOfCards {
         /**
          * Represents that the card is a debit card of the bank.
          */
