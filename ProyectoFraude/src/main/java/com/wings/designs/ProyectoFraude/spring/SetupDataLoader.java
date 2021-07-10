@@ -4,12 +4,14 @@
 
 package com.wings.designs.ProyectoFraude.spring;
 
+import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
-import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
 import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
 import com.wings.designs.ProyectoFraude.persistence.repository.PrivilegeRepository;
 import com.wings.designs.ProyectoFraude.persistence.model.Role;
 import com.wings.designs.ProyectoFraude.persistence.repository.RoleRepository;
+import com.wings.designs.ProyectoFraude.service.ManagerService;
+import com.wings.designs.ProyectoFraude.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -23,7 +25,9 @@ import java.util.*;
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private boolean alreadySetup = false;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
+    @Autowired
+    private ManagerService managerService;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -47,9 +51,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createRole(Role.enumRole.ROLE_MANAGER, managerPrivileges);
         createRole(Role.enumRole.ROLE_CLIENT, clientPrivileges);
         Role managerRole = roleRepository.findByName(Role.enumRole.ROLE_MANAGER);
-        Role clientRole = roleRepository.findByName(Role.enumRole.ROLE_CLIENT);
-        createManagerUsers("231231231-8", "1234", managerRole);
-        createManagerUsers("31214124-8", "1234", clientRole);
+        createManagerUsers("12398465-8", "correofalso@gmail.com", "Marco Polo",
+                "Calle falsa 123", managerRole, "1234");
+        createManagerUsers("1564798-1", "correo123@gmail.com", "Juan Carlos",
+                "Calle falsa 2234", managerRole, "1234");
         alreadySetup = true;
 
     }
@@ -91,13 +96,14 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         return role;
     }
     @Transactional
-    User createManagerUsers(final String rut, final String password, final Role role) {
-        Optional<User> user = userRepository.findUsersByRut(rut);
-        User newUser = null;
-        if (!user.isPresent()) {
-            newUser = new User(rut, passwordEncoder.encode(password), role);
-            newUser = userRepository.save(newUser);
+    void createManagerUsers(final String rut, final String email, final String fullname,
+                            final String address, final Role role, final String password) {
+        Optional<User> user = userService.findUserByRut(rut);
+        Optional<Manager> manager = managerService.findManagerByEmail(email);
+        if (!user.isPresent() && !manager.isPresent()) {
+            User newUser = new User(rut, passwordEncoder.encode(password), role);
+            Manager newManager = new Manager(rut, fullname, email, address, newUser);
+            this.managerService.addNewManager(newManager);
         }
-        return newUser;
     }
 }

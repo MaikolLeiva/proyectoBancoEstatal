@@ -8,7 +8,6 @@ import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.persistence.model.Role;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import com.wings.designs.ProyectoFraude.persistence.repository.ClientRepository;
-import com.wings.designs.ProyectoFraude.persistence.repository.RoleRepository;
 import com.wings.designs.ProyectoFraude.requestbody.RegistrationRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,15 +20,15 @@ import java.util.Optional;
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
-    private final UserService userService;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-    public ClientService(ClientRepository clientRepository, UserService userService, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public ClientService(ClientRepository clientRepository, RoleService roleService, PasswordEncoder passwordEncoder, UserService userService) {
         this.clientRepository = clientRepository;
-        this.userService = userService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
     public List<Client> getClients() {
@@ -50,8 +49,8 @@ public class ClientService {
 
     public void addNewClient(RegistrationRequest registrationRequest) {
 
-        Optional<Client> clientOptional =
-                clientRepository.findClientsByRut(registrationRequest.getRut());
+        Optional<User> clientOptional =
+                userService.findUserByRut(registrationRequest.getRut());
         Optional<Client> clientOptional2 =
                 clientRepository.findClientsByAccount(registrationRequest.getAccount());
         Optional<Client> clientOptional3 =
@@ -67,7 +66,7 @@ public class ClientService {
         }
         User userForNewClient = new User(registrationRequest.getRut(),
                 passwordEncoder.encode(registrationRequest.getPassword()),
-                roleRepository.findByName(Role.enumRole.ROLE_CLIENT));
+                roleService.findRoleByName(Role.enumRole.ROLE_CLIENT));
         Client newClient = new Client(registrationRequest.getRut(), registrationRequest.getFullName(),
                 registrationRequest.getAddress(), registrationRequest.getEmail(), registrationRequest.getAccount(),
                 registrationRequest.getPhoneNumber(),userForNewClient);
