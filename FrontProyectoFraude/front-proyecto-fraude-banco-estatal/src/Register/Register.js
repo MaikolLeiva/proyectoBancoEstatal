@@ -4,9 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import companyLogo from './bancoestatal.jpg';
 const Register = () => {
-
     return (
-      
         <div className="inner-container" class="fadeIn first">
         <div className="header">
           Registro
