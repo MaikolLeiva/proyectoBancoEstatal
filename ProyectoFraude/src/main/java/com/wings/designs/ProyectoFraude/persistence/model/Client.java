@@ -4,6 +4,7 @@
 
 package com.wings.designs.ProyectoFraude.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class Client {
     /**
      * Represent the {@link User user} associated to the client on the database.
      */
+    @JsonIgnore
     @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
     private User user;
 
@@ -81,6 +83,7 @@ public class Client {
      * It's a list of {@link Ticket tickets} that represents all the tickets
      * that the client has been made.
      */
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Ticket> ticketList;
 

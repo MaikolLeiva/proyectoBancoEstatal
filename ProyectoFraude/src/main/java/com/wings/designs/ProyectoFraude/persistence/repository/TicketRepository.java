@@ -24,7 +24,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
      * If there's no tickets with that status, returns an empty list.
      */
     @Query("FROM Ticket  WHERE status=?1")
-    List<Ticket> findTicketByStatus(String status);
+    List<Ticket> findTicketByStatus(Ticket.enumStatesOfTicket status);
     /**
      * Search for all the tickets that have the specified rut as it's manager rut. Returns all matches.
      * @param rut Is the rut of the manager that is responsible for the ticket.

@@ -42,10 +42,11 @@ public class TicketController {
             @RequestParam("userId") long id) {
         return "Narrow Get a specific Bar with id=" + id;
     }
-    @PostMapping("/create_ticket")
+    @PostMapping("/create/")
     public void registerNewTicket(@RequestBody NewTicketRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
         ticketService.addNewTicket(request, userRut);
     }
+
 }

@@ -36,7 +36,7 @@ public class TicketService {
     }
     public List<Ticket> getTicketsAvailable(){
 
-        return ticketRepository.findTicketByStatus("open");
+        return ticketRepository.findTicketByStatus(Ticket.enumStatesOfTicket.OPEN);
     }
     public List<Ticket> getTicketsByManager(String managerRut){
 
