@@ -48,8 +48,8 @@ public class TicketController {
         String userRut = (String) auth.getPrincipal();
         ticketService.addNewTicket(request, userRut);
     }
-    @Transactional
-    @PutMapping("/me/manager/")
+
+    @PatchMapping("/me/manager/")
     public void takeTicket(@RequestParam(name = "id") Long ticketId){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();

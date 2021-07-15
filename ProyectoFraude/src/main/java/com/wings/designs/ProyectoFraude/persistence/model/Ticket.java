@@ -135,6 +135,14 @@ public class Ticket {
         return manager;
     }
 
+    public void setStatus(enumStatesOfTicket status) {
+        this.status = status;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
 
     /**
      * Enum that defines all the possibles states of the ticket.

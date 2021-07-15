@@ -12,6 +12,7 @@ import com.wings.designs.ProyectoFraude.persistence.repository.TicketRepository;
 import com.wings.designs.ProyectoFraude.requestbody.NewTicketRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.plaf.PanelUI;
@@ -69,6 +70,8 @@ public class TicketService {
         return this.ticketRepository.getTicketByClientAndStatusLike(Ticket.enumStatesOfTicket.PENDING,
                 manager);
     }
+
+    @Transactional
     public void takeTicket(String userRut, Long ticketId) {
         User user = userService.getUsersByRut(userRut);
         Manager manager = managerService.getManagerByUser(user);
@@ -86,8 +89,8 @@ public class TicketService {
             throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "ticket is not open");
         }
-        ticketRepository.setTicketManagerByTicketId(ticketId, Ticket.enumStatesOfTicket.PENDING,
-                manager);
-
+        ticket.setStatus(Ticket.enumStatesOfTicket.PENDING);
+        ticket.setManager(manager);
     }
+
 }
