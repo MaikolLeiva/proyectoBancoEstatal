@@ -92,5 +92,27 @@ public class TicketService {
         ticket.setStatus(Ticket.enumStatesOfTicket.PENDING);
         ticket.setManager(manager);
     }
-
+    @Transactional
+    public void closeTicket(String userRut, Long ticketId) {
+        User user = userService.getUsersByRut(userRut);
+        Manager manager = managerService.getManagerByUser(user);
+        Ticket ticket = ticketRepository.getTicketById(ticketId);
+        if (ticket==null){
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+                    "ticket not found");
+        }
+        if (ticket.getStatus()!= Ticket.enumStatesOfTicket.PENDING) {
+            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+                    "ticket is not under review");
+        }
+        if (ticket.getManager() == null) {
+            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+                    "the ticket does not have any manager assigned");
+        }
+        if (!ticket.getManager().getId().equals(manager.getId())) {
+            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+                    "the manager has not taken this ticket");
+        }
+        ticket.setStatus(Ticket.enumStatesOfTicket.CLOSED);
+    }
 }
