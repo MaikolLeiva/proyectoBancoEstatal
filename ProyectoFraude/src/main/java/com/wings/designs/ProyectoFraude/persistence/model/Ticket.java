@@ -135,6 +135,7 @@ public class Ticket {
         return manager;
     }
 
+
     /**
      * Enum that defines all the possibles states of the ticket.
      */

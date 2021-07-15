@@ -4,8 +4,10 @@
 package com.wings.designs.ProyectoFraude.persistence.repository;
 
 import com.wings.designs.ProyectoFraude.persistence.model.Client;
+import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -39,5 +41,18 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
                                                                    Ticket.enumStatesOfTicket state,
                                                                    @Param("client")  Client client);
 
+    @Query("FROM Ticket WHERE status=?1 AND manager.id = :#{#manager.id}")
+    List<Ticket> getTicketByClientAndStatusLike(Ticket.enumStatesOfTicket state,
+                                                   @Param("manager") Manager manager);
 
+    @Query(value = "SELECT count(id) FROM Ticket WHERE status=?1 AND manager.id = :#{#manager.id}")
+    Long countByStatusAndManager(Ticket.enumStatesOfTicket state,
+                                 @Param("manager") Manager manager);
+    @Query("FROM Ticket t WHERE t.id=?1")
+    Ticket getTicketById(Long id);
+
+    @Modifying
+    @Query("UPDATE Ticket t set t.manager = :#{#manager}, t.status =?2 where t.id=?1")
+    void setTicketManagerByTicketId(Long id, Ticket.enumStatesOfTicket state,
+                                    @Param("manager") Manager manager);
 }
