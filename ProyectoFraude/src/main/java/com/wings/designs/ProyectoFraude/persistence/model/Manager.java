@@ -6,7 +6,12 @@ package com.wings.designs.ProyectoFraude.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wings.designs.ProyectoFraude.persistence.validation.ValidRut;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,12 +41,17 @@ public class Manager {
      * <a href="https://es.wikipedia.org/wiki/Rol_%C3%9Anico_Tributario">
      * RUT</a>.
      */
+    @NotBlank
+    @ValidRut
     @Column(name = "rut", updatable = false, nullable = false)
     private String rut;
 
     /**
      * It's the complete name of the manager.
      */
+    @NotBlank
+    @Pattern(message = "Not valid name: ${validatedValue}",
+            regexp = "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$")
     @Column(name = "fullname", nullable = false)
     @JsonProperty("fullname")
     private String fullName;
@@ -49,6 +59,7 @@ public class Manager {
     /**
      * It's the contact email of the manager.
      */
+    @Email
     @Column(name = "email", updatable = false, unique = true)
     private String email;
 

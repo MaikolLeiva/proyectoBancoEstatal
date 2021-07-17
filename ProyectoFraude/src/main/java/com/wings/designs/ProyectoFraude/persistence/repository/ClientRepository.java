@@ -38,7 +38,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
      * @return An optional instance in any case.
      */
     @Query("SELECT c FROM client c WHERE c.account=?1")
-    Optional<Client> findClientsByAccount(Long account);
+    Optional<Client> findClientsByAccount(String account);
 
     /**
      * Search for the client with the given email and returns

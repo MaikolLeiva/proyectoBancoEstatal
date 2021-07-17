@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/register")
 public class RegistrationController {
@@ -23,7 +25,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody RegistrationRequest registrationRequest) {
+    public void registerNewUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
         clientService.addNewClient(registrationRequest);
     }
 

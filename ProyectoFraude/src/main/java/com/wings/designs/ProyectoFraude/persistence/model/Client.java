@@ -6,7 +6,15 @@ package com.wings.designs.ProyectoFraude.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.xml.bind.v2.TODO;
+import com.wings.designs.ProyectoFraude.persistence.validation.ValidRut;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,12 +45,17 @@ public class Client {
      * <a href="https://es.wikipedia.org/wiki/Rol_%C3%9Anico_Tributario">
      *     RUT</a>.
      */
+    @NotBlank
+    @ValidRut
     @Column(name = "rut", updatable = false, nullable = false)
     private String rut;
 
     /**
      * Is the complete name of the Client.
      */
+    @NotBlank
+    @Pattern(message = "Not valid name: ${validatedValue}",
+            regexp = "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$")
     @Column(name = "fullname", nullable = false)
     @JsonProperty("fullname")
     private String fullName;
@@ -50,27 +63,37 @@ public class Client {
     /**
      * Is the address of the Client.
      */
+    @NotBlank
     @Column(name = "address", nullable = false, columnDefinition = "TEXT")
     private String address;
 
     /**
      * Is the email that the Client provides for contact.
      */
+    @NotBlank
+    @Email
     @Column(name = "email", updatable = false, unique = true)
     private String email;
 
     /**
      * It's the number for his Bank account.
      */
+    @NotBlank
+    @Pattern(message = "not a valid account number",
+            regexp = "^[0-9]{8,12}$")
     @Column(name = "account_number", unique = true, updatable = false)
-    private Long account;
+    private String account;
 
     /**
      * Is the phone number that the Client provides for contact.
      */
+    @NotNull
+    @NotBlank
+    @Pattern(message = "not a valid phone number: ${validatedValue}",
+            regexp = "^(\\+?56)?(\\s?)(0?9)(\\s?)[9876543]\\d{7}$")
     @Column(name = "phone_number", updatable = false , nullable = false)
     @JsonProperty("phone_number")
-    private Long phoneNumber;
+    private String phoneNumber;
 
     /**
      * Represent the {@link User user} associated to the client on the database.
@@ -106,8 +129,8 @@ public class Client {
      * @param user It's the user associated with the client on the system.
      */
     public Client(final String rut, final String fullName, final String address,
-                  final String email, final Long account,
-                  final Long phoneNumber, final User user) {
+                  final String email, final String account,
+                  final String phoneNumber, final User user) {
         this.rut = rut;
         this.fullName = fullName;
         this.address = address;
@@ -164,7 +187,7 @@ public class Client {
      * Returns the bank account number of the client.
      * @return the account number of the client.
      */
-    public Long getAccount() {
+    public String getAccount() {
         return account;
     }
 
@@ -172,7 +195,7 @@ public class Client {
      * Returns the phone number of the client.
      * @return the phone number of the client.
      */
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -201,5 +224,8 @@ public class Client {
      */
     public void addNewTicket(final Ticket ticket) {
         this.ticketList.add(ticket);
+    }
+    public void verifyRut(String rut) {
+        //TODO
     }
 }
