@@ -40,26 +40,26 @@ public class JwtTokenVerfier extends OncePerRequestFilter {
             throws ServletException, IOException {
         String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
 
-        if(authorizationHeader == null || authorizationHeader.isEmpty() ||
-                !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())){
+        if (authorizationHeader == null || authorizationHeader.isEmpty() ||
+                !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())) {
             filterChain.doFilter(request, response);
             return;
         }
-        String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(),"") ;
+        String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(), "");
         try {
 
             Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey)
                     .build().parseClaimsJws(token);
             Claims body = claimsJws.getBody();
             String username = body.getSubject();
-            List<Map<String, String>> authorities = (List<Map<String, String>>)body.get("authorities");
+            List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
             Set<SimpleGrantedAuthority> authority = authorities.stream()
                     .map(m -> new SimpleGrantedAuthority(m.get("authority"))).collect(Collectors.toSet());
-            Authentication authentication = new UsernamePasswordAuthenticationToken(username,null,authority);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authority);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
-        }catch(JwtException e){
+        } catch (JwtException e) {
             throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
         }
         filterChain.doFilter(request, response);

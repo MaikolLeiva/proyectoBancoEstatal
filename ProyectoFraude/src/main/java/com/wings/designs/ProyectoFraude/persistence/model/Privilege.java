@@ -9,6 +9,7 @@ import java.util.Collection;
 
 /**
  * Represents a Privilege of the system in the Database.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -48,8 +49,10 @@ public class Privilege {
     public Privilege() {
         // Nothing here.
     }
+
     /**
      * Main constructor.
+     *
      * @param name it's the name of the privilege formatted as enum.
      */
     public Privilege(final EnumPrivilege name) {
@@ -58,6 +61,7 @@ public class Privilege {
 
     /**
      * Returns the name of the privilege.
+     *
      * @return the name of the privilege.
      */
     public EnumPrivilege getName() {

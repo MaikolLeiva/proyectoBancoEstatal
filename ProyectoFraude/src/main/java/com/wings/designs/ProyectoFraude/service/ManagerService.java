@@ -20,12 +20,15 @@ public class ManagerService {
     public ManagerService(ManagerRepository managerRepository) {
         this.managerRepository = managerRepository;
     }
+
     public Optional<Manager> findManagerByEmail(String email) {
         return this.managerRepository.findManagerByEmail(email);
     }
+
     public Manager getManagerByUser(User user) {
         return managerRepository.getManagerByUser(user);
     }
+
     public Manager addNewManager(Manager manager) {
         return this.managerRepository.save(manager);
     }

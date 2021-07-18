@@ -15,10 +15,12 @@ public class RoleService {
     public RoleService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-    public Role addNewRole(Role role){
+
+    public Role addNewRole(Role role) {
         return this.roleRepository.save(role);
     }
-    public Role findRoleByName(Role.enumRole name){
+
+    public Role findRoleByName(Role.enumRole name) {
         return this.roleRepository.findByName(name);
     }
 }

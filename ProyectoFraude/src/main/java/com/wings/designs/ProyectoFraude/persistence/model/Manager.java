@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Represents a Manager of the system with his attributes and it's representation
  * in the Database.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -94,11 +95,12 @@ public class Manager {
     /**
      * Is the main constructor. Receives all the needed parameters
      * to put the manager on the database.
-     * @param rut It's the rut of the manager.
+     *
+     * @param rut      It's the rut of the manager.
      * @param fullName It's the complete name of the manager.
-     * @param email It's the contact email of the manager.
-     * @param address It's the address of the manager.
-     * @param user It's the user associated with the manager.
+     * @param email    It's the contact email of the manager.
+     * @param address  It's the address of the manager.
+     * @param user     It's the user associated with the manager.
      */
     public Manager(String rut, String fullName, String email, String address, User user) {
         this.rut = rut;
@@ -112,6 +114,7 @@ public class Manager {
     /**
      * Returns the id of client. The client must be on the database already,
      * otherwise it will not have an id.
+     *
      * @return the id of the manager if the manager is already on the database.
      * Otherwise returns null.
      */
@@ -121,6 +124,7 @@ public class Manager {
 
     /**
      * Returns the rut of the manager.
+     *
      * @return the rut of the manager.
      */
     public String getRut() {
@@ -129,6 +133,7 @@ public class Manager {
 
     /**
      * Returns the complete name of the manager.
+     *
      * @return the complete name of the manager.
      */
     public String getFullName() {
@@ -137,6 +142,7 @@ public class Manager {
 
     /**
      * Returns the contact email of the manager.
+     *
      * @return the email of the manager.
      */
     public String getEmail() {
@@ -145,6 +151,7 @@ public class Manager {
 
     /**
      * Returns the address of the manager.
+     *
      * @return the address of the manager.
      */
     public String getAddress() {
@@ -153,6 +160,7 @@ public class Manager {
 
     /**
      * Returns the user associated with the manager in the system.
+     *
      * @return the {@link User user} associated with the manager.
      */
     public User getUser() {
@@ -162,6 +170,7 @@ public class Manager {
     /**
      * Returns a list of all the tickets recorded in the database that
      * the manager has taken.
+     *
      * @return A List with all the tickets that the manager has taken.
      * An empty list if there's no ticket taken by the manager.
      */
@@ -172,6 +181,7 @@ public class Manager {
     /**
      * Receive a ticket that the manager want's to take, and add
      * it to his list of tickets.
+     *
      * @param ticket It's the ticket that the manager want's to take.
      */
     public void addNewTicket(final Ticket ticket) {

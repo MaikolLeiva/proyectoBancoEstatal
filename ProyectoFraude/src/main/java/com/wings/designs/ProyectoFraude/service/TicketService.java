@@ -35,26 +35,28 @@ public class TicketService {
     }
 
 
-    public List<Ticket> getTickets(){
+    public List<Ticket> getTickets() {
 
         return ticketRepository.findAll();
     }
-    public List<Ticket> getTicketsAvailable(){
+
+    public List<Ticket> getTicketsAvailable() {
 
         return ticketRepository.findTicketByStatus(Ticket.enumStatesOfTicket.OPEN);
     }
-    public List<Ticket> getTicketsByManager(String managerRut){
+
+    public List<Ticket> getTicketsByManager(String managerRut) {
 
         return ticketRepository.findTicketByManagerRut(managerRut);
     }
 
-    public void addNewTicket(NewTicketRequest ticketRequest, String userRut){
+    public void addNewTicket(NewTicketRequest ticketRequest, String userRut) {
         User user = userService.getUsersByRut(userRut);
         Client client = clientService.getClientByUser(user);
         Optional<Ticket> optionalTicket =
                 ticketRepository.findTicketByCardTypeAndClientAndStatusNotLike(ticketRequest.getCardType(),
                         Ticket.enumStatesOfTicket.CLOSED, client);
-        if(optionalTicket.isPresent()) {
+        if (optionalTicket.isPresent()) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,
                     "A ticket with that card is still processing");
         }
@@ -77,40 +79,41 @@ public class TicketService {
         Manager manager = managerService.getManagerByUser(user);
         Long numberOfTickets = ticketRepository.countByStatusAndManager(Ticket.enumStatesOfTicket.PENDING,
                 manager);
-        if (numberOfTickets>6) {
+        if (numberOfTickets > 6) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         }
         Ticket ticket = ticketRepository.getTicketById(ticketId);
-        if (ticket==null){
+        if (ticket == null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "ticket not found");
         }
-        if (ticket.getStatus()!= Ticket.enumStatesOfTicket.OPEN) {
-            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+        if (ticket.getStatus() != Ticket.enumStatesOfTicket.OPEN) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "ticket is not open");
         }
         ticket.setStatus(Ticket.enumStatesOfTicket.PENDING);
         ticket.setManager(manager);
     }
+
     @Transactional
     public void closeTicket(String userRut, Long ticketId) {
         User user = userService.getUsersByRut(userRut);
         Manager manager = managerService.getManagerByUser(user);
         Ticket ticket = ticketRepository.getTicketById(ticketId);
-        if (ticket==null){
+        if (ticket == null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "ticket not found");
         }
-        if (ticket.getStatus()!= Ticket.enumStatesOfTicket.PENDING) {
-            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+        if (ticket.getStatus() != Ticket.enumStatesOfTicket.PENDING) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "ticket is not under review");
         }
         if (ticket.getManager() == null) {
-            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "the ticket does not have any manager assigned");
         }
         if (!ticket.getManager().getId().equals(manager.getId())) {
-            throw  new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "the manager has not taken this ticket");
         }
         ticket.setStatus(Ticket.enumStatesOfTicket.CLOSED);

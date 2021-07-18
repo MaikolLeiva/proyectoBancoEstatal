@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 /**
  * Represents a User of the system with his attributes and it's representation in the Database.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -40,10 +41,11 @@ public class User {
     /**
      * Constructor that receives all the attributes as parameters,
      * except for the id.
-     * @param rut         Represent the rut of the person. A unique number assigned
-     *                    for every citizen that lives in Chile.
-     * @param password    Is the password of  the user, it has to be encrypted.
-     * @param role        Is the type of rol that the user have.
+     *
+     * @param rut      Represent the rut of the person. A unique number assigned
+     *                 for every citizen that lives in Chile.
+     * @param password Is the password of  the user, it has to be encrypted.
+     * @param role     Is the type of rol that the user have.
      */
     public User(String rut, String password, Role role) {
         this.rut = rut;

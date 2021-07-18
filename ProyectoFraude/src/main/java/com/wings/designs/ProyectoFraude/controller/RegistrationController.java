@@ -29,8 +29,8 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public void registerNewUser( @Valid @RequestBody RegistrationRequest registrationRequest) {
-            clientService.addNewClient(registrationRequest);
+    public void registerNewUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        clientService.addNewClient(registrationRequest);
 
     }
 

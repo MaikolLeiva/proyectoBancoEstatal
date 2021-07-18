@@ -56,6 +56,7 @@ public class Role {
 
     /**
      * Main constructor.
+     *
      * @param name is the name of the Role.
      */
     public Role(final enumRole name) {
@@ -64,6 +65,7 @@ public class Role {
 
     /**
      * Give all the privileges associated with the role.
+     *
      * @return A collection with all the privileges that the role have.
      */
     public Collection<Privilege> getPrivileges() {
@@ -72,6 +74,7 @@ public class Role {
 
     /**
      * Set the privileges of the role with a given collection of privileges.
+     *
      * @param privileges A collection with all the privileges.
      */
     public void setPrivileges(final Collection<Privilege> privileges) {
@@ -80,6 +83,7 @@ public class Role {
 
     /**
      * Returns the name of the role.
+     *
      * @return the name of the role.
      */
     public enumRole getName() {

@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.*;
+
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private boolean alreadySetup = false;
@@ -62,6 +63,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     /**
      * Receives the name of the Privilege, and if the name is not found in the Privilege table, then add a Privilege
      * to the database with that name.
+     *
      * @param name it's the name of the Privilege
      * @return A {@link Privilege Privilege} object that represent the
      * privilege added, if the privilege wasn't added, then return null.
@@ -80,7 +82,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     /**
      * Receives the name of the Role and his privileges, and if the name is not found in the Role table, then add a Role
      * to the table with that name and privileges altogether.
-     * @param name it's the name of the Role
+     *
+     * @param name       it's the name of the Role
      * @param privileges All the privileges related to the role.
      * @return A role object that represents the role with his privileges if the role was added successfully, otherwise
      * returns a null.
@@ -95,6 +98,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         role = roleRepository.save(role);
         return role;
     }
+
     @Transactional
     void createManagerUsers(final String rut, final String email, final String fullname,
                             final String address, final Role role, final String password) {

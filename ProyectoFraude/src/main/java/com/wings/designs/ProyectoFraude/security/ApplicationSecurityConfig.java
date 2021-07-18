@@ -51,7 +51,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/v1/user")
                 .hasAuthority(Privilege.EnumPrivilege.READ_USER.toString())
                 .anyRequest()
-                .authenticated() ;
+                .authenticated();
 
     }
 

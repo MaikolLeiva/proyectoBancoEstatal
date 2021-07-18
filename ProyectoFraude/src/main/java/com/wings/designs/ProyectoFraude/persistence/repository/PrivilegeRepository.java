@@ -13,6 +13,7 @@ public interface PrivilegeRepository extends JpaRepository<Privilege, Long> {
 
     /**
      * Obtain the Privilege that matches the privilege name given.
+     *
      * @param name Is the privilege name of the raw wanted.
      * @return Null if theres's no privilege with that name, if not
      * returns an instance of{@link Privilege} that represents the raw found.

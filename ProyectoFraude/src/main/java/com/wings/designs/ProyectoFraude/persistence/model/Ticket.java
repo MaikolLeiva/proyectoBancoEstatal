@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 /**
  * Represents a ticket for a fraudulent case made for an user.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -70,12 +71,13 @@ public class Ticket {
     /**
      * Main constructor that receives all attributes as parameters,
      * except for the id and managerRut.
-     * @param client Is the id of the user that made the ticket.
+     *
+     * @param client   Is the id of the user that made the ticket.
      * @param cardType Is the type of the card that was affected
      *                 by the fraud.
-     * @param comment Is a comment given by the client that contains a
-     *                little info about the incident.
-     * @param status Is the current status of the ticket.
+     * @param comment  Is a comment given by the client that contains a
+     *                 little info about the incident.
+     * @param status   Is the current status of the ticket.
      */
     public Ticket(final enumTypesOfCards cardType, final String comment,
                   final enumStatesOfTicket status, final Client client) {
@@ -88,6 +90,7 @@ public class Ticket {
 
     /**
      * Returns the id of the ticket.
+     *
      * @return the id of the ticket.
      */
     public Long getId() {
@@ -96,6 +99,7 @@ public class Ticket {
 
     /**
      * Returns the type of card associated with the ticket.
+     *
      * @return the type of card.
      */
     public enumTypesOfCards getCardType() {
@@ -104,6 +108,7 @@ public class Ticket {
 
     /**
      * Returns the comment made by the client when he made the ticket.
+     *
      * @return the comment made by the client.
      */
     public String getComment() {
@@ -112,6 +117,7 @@ public class Ticket {
 
     /**
      * Returns the current status of the ticket.
+     *
      * @return the current status of the ticket.
      */
     public enumStatesOfTicket getStatus() {
@@ -120,6 +126,7 @@ public class Ticket {
 
     /**
      * Returns the client that made the ticket.
+     *
      * @return the client who made the ticket.
      */
     public Client getClient() {
@@ -128,6 +135,7 @@ public class Ticket {
 
     /**
      * Returns the manager who took the ticket.
+     *
      * @return the manager who took the ticket. If the ticket has no manager
      * assigned yet, then returns null.
      */
@@ -164,6 +172,7 @@ public class Ticket {
          */
         CLOSED
     }
+
     /**
      * Enum that defines the possibles types of a bank's card.
      */

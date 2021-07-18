@@ -42,7 +42,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                     new ObjectMapper().readValue(request.getInputStream(),
                             UserNameAndPasswordAuthenticationRequest.class);
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(),authenticationRequest.getPassword()
+                    authenticationRequest.getUsername(), authenticationRequest.getPassword()
             );
 
             return authenticationManager.authenticate(authentication);
@@ -67,6 +67,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(secretKey)
                 .compact();
 
-        response.addHeader(jwtConfig.getAuthorizationHeader(),jwtConfig.getTokenPrefix() + token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
     }
 }

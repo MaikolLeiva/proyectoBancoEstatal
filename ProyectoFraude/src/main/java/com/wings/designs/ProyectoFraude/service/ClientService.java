@@ -37,7 +37,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> findClientById(Long id){
+    public Optional<Client> findClientById(Long id) {
         return clientRepository.findClientById(id);
     }
 
@@ -73,7 +73,7 @@ public class ClientService {
                 roleService.findRoleByName(Role.enumRole.ROLE_CLIENT));
         Client newClient = new Client(registrationRequest.getRut(), registrationRequest.getFullName(),
                 registrationRequest.getAddress(), registrationRequest.getEmail(), registrationRequest.getAccount(),
-                registrationRequest.getPhoneNumber(),userForNewClient);
+                registrationRequest.getPhoneNumber(), userForNewClient);
         clientRepository.save(newClient);
     }
 }

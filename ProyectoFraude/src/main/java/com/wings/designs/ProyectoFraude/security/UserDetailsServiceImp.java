@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
 @Service("userDetailsService")
 @Transactional
 public class UserDetailsServiceImp implements UserDetailsService {
@@ -38,14 +39,16 @@ public class UserDetailsServiceImp implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(user.get().getRut(), user.get().getPassword(),
                     true, true, true, true,
                     getAuthorities(user.get().getRole())
-                    );
+            );
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
     }
+
     private Collection<? extends GrantedAuthority> getAuthorities(final Role role) {
         return getGrantedAuthorities(getPrivileges(role));
     }
+
     private List<String> getPrivileges(Role role) {
         List<String> privileges = new ArrayList<>();
         List<Privilege> collection = new ArrayList<>(role.getPrivileges());
@@ -55,6 +58,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
         }
         return privileges;
     }
+
     private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (String privilege : privileges) {

@@ -17,6 +17,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
     /**
      * Search for the manager with the given email and returns
      * and Optional object to check if the manager is present or not.
+     *
      * @param email The email of the manager wanted.
      * @return An optional instance in any case.
      */

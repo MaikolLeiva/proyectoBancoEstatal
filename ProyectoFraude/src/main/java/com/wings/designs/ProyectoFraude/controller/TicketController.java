@@ -50,14 +50,15 @@ public class TicketController {
     }
 
     @PatchMapping("/me/manager/")
-    public void takeTicket(@RequestParam(name = "id") Long ticketId){
+    public void takeTicket(@RequestParam(name = "id") Long ticketId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
         ticketService.takeTicket(userRut, ticketId);
 
     }
+
     @PatchMapping("/me/status/")
-    public void closeTicket(@RequestParam(name = "id") Long ticketId){
+    public void closeTicket(@RequestParam(name = "id") Long ticketId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
         ticketService.closeTicket(userRut, ticketId);
