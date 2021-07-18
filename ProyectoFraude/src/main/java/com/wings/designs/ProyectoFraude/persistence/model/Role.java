@@ -90,6 +90,10 @@ public class Role {
         return name;
     }
 
+    /**
+     * Give the name and id of the role.
+     * @return A string with the name of the role and the id.
+     */
     @Override
     public String toString() {
         return "Role [name=" + name + "]" + "[id=" + id + "]";
