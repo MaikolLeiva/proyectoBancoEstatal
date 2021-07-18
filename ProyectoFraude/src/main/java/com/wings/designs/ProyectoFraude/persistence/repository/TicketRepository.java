@@ -40,6 +40,16 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query("FROM Ticket  WHERE manager=?1 order by id")
     List<Ticket> findTicketByManagerRut(String rut);
 
+    /**
+     * Search for a Ticket with the card type and client associated given,
+     * and also with a status that is different from the one given.
+     * Then return an optional Ticket object.
+     * @param cardType the card type for the ticket looked.
+     * @param state the state of the ticket that is not the one that the ticket
+     *              looked has.
+     * @param client the client that made that ticket.
+     * @return An Optional ticket object in any case.
+     */
     @Query("FROM Ticket WHERE cardType=?1 AND status<>?2 AND client.id = :#{#client.id}")
     Optional<Ticket> findTicketByCardTypeAndClientAndStatusNotLike(Ticket.enumTypesOfCards cardType,
                                                                    Ticket.enumStatesOfTicket state,
