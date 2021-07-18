@@ -68,6 +68,10 @@ public class Privilege {
         return name;
     }
 
+    /**
+     * Give the name and it of the privilege.
+     * @return A string with rhe privilege name and his respective id.
+     */
     @Override
     public String toString() {
         return "Privilege [name=" + name + "]" + "[id=" + id + "]";
