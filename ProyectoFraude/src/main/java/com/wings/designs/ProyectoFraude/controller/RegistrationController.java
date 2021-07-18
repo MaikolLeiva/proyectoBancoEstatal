@@ -36,7 +36,7 @@ public class RegistrationController {
      *                      the client resource. It's autowired.
      */
     @Autowired
-    public RegistrationController(ClientService clientService) {
+    public RegistrationController(final ClientService clientService) {
         this.clientService = clientService;
     }
 
