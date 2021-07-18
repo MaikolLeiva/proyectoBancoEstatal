@@ -45,18 +45,33 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
                                                                    Ticket.enumStatesOfTicket state,
                                                                    @Param("client")  Client client);
 
+    /**
+     * Get the list of ticket that matches with the manager given and
+     * also the state given.
+     * @param state the status of the tickets wanted.
+     * @param manager the manager in charge of the tickets looked.
+     * @return A list with all the ticket with the given status and manager.
+     * Or an empty list if there's no ticket that matches the
+     */
     @Query("FROM Ticket WHERE status=?1 AND manager.id = :#{#manager.id}")
     List<Ticket> getTicketByClientAndStatusLike(Ticket.enumStatesOfTicket state,
                                                    @Param("manager") Manager manager);
 
+    /**
+     * Given a manager and a state of the ticket, returns the total amount
+     * of tickets with the requirements given.
+     * @param state the state of the tickets that want to be counted.
+     * @param manager the manager in charge of the ticket.
+     * @return the number of tickets with the state and manager given.
+     */
     @Query(value = "SELECT count(id) FROM Ticket WHERE status=?1 AND manager.id = :#{#manager.id}")
     Long countByStatusAndManager(Ticket.enumStatesOfTicket state,
                                  @Param("manager") Manager manager);
+    /**
+     * Given and id, search for a ticket with that id and returns it.
+     * @param id the Id of the Ticket wanted.
+     * @return A ticket with the id given. Null if there's no ticket with that id.
+     */
     @Query("FROM Ticket t WHERE t.id=?1")
     Ticket getTicketById(Long id);
-
-    @Modifying
-    @Query("UPDATE Ticket t set t.manager = :#{#manager}, t.status =?2 where t.id=?1")
-    void setTicketManagerByTicketId(Long id, Ticket.enumStatesOfTicket state,
-                                    @Param("manager") Manager manager);
 }
