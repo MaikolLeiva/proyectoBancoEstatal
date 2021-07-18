@@ -15,11 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
-    public final TicketService ticketService;
-    public final ClientService clientService;
+    private final TicketService ticketService;
+    private final ClientService clientService;
 
     @Autowired
-    public ClientController(TicketService ticketService, ClientService clientService) {
+    public ClientController(final TicketService ticketService,
+                            final ClientService clientService) {
         this.ticketService = ticketService;
         this.clientService = clientService;
     }

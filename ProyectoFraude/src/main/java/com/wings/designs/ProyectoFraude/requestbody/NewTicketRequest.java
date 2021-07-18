@@ -16,8 +16,8 @@ public class NewTicketRequest {
         // Nothing here.
     }
 
-    public NewTicketRequest(Ticket.enumTypesOfCards cardType,
-                            String comment) {
+    public NewTicketRequest(final Ticket.enumTypesOfCards cardType,
+                            final String comment) {
         this.cardType = cardType;
         this.comment = comment;
     }

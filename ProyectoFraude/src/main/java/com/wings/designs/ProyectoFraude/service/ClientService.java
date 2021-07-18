@@ -26,7 +26,10 @@ public class ClientService {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
-    public ClientService(ClientRepository clientRepository, RoleService roleService, PasswordEncoder passwordEncoder, UserService userService) {
+    public ClientService(final ClientRepository clientRepository,
+                         final RoleService roleService,
+                         final PasswordEncoder passwordEncoder,
+                         final UserService userService) {
         this.clientRepository = clientRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
@@ -37,42 +40,49 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> findClientById(Long id) {
+    public Optional<Client> findClientById(final Long id) {
         return clientRepository.findClientById(id);
     }
 
-    public Client getClientById(Long id) {
+    public Client getClientById(final Long id) {
         return clientRepository.getClientById(id);
     }
 
-    public Client getClientByUser(User user) {
+    public Client getClientByUser(final User user) {
         return clientRepository.getClientByUser(user);
     }
 
     @Transactional
-    public void addNewClient(RegistrationRequest registrationRequest) throws ConstraintViolationException {
+    public void addNewClient(final RegistrationRequest registrationRequest)
+            throws ConstraintViolationException {
 
         Optional<User> clientOptional =
                 userService.findUserByRut(registrationRequest.getRut());
         Optional<Client> clientOptional2 =
-                clientRepository.findClientsByAccount(registrationRequest.getAccount());
-        Optional<Client> clientOptional3 =
-                clientRepository.findClientsByEmail(registrationRequest.getEmail());
+                clientRepository.findClientsByAccount(
+                        registrationRequest.getAccount());
+        Optional<Client> clientOptional3 = clientRepository.findClientsByEmail(
+                registrationRequest.getEmail());
         if (clientOptional.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Rut already taken");
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY,
+                    "Rut already taken");
         }
         if (clientOptional2.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "account number already taken");
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY,
+                    "account number already taken");
         }
         if (clientOptional3.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "email taken");
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, "email taken");
         }
-
         User userForNewClient = new User(registrationRequest.getRut(),
                 passwordEncoder.encode(registrationRequest.getPassword()),
                 roleService.findRoleByName(Role.enumRole.ROLE_CLIENT));
-        Client newClient = new Client(registrationRequest.getRut(), registrationRequest.getFullName(),
-                registrationRequest.getAddress(), registrationRequest.getEmail(), registrationRequest.getAccount(),
+        Client newClient = new Client(registrationRequest.getRut(),
+                registrationRequest.getFullName(), registrationRequest.getAddress(),
+                registrationRequest.getEmail(), registrationRequest.getAccount(),
                 registrationRequest.getPhoneNumber(), userForNewClient);
         clientRepository.save(newClient);
     }

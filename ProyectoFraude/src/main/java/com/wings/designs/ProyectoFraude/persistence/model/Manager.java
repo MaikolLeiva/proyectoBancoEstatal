@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a Manager of the system with his attributes and it's representation
- * in the Database.
- *
+ * Represents a Manager of the system with his attributes
+ * and it's representation in the Database. *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -31,8 +30,11 @@ public class Manager {
      * An identifier to difference a manager to another in the same table.
      */
     @Id
-    @SequenceGenerator(name = "client-sequence", sequenceName = "client_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
+    @SequenceGenerator(name = "client-sequence",
+            sequenceName = "client_sequence",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "client_sequence")
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -102,7 +104,9 @@ public class Manager {
      * @param address  It's the address of the manager.
      * @param user     It's the user associated with the manager.
      */
-    public Manager(String rut, String fullName, String email, String address, User user) {
+    public Manager(final String rut, final String fullName,
+                   final String email, final String address,
+                   final User user) {
         this.rut = rut;
         this.fullName = fullName;
         this.email = email;

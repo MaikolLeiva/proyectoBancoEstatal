@@ -14,8 +14,10 @@ public class PasswordConfig {
 
 
     /**
-     * When called it returns an instance of BcryptPassEncoder, witch can be later used to encrypt a password.
-     * The strength of the password can be changed modifying the parameter of the instance returned.
+     * When called it returns an instance of BcryptPassEncoder,
+     * witch can be later used to encrypt a password.
+     * The strength of the password can be changed modifying
+     * the parameter of the instance returned.
      *
      * @return PasswordEncoder
      */

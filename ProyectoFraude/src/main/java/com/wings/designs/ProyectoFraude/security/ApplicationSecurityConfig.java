@@ -32,20 +32,24 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    public ApplicationSecurityConfig(SecretKey secretKey, JwtConfig jwtConfig) {
+    public ApplicationSecurityConfig(final SecretKey secretKey,
+                                     final JwtConfig jwtConfig) {
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http
                 .cors().and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(
+                        SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
-                .addFilterAfter(new JwtTokenVerfier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(
+                        authenticationManager(), jwtConfig, secretKey))
+                .addFilterAfter(new JwtTokenVerfier(secretKey, jwtConfig),
+                        JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/user")
@@ -57,8 +61,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",
+                new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
 

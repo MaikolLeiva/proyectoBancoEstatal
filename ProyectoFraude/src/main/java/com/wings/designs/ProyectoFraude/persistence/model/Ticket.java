@@ -124,6 +124,10 @@ public class Ticket {
         return status;
     }
 
+    public void setStatus(final enumStatesOfTicket status) {
+        this.status = status;
+    }
+
     /**
      * Returns the client that made the ticket.
      *
@@ -143,11 +147,7 @@ public class Ticket {
         return manager;
     }
 
-    public void setStatus(enumStatesOfTicket status) {
-        this.status = status;
-    }
-
-    public void setManager(Manager manager) {
+    public void setManager(final Manager manager) {
         this.manager = manager;
     }
 

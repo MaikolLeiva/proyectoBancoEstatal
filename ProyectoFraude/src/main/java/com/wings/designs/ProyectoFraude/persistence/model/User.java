@@ -6,8 +6,8 @@ package com.wings.designs.ProyectoFraude.persistence.model;
 import javax.persistence.*;
 
 /**
- * Represents a User of the system with his attributes and it's representation in the Database.
- *
+ * Represents a User of the system with his attributes and it's
+ * representation in the Database.
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -17,8 +17,11 @@ import javax.persistence.*;
 @Entity(name = "user_account")
 public class User {
     @Id
-    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence",
+            sequenceName = "user_sequence",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "user_sequence")
     @Column(name = "id", updatable = false)
     private Long id;
     @Column(name = "rut", updatable = false, nullable = false)
@@ -47,7 +50,7 @@ public class User {
      * @param password Is the password of  the user, it has to be encrypted.
      * @param role     Is the type of rol that the user have.
      */
-    public User(String rut, String password, Role role) {
+    public User(final String rut, final String password, final Role role) {
         this.rut = rut;
         this.password = password;
         this.role = role;

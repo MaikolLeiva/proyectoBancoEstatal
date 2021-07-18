@@ -27,7 +27,7 @@ public class JwtConfig {
         return secretKey;
     }
 
-    public void setSecretKey(String secretKey) {
+    public void setSecretKey(final String secretKey) {
         this.secretKey = secretKey;
     }
 
@@ -35,7 +35,7 @@ public class JwtConfig {
         return tokenPrefix;
     }
 
-    public void setTokenPrefix(String tokenPrefix) {
+    public void setTokenPrefix(final String tokenPrefix) {
         this.tokenPrefix = tokenPrefix;
     }
 
@@ -43,7 +43,8 @@ public class JwtConfig {
         return tokenExpirationAfterHours;
     }
 
-    public void setTokenExpirationAfterHours(Integer tokenExpirationAfterHours) {
+    public void setTokenExpirationAfterHours(
+            final Integer tokenExpirationAfterHours) {
         this.tokenExpirationAfterHours = tokenExpirationAfterHours;
     }
 }

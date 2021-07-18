@@ -27,7 +27,10 @@ public class TicketService {
     private final UserService userService;
     private final ManagerService managerService;
 
-    public TicketService(TicketRepository ticketRepository, ClientService clientService, UserService userService, ManagerService managerService) {
+    public TicketService(final TicketRepository ticketRepository,
+                         final ClientService clientService,
+                         final UserService userService,
+                         final ManagerService managerService) {
         this.ticketRepository = ticketRepository;
         this.clientService = clientService;
         this.userService = userService;
@@ -41,44 +44,46 @@ public class TicketService {
     }
 
     public List<Ticket> getTicketsAvailable() {
-
-        return ticketRepository.findTicketByStatus(Ticket.enumStatesOfTicket.OPEN);
+        return ticketRepository.findTicketByStatus(
+                Ticket.enumStatesOfTicket.OPEN);
     }
 
-    public List<Ticket> getTicketsByManager(String managerRut) {
-
+    public List<Ticket> getTicketsByManager(final String managerRut) {
         return ticketRepository.findTicketByManagerRut(managerRut);
     }
 
-    public void addNewTicket(NewTicketRequest ticketRequest, String userRut) {
+    public void addNewTicket(final NewTicketRequest ticketRequest,
+                             final String userRut) {
         User user = userService.getUsersByRut(userRut);
         Client client = clientService.getClientByUser(user);
         Optional<Ticket> optionalTicket =
-                ticketRepository.findTicketByCardTypeAndClientAndStatusNotLike(ticketRequest.getCardType(),
+                ticketRepository.findTicketByCardTypeAndClientAndStatusNotLike(
+                        ticketRequest.getCardType(),
                         Ticket.enumStatesOfTicket.CLOSED, client);
         if (optionalTicket.isPresent()) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,
                     "A ticket with that card is still processing");
         }
-        Ticket ticket = new Ticket(ticketRequest.getCardType(), ticketRequest.getComment(),
+        Ticket ticket = new Ticket(ticketRequest.getCardType(),
+                ticketRequest.getComment(),
                 Ticket.enumStatesOfTicket.OPEN, client);
         ticketRepository.save(ticket);
 
     }
 
-    public List<Ticket> getTicketsTakenByManager(String userRut) {
+    public List<Ticket> getTicketsTakenByManager(final String userRut) {
         User user = userService.getUsersByRut(userRut);
         Manager manager = managerService.getManagerByUser(user);
-        return this.ticketRepository.getTicketByClientAndStatusLike(Ticket.enumStatesOfTicket.PENDING,
-                manager);
+        return this.ticketRepository.getTicketByClientAndStatusLike(
+                Ticket.enumStatesOfTicket.PENDING, manager);
     }
 
     @Transactional
-    public void takeTicket(String userRut, Long ticketId) {
+    public void takeTicket(final String userRut, final Long ticketId) {
         User user = userService.getUsersByRut(userRut);
         Manager manager = managerService.getManagerByUser(user);
-        Long numberOfTickets = ticketRepository.countByStatusAndManager(Ticket.enumStatesOfTicket.PENDING,
-                manager);
+        Long numberOfTickets = ticketRepository.countByStatusAndManager(
+                Ticket.enumStatesOfTicket.PENDING, manager);
         if (numberOfTickets > 6) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -96,7 +101,7 @@ public class TicketService {
     }
 
     @Transactional
-    public void closeTicket(String userRut, Long ticketId) {
+    public void closeTicket(final String userRut, final Long ticketId) {
         User user = userService.getUsersByRut(userRut);
         Manager manager = managerService.getManagerByUser(user);
         Ticket ticket = ticketRepository.getTicketById(ticketId);

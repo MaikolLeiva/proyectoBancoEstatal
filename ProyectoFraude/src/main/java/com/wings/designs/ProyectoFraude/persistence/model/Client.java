@@ -6,10 +6,7 @@ package com.wings.designs.ProyectoFraude.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.xml.bind.v2.TODO;
 import com.wings.designs.ProyectoFraude.persistence.validation.ValidRut;
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a Client of the system with his attributes and it's representation in the Database.
+ * Represents a Client of the system with his attributes and
+ * it's representation in the Database.
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -90,8 +88,8 @@ public class Client {
     @NotNull
     @NotBlank
     @Pattern(message = "not a valid phone number: ${validatedValue}",
-            regexp = "^(\\+?56)?(\\s?)(0?9)(\\s?)[9876543]\\d{7}$")
-    @Column(name = "phone_number", updatable = false , nullable = false)
+             regexp = "^(\\+?56)?(\\s?)(0?9)(\\s?)[9876543]\\d{7}$")
+    @Column(name = "phone_number", updatable = false, nullable = false)
     @JsonProperty("phone_number")
     private String phoneNumber;
 
@@ -215,17 +213,5 @@ public class Client {
      */
     public List<Ticket> getTicketList() {
         return ticketList;
-    }
-
-    /**
-     * Receive a ticket that the client want's to make, and add it to his list of
-     * tickets.
-     * @param ticket It's the ticket that the client want's to make.
-     */
-    public void addNewTicket(final Ticket ticket) {
-        this.ticketList.add(ticket);
-    }
-    public void verifyRut(String rut) {
-        //TODO
     }
 }

@@ -30,14 +30,17 @@ public class UserDetailsServiceImp implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String rut) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String rut)
+            throws UsernameNotFoundException {
         try {
             final Optional<User> user = userRepository.findUsersByRut(rut);
             if (!user.isPresent()) {
-                throw new UsernameNotFoundException("No user found with rut: " + rut);
+                throw new UsernameNotFoundException(
+                        "No user found with rut: " + rut);
             }
-            return new org.springframework.security.core.userdetails.User(user.get().getRut(), user.get().getPassword(),
-                    true, true, true, true,
+            return new org.springframework.security.core.userdetails.User(
+                    user.get().getRut(), user.get().getPassword(), true,
+                    true, true, true,
                     getAuthorities(user.get().getRole())
             );
         } catch (final Exception e) {
@@ -45,11 +48,12 @@ public class UserDetailsServiceImp implements UserDetailsService {
         }
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(final Role role) {
+    private Collection<? extends GrantedAuthority> getAuthorities(
+            final Role role) {
         return getGrantedAuthorities(getPrivileges(role));
     }
 
-    private List<String> getPrivileges(Role role) {
+    private List<String> getPrivileges(final Role role) {
         List<String> privileges = new ArrayList<>();
         List<Privilege> collection = new ArrayList<>(role.getPrivileges());
         privileges.add(role.getName().name());
@@ -59,7 +63,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
         return privileges;
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+    private List<GrantedAuthority> getGrantedAuthorities(
+            final List<String> privileges) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (String privilege : privileges) {
             authorities.add(new SimpleGrantedAuthority(privilege));

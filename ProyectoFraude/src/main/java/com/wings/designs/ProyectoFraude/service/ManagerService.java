@@ -4,7 +4,6 @@
 
 package com.wings.designs.ProyectoFraude.service;
 
-import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import com.wings.designs.ProyectoFraude.persistence.repository.ManagerRepository;
@@ -17,19 +16,19 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
 
 
-    public ManagerService(ManagerRepository managerRepository) {
+    public ManagerService(final ManagerRepository managerRepository) {
         this.managerRepository = managerRepository;
     }
 
-    public Optional<Manager> findManagerByEmail(String email) {
+    public Optional<Manager> findManagerByEmail(final String email) {
         return this.managerRepository.findManagerByEmail(email);
     }
 
-    public Manager getManagerByUser(User user) {
+    public Manager getManagerByUser(final User user) {
         return managerRepository.getManagerByUser(user);
     }
 
-    public Manager addNewManager(Manager manager) {
+    public Manager addNewManager(final Manager manager) {
         return this.managerRepository.save(manager);
     }
 }

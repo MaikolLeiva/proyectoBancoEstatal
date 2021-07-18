@@ -39,8 +39,10 @@ public class RegistrationRequest {
     @JsonProperty("phone_number")
     private final String phoneNumber;
 
-    public RegistrationRequest(String rut, String password, String fullName, String address, String email, String account,
-                               String phoneNumber) {
+    public RegistrationRequest(final String rut, final String password,
+                               final String fullName, final String address,
+                               final String email, final String account,
+                               final String phoneNumber) {
         this.rut = rut;
         this.password = password;
         this.fullName = fullName;
