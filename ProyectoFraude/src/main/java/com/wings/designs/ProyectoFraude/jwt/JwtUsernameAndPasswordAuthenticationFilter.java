@@ -21,28 +21,63 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+/**
+ * Filters the username and password given when login.
+ */
+public class JwtUsernameAndPasswordAuthenticationFilter
+        extends UsernamePasswordAuthenticationFilter {
 
+    /**
+     * Allow to process the method needed to authenticate
+     * password and username given.
+     */
     private final AuthenticationManager authenticationManager;
+
+    /**
+     * Gives all information about the JWT token.
+     */
     private final JwtConfig jwtConfig;
+
+    /**
+     * Gives the secret key for the JWT token.
+     */
     private final SecretKey secretKey;
 
-    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authenticationManager,
-                                                      JwtConfig jwtConfig, SecretKey secretKey) {
+    /**
+     * Main constructor.
+     * @param authenticationManager class that authenticate password
+     *                              and username given.
+     * @param jwtConfig information about the JWT token.
+     * @param secretKey the secret key for the JWT token.
+     */
+    public JwtUsernameAndPasswordAuthenticationFilter(
+            final AuthenticationManager authenticationManager,
+            final JwtConfig jwtConfig,
+            final SecretKey secretKey) {
         this.authenticationManager = authenticationManager;
         this.jwtConfig = jwtConfig;
         this.secretKey = secretKey;
     }
 
+    /**
+     * Authenticates the  request given. And gives an authenticated object.
+     * @param request the http request given.
+     * @param response response of the request.
+     * @return a fully authenticated object including credentials.
+     * @throws AuthenticationException
+     */
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+    public Authentication attemptAuthentication(final HttpServletRequest request,
+                                                final HttpServletResponse response)
             throws AuthenticationException {
         try {
             UserNameAndPasswordAuthenticationRequest authenticationRequest =
                     new ObjectMapper().readValue(request.getInputStream(),
                             UserNameAndPasswordAuthenticationRequest.class);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(), authenticationRequest.getPassword()
+            Authentication authentication =
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
             );
 
             return authenticationManager.authenticate(authentication);
@@ -52,13 +87,29 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     }
 
+    /**
+     * After a successful authentication, response to
+     * the client with the token created.
+     * @param request request received.
+     * @param response response object that is going to be send.
+     * @param chain object used to process another filter.
+     * @param authResult class that provides all the information
+     *                   of the user that passed the
+     *                   authentication filter.
+     * @throws IOException For an input error when management of the data.
+     * @throws ServletException In any other error.
+     */
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(final HttpServletRequest request,
+                                            final HttpServletResponse response,
+                                            final FilterChain chain,
+                                            final Authentication authResult)
+            throws IOException, ServletException {
 
         Calendar expirationDate = Calendar.getInstance();
         expirationDate.setTime(new Date());
-        expirationDate.add(Calendar.HOUR_OF_DAY, jwtConfig.getTokenExpirationAfterHours());
+        expirationDate.add(Calendar.HOUR_OF_DAY,
+                jwtConfig.getTokenExpirationAfterHours());
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
@@ -67,6 +118,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(secretKey)
                 .compact();
 
-        response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+        response.addHeader(jwtConfig.getAuthorizationHeader(),
+                jwtConfig.getTokenPrefix() + token);
     }
 }
