@@ -4,7 +4,6 @@
 
 package com.wings.designs.ProyectoFraude.persistence.repository;
 
-import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +23,12 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
     @Query("SELECT m FROM manager m WHERE m.email=?1")
     Optional<Manager> findManagerByEmail(String email);
 
+    /**
+     * Given the user of a manager, gives that manager.
+     * @param user the User of the manager that is looked.
+     * @return the Manager with the given user. If there's no manager that
+     * is related to the user given, then returns null.
+     */
     @Query("SELECT m FROM manager m WHERE m.user.id = :#{#user.id}")
     Manager getManagerByUser(@Param("user") User user);
 }
