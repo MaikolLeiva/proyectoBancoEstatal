@@ -10,12 +10,11 @@ import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import com.wings.designs.ProyectoFraude.persistence.repository.TicketRepository;
 import com.wings.designs.ProyectoFraude.requestbody.NewTicketRequest;
+import com.wings.designs.ProyectoFraude.service.notification.NotificationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.swing.plaf.PanelUI;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,15 +25,18 @@ public class TicketService {
     private final ClientService clientService;
     private final UserService userService;
     private final ManagerService managerService;
+    private final NotificationService notificationService;
 
     public TicketService(final TicketRepository ticketRepository,
                          final ClientService clientService,
                          final UserService userService,
-                         final ManagerService managerService) {
+                         final ManagerService managerService,
+                         final NotificationService notificationService) {
         this.ticketRepository = ticketRepository;
         this.clientService = clientService;
         this.userService = userService;
         this.managerService = managerService;
+        this.notificationService = notificationService;
     }
 
 
