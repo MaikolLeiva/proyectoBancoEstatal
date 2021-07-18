@@ -12,8 +12,10 @@ import com.wings.designs.ProyectoFraude.requestbody.RegistrationRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +49,8 @@ public class ClientService {
         return clientRepository.getClientByUser(user);
     }
 
-    public void addNewClient(RegistrationRequest registrationRequest) {
+    @Transactional
+    public void addNewClient(RegistrationRequest registrationRequest) throws ConstraintViolationException {
 
         Optional<User> clientOptional =
                 userService.findUserByRut(registrationRequest.getRut());
@@ -64,6 +67,7 @@ public class ClientService {
         if (clientOptional3.isPresent()) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "email taken");
         }
+
         User userForNewClient = new User(registrationRequest.getRut(),
                 passwordEncoder.encode(registrationRequest.getPassword()),
                 roleService.findRoleByName(Role.enumRole.ROLE_CLIENT));
