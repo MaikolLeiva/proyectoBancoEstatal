@@ -5,28 +5,37 @@
 package com.wings.designs.ProyectoFraude.requestbody;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wings.designs.ProyectoFraude.persistence.validation.ValidRut;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class RegistrationRequest {
     @NotBlank
+    @ValidRut
     private final String rut;
     @NotBlank
     @Pattern(message = "not a valid account number",
             regexp = "^[0-9]{4}$")
     private final String password;
     @NotBlank
+    @Pattern(message = "Not valid name: ${validatedValue}",
+            regexp = "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$")
     @JsonProperty("fullname")
     private final String fullName;
     @NotBlank
     private final String address;
     @NotBlank
+    @Email
     private final String email;
     @NotBlank
+    @Pattern(message = "not a valid account number",
+            regexp = "^[0-9]{8,12}$")
     private final String account;
     @NotBlank
+    @Pattern(message = "not a valid phone number: ${validatedValue}",
+            regexp = "^(\\+?56)?(\\s?)(0?9)(\\s?)[9876543]\\d{7}$")
     @JsonProperty("phone_number")
     private final String phoneNumber;
 

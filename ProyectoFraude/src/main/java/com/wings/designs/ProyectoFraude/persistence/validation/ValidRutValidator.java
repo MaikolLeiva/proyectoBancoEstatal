@@ -4,9 +4,6 @@
 
 package com.wings.designs.ProyectoFraude.persistence.validation;
 
-import com.wings.designs.ProyectoFraude.persistence.model.Client;
-import com.wings.designs.ProyectoFraude.persistence.model.Manager;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
