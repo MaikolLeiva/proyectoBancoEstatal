@@ -124,6 +124,10 @@ public class Ticket {
         return status;
     }
 
+    /**
+     * Change the status of the ticket with the given one.
+     * @param status the new status of the ticket.
+     */
     public void setStatus(final enumStatesOfTicket status) {
         this.status = status;
     }
@@ -147,6 +151,10 @@ public class Ticket {
         return manager;
     }
 
+    /**
+     * Set the manager on charge of the ticket with the given one.
+     * @param manager the manager that is now in charge of the ticket.
+     */
     public void setManager(final Manager manager) {
         this.manager = manager;
     }
