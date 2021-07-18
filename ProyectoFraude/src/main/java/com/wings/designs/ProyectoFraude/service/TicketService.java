@@ -124,5 +124,6 @@ public class TicketService {
                     "the manager has not taken this ticket");
         }
         ticket.setStatus(Ticket.enumStatesOfTicket.CLOSED);
+        notificationService.sendNotificationToClient(ticket);
     }
 }
