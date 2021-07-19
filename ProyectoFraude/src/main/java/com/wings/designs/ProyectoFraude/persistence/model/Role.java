@@ -37,17 +37,6 @@ public class Role {
     private enumRole name;
 
     /**
-     * A collection that represents all the privileges associated with the role.
-     */
-    @ManyToMany
-    @JoinTable(name = "roles_privileges",
-            joinColumns = @JoinColumn(name = "role_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id",
-                    referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
-
-    /**
      * Empty Constructor.
      */
     public Role() {
@@ -61,24 +50,6 @@ public class Role {
      */
     public Role(final enumRole name) {
         this.name = name;
-    }
-
-    /**
-     * Give all the privileges associated with the role.
-     *
-     * @return A collection with all the privileges that the role have.
-     */
-    public Collection<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    /**
-     * Set the privileges of the role with a given collection of privileges.
-     *
-     * @param privileges A collection with all the privileges.
-     */
-    public void setPrivileges(final Collection<Privilege> privileges) {
-        this.privileges = privileges;
     }
 
     /**

@@ -5,7 +5,6 @@
 package com.wings.designs.ProyectoFraude.security;
 
 import com.wings.designs.ProyectoFraude.persistence.model.User;
-import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
 import com.wings.designs.ProyectoFraude.persistence.model.Role;
 import com.wings.designs.ProyectoFraude.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,11 +57,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
     private List<String> getPrivileges(final Role role) {
         List<String> privileges = new ArrayList<>();
-        List<Privilege> collection = new ArrayList<>(role.getPrivileges());
         privileges.add(role.getName().name());
-        for (Privilege item : collection) {
-            privileges.add(item.getName().name());
-        }
         return privileges;
     }
 

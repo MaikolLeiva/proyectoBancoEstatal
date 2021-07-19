@@ -6,8 +6,6 @@ package com.wings.designs.ProyectoFraude.spring;
 
 import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
-import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
-import com.wings.designs.ProyectoFraude.persistence.repository.PrivilegeRepository;
 import com.wings.designs.ProyectoFraude.persistence.model.Role;
 import com.wings.designs.ProyectoFraude.persistence.repository.RoleRepository;
 import com.wings.designs.ProyectoFraude.service.ManagerService;
@@ -33,8 +31,6 @@ public class SetupDataLoader implements
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private PrivilegeRepository privilegeRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -45,18 +41,8 @@ public class SetupDataLoader implements
         if (alreadySetup) {
             return;
         }
-        final Privilege readTicketPrivilege = createPrivilege(
-                Privilege.EnumPrivilege.READ_TICKET);
-        final Privilege writeTicketPrivilege = createPrivilege(
-                Privilege.EnumPrivilege.WRITE_TICKET);
-        final Privilege readUserPrivilege = createPrivilege(
-                Privilege.EnumPrivilege.READ_USER);
-        final List<Privilege> clientPrivileges =
-                new ArrayList<>(Arrays.asList(writeTicketPrivilege));
-        final List<Privilege> managerPrivileges = new ArrayList<>(
-                Arrays.asList(readTicketPrivilege, readUserPrivilege));
-        createRole(Role.enumRole.ROLE_MANAGER, managerPrivileges);
-        createRole(Role.enumRole.ROLE_CLIENT, clientPrivileges);
+        createRole(Role.enumRole.ROLE_MANAGER);
+        createRole(Role.enumRole.ROLE_CLIENT);
         Role managerRole = roleRepository.findByName(Role.enumRole.ROLE_MANAGER);
         createManagerUsers("10744718-0", "correofalso@gmail.com",
                 "Marco Polo", "Calle falsa 123",
@@ -69,40 +55,19 @@ public class SetupDataLoader implements
     }
 
     /**
-     * Receives the name of the Privilege, and if the name is not found in the
-     * Privilege table, then add a Privilege to the database with that name.
-     * @param name it's the name of the Privilege
-     * @return A {@link Privilege Privilege} object that represent the
-     * privilege added, if the privilege wasn't added, then return null.
-     */
-
-    @Transactional
-    Privilege createPrivilege(final Privilege.EnumPrivilege name) {
-        Privilege privilege = privilegeRepository.findByName(name);
-        if (privilege == null) {
-            privilege = new Privilege(name);
-            privilegeRepository.save(privilege);
-        }
-        return privilege;
-    }
-
-    /**
-     * Receives the name of the Role and his privileges, and if the name is
+     * Receives the name of the Role, and if the name is
      * not found in the Role table, then add a Role to the table with that
      * name and privileges altogether.
-     * @param name       it's the name of the Role
-     * @param privileges All the privileges related to the role.
+     * @param name it's the name of the Role.
      * @return A role object that represents the role with his privileges
      * if the role was added successfully, otherwise returns a null.
      */
     @Transactional
-    Role createRole(final Role.enumRole name,
-                    final Collection<Privilege> privileges) {
+    Role createRole(final Role.enumRole name) {
         Role role = roleRepository.findByName(name);
         if (role == null) {
             role = new Role(name);
         }
-        role.setPrivileges(privileges);
         role = roleRepository.save(role);
         return role;
     }
