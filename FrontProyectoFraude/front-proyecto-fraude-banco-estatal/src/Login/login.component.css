@@ -64,6 +64,7 @@ body {
 
 .inner-container {
     transition: visibility 0.2s ease-out;
+    border-spacing: 15px;
 }
 
 .inner-container.show {

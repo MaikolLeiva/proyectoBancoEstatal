@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./register.component.css";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import CompanyLogo from './bancoestatal.jpg';
-
+import { useHistory } from "react-router-dom";
 function Register() {
   const [rut, setRut] = useState("")
   const [password, setPassword] = useState("")
@@ -12,27 +10,28 @@ function Register() {
   const [email, setEmail] = useState("")
   const [account, setAccount] = useState("")
   const [phone_number, setPhoneNumber] = useState("")
-
+  const history = useHistory();
   async function signUp() {
     let item = { rut, password, fullname, address, email, account, phone_number }
     console.warn(item)
     console.warn(JSON.stringify(item))
-    let result=await fetch("http://localhost:8080/register", {
+    let result = await fetch("http://localhost:8080/register", {
       method: 'POST',
       body: JSON.stringify(item),
-      
       headers: {
         "Content-Type": 'application/json',
         "Accept": 'application/json',
       }
     })
+    window.location.reload();
+    history.push("/login")
+
   }
   return (
     <div className="inner-container" className="fadeIn first">
-      <div className="header">Registro</div>
       <div className="box">
-        <div className="image">
-          <img src={CompanyLogo} />
+        <div className="image" >
+          <img src={CompanyLogo} width="300" height="150" />
         </div>
 
         <div className="input-group">
@@ -60,11 +59,11 @@ function Register() {
           <input type="text" value={phone_number} onChange={(e) => setPhoneNumber(e.target.value)} name="phone_number" className="login-input" placeholder="Número de contacto" />
           <div className="input-group">
             <label htmlFor="contraseña">Contraseña</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="contraseña" placeholder="contraseña" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="contraseña" className="login-input" placeholder="contraseña" maxlength="4" />
           </div>
         </div>
 
-        <div className="login-btn">
+        <div className="input-group">
           <button type="button" onClick={signUp} className="login-btn">
             Registrar
           </button>
