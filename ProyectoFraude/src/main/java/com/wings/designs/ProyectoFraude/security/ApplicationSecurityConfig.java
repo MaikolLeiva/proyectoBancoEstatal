@@ -8,6 +8,7 @@ import com.wings.designs.ProyectoFraude.jwt.JwtConfig;
 import com.wings.designs.ProyectoFraude.jwt.JwtTokenVerfier;
 import com.wings.designs.ProyectoFraude.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
+import com.wings.designs.ProyectoFraude.persistence.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,8 +73,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/user")
-                .hasAuthority(Privilege.EnumPrivilege.READ_USER.toString())
+                .antMatchers(HttpMethod.GET, "/tickets/**")
+                .hasRole("MANAGER")
+                .antMatchers(HttpMethod.PATCH, "/tickets/**")
+                .hasRole("MANAGER")
+                .antMatchers(HttpMethod.POST, "/tickets")
+                .hasRole("CLIENT")
                 .anyRequest()
                 .authenticated();
 

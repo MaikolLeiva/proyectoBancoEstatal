@@ -3,6 +3,8 @@
  */
 package com.wings.designs.ProyectoFraude.persistence.model;
 
+import com.wings.designs.ProyectoFraude.persistence.validation.ValidRut;
+
 import javax.persistence.*;
 
 /**
@@ -31,6 +33,7 @@ public class User {
     /**
      * Its the rut of the user. And identifier of every chilean citizen.
      */
+    @ValidRut
     @Column(name = "rut", updatable = false, nullable = false)
     private String rut;
 
