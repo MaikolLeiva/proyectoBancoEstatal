@@ -5,9 +5,9 @@
 package com.wings.designs.ProyectoFraude.security;
 
 import com.wings.designs.ProyectoFraude.persistence.model.User;
-import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
 import com.wings.designs.ProyectoFraude.persistence.model.Privilege;
 import com.wings.designs.ProyectoFraude.persistence.model.Role;
+import com.wings.designs.ProyectoFraude.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,14 +26,17 @@ import java.util.Optional;
 @Transactional
 public class UserDetailsServiceImp implements UserDetailsService {
 
+    /**
+     * the service that allow to make request to the database.
+     */
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(final String rut)
             throws UsernameNotFoundException {
         try {
-            final Optional<User> user = userRepository.findUsersByRut(rut);
+            final Optional<User> user = userService.findUsersByRut(rut);
             if (!user.isPresent()) {
                 throw new UsernameNotFoundException(
                         "No user found with rut: " + rut);

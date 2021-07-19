@@ -83,4 +83,14 @@ public class UserService {
         }
         userRepository.save(user);
     }
+
+    /**
+     * Given a rut return and Optional to check if a
+     * user with that rut exists.
+     * @param rut rut of the user looked.
+     * @return Optional object in any case.
+     */
+    public Optional<User> findUsersByRut(String rut) {
+        return userRepository.findUsersByRut(rut);
+    }
 }
