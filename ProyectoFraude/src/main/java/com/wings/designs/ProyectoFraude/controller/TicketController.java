@@ -7,10 +7,11 @@ import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
 import com.wings.designs.ProyectoFraude.requestbody.NewTicketRequest;
 import com.wings.designs.ProyectoFraude.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class TicketController {
      * service that allow to take data from
      * the ticket resource.
      */
-    public final TicketService ticketService;
+    private final TicketService ticketService;
 
     /**
      * Main constructor.
@@ -82,18 +83,18 @@ public class TicketController {
      *                to create a new ticket on the system.
      */
     @PostMapping()
-    public void registerNewTicket(@RequestBody NewTicketRequest request) {
+    public void registerNewTicket(final @RequestBody NewTicketRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
         ticketService.addNewTicket(request, userRut);
     }
 
     /**
-     * Given a ticket id, change the manager in charge of that ticket
-     * with the one that made the request, an also changes the status of
-     * the ticket to a pending one.
+     * Given a ticket id, if the status given is open then
+     * the manager takes under review the ticket. If the status
+     * is pending then the ticket is closed.
      * @param id It's the id of the ticket that the manager
-     *                 wants to take under review.
+     *                 wants to take under review or close.
      */
     @RequestMapping(method = RequestMethod.PATCH, value = "/{id}/")
     public void takeTicket(@PathVariable Long id, @RequestParam String status) {
@@ -103,17 +104,16 @@ public class TicketController {
         if (status.equals("open")){
             ticketService.takeTicket(userRut, id);
         }
-        if (status.equals("pending")){
-            ticketService.closeTicket(userRut, id);
+        else {
+            if (status.equals("pending")){
+                ticketService.closeTicket(userRut, id);
+            }
+            else {
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+            }
         }
     }
 
-    /**
-     * Given a ticket id, change the status of that ticket to close.
-     * The ticket needs to be in charge of the manager that made the request.
-     * @param id It's the id of the ticket that the manager wants
-     *                 to change to a close status.
-     */
 
 
 
