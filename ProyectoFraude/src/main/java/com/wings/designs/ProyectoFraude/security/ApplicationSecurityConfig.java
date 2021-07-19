@@ -28,10 +28,23 @@ import java.util.Arrays;
 @EnableWebSecurity
 
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+    /**
+     * The secret key used on the JWT token.
+     */
     private final SecretKey secretKey;
+
+    /**
+     * Configuration class with information about
+     * the JWT token.
+     */
     private final JwtConfig jwtConfig;
 
-
+    /**
+     * Main Constructor.
+     * @param secretKey secret key used on the JWT token.
+     * @param jwtConfig class with information about
+     *                  the JWT token.
+     */
     @Autowired
     public ApplicationSecurityConfig(final SecretKey secretKey,
                                      final JwtConfig jwtConfig) {
@@ -39,6 +52,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtConfig = jwtConfig;
     }
 
+    /**
+     * Set the security configuration for the HTTP
+     * security.
+     * @param http the HttpSecurity to be modified.
+     * @throws Exception
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
@@ -60,11 +79,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    /**
+     * Change the Cors configuration with the
+     * one set on this method.
+     * @return Class with the new Configuration for
+     * Cors policy.
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        source.registerCorsConfiguration("/**", config.applyPermitDefaultValues());
+        source.registerCorsConfiguration(
+                "/**", config.applyPermitDefaultValues());
         //allow Authorization to be exposed
         config.setExposedHeaders(Arrays.asList("Authorization"));
         return source;
