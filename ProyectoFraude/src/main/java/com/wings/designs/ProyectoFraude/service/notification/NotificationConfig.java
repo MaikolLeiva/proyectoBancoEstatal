@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration with information about the Notification service provided through
- * the application.properties file
+ * Configuration with information about the Notification
+ * service provided through the application.properties file.
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.mail")
@@ -30,7 +30,7 @@ public class NotificationConfig {
     private String password;
 
     /**
-     * Empty Constructor
+     * Empty Constructor.
      */
     public NotificationConfig() {
         // Nothing here.
@@ -60,15 +60,34 @@ public class NotificationConfig {
         return password;
     }
 
-    public void setHost(String host) {
+    /**
+     * Set the host with the given one.
+     * It's used automatically to bind
+     * with the value in the application.properties file.
+     * @param host host of the mail service.
+     */
+    public void setHost(final String host) {
         this.host = host;
     }
 
-    public void setUsername(String username) {
+    /**
+     * Set the username with the given one.
+     * It's used automatically to bind
+     * with the value in the application.properties file.
+     * @param username the new username to send emails.
+     */
+    public void setUsername(final String username) {
         this.username = username;
     }
 
-    public void setPassword(String password) {
+    /**
+     * Set the password with the given one.
+     * It's used automatically to bind
+     * with the value in the application.properties file.
+     * @param password the new password of the username
+     *                 that sends the emails.
+     */
+    public void setPassword(final String password) {
         this.password = password;
     }
 }
