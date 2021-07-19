@@ -6,8 +6,6 @@ package com.wings.designs.ProyectoFraude.service;
 import com.wings.designs.ProyectoFraude.controller.UserController;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,16 +18,17 @@ import java.util.Optional;
  */
 @Service
 public class UserService {
+    /**
+     * Class that allow to make changes or consults to
+     * the table of users in the database.
+     */
     private final UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     /**
      * Main constructor.
-     *
      * @param userRepository An object of the class
-     *                       {@link UserRepository UserRepository} that is needed
-     *                       to communicate with  the database.
+     *                       {@link UserRepository UserRepository}
+     *                       that is needed to communicate with
+     *                       the database.
      */
     public UserService(final UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -57,10 +56,22 @@ public class UserService {
         return userRepository.findUsersById(id);
     }
 
+    /**
+     * Look if a user with given Rut exists by
+     * providing an Optional object.
+     * @param rut the rut of the user looked.
+     * @return An optional in any case.
+     */
     public Optional<User> findUserByRut(final String rut) {
         return userRepository.findUsersByRut(rut);
     }
 
+    /**
+     * Retrieves a user that posses the given rut.
+     * @param rut rut of the user wanted.
+     * @return the User with the rut, if there's
+     * no User with that rut, returns null.
+     */
     public User getUsersByRut(final String rut) {
         return userRepository.getUserByRut(rut);
     }
@@ -90,7 +101,7 @@ public class UserService {
      * @param rut rut of the user looked.
      * @return Optional object in any case.
      */
-    public Optional<User> findUsersByRut(String rut) {
+    public Optional<User> findUsersByRut(final String rut) {
         return userRepository.findUsersByRut(rut);
     }
 }
