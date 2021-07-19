@@ -58,7 +58,7 @@ public class TicketController {
      * be taken by the managers. If there's no ticket with that status, then gives
      * an empty list
      */
-    @GetMapping("/available")
+    @GetMapping("?status=open")
     public List<Ticket> getTicketsAvailable() {
         return ticketService.getTicketsAvailable();
     }
@@ -69,7 +69,7 @@ public class TicketController {
      * by the managers. If there's no ticket with that status, then gives
      * an empty list
      */
-    @GetMapping("/pending")
+    @GetMapping("?status=pending")
     public List<Ticket> getTicketsTaken() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
@@ -81,7 +81,7 @@ public class TicketController {
      * @param request An object that has all the attributes needed
      *                to create a new ticket on the system.
      */
-    @PostMapping("/create")
+    @PostMapping()
     public void registerNewTicket(@RequestBody NewTicketRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
@@ -92,29 +92,30 @@ public class TicketController {
      * Given a ticket id, change the manager in charge of that ticket
      * with the one that made the request, an also changes the status of
      * the ticket to a pending one.
-     * @param ticketId It's the id of the ticket that the manager
+     * @param id It's the id of the ticket that the manager
      *                 wants to take under review.
      */
-    @PatchMapping("/me/manager/")
-    public void takeTicket(@RequestParam(name = "id") Long ticketId) {
+    @RequestMapping(method = RequestMethod.PATCH, value = "/{id}/")
+    public void takeTicket(@PathVariable Long id, @RequestParam String status) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
-        ticketService.takeTicket(userRut, ticketId);
-
+        System.out.println(status);
+        if (status.equals("open")){
+            ticketService.takeTicket(userRut, id);
+        }
+        if (status.equals("pending")){
+            ticketService.closeTicket(userRut, id);
+        }
     }
 
     /**
      * Given a ticket id, change the status of that ticket to close.
      * The ticket needs to be in charge of the manager that made the request.
-     * @param ticketId It's the id of the ticket that the manager wants
+     * @param id It's the id of the ticket that the manager wants
      *                 to change to a close status.
      */
-    @PatchMapping("/me/status/")
-    public void closeTicket(@RequestParam(name = "id") Long ticketId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userRut = (String) auth.getPrincipal();
-        ticketService.closeTicket(userRut, ticketId);
-    }
+
+
 
 
 }
