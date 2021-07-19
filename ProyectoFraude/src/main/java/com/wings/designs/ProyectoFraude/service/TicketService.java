@@ -18,15 +18,53 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * A service that provides all the methods need to retrieve
+ * data and make changes on the ticket resource in the database.
+ */
 @Service
 public class TicketService {
-
+    /**
+     * Class that has access to the query's on the ticket table
+     * on the database.
+     */
     private final TicketRepository ticketRepository;
+
+    /**
+     * Service with methods to make query's or consults on
+     * the client table in the database.
+     */
     private final ClientService clientService;
+
+    /**
+     * Service with methods to make query's or consults on
+     * the user_account table in the database.
+     */
     private final UserService userService;
+
+    /**
+     * Service with methods to make query's or consults on
+     * the manager table in the database.
+     */
     private final ManagerService managerService;
+
+    /**
+     * Service that allow to send emails.
+     */
     private final NotificationService notificationService;
 
+    /**
+     * Main constructor.
+     * @param ticketRepository Class that has access to the query's on the
+     *                         ticket table on the database.
+     * @param clientService class with methods to make query's or consults
+     *                     on the client table in the database.
+     * @param userService Service with methods to make query's or consults on
+     *                    the user_account table in the database.
+     * @param managerService Service with methods to make query's or consults
+     *                       on the manager table in the database.
+     * @param notificationService Service that allow to send emails.
+     */
     public TicketService(final TicketRepository ticketRepository,
                          final ClientService clientService,
                          final UserService userService,
@@ -39,21 +77,44 @@ public class TicketService {
         this.notificationService = notificationService;
     }
 
-
+    /**
+     * Get all the tickets on the database.
+     * @return A list with all the tickets on the database.
+     * An empty list if there's not one.
+     */
     public List<Ticket> getTickets() {
-
         return ticketRepository.findAll();
     }
 
+    /**
+     * Gives a list with all the tickets that a
+     * manager can take.
+     * @return A list with all the tickets that can be
+     * taken by a manager.
+     */
     public List<Ticket> getTicketsAvailable() {
         return ticketRepository.findTicketByStatus(
                 Ticket.enumStatesOfTicket.OPEN);
     }
 
+    /**
+     * Gives all the tickets that a manager have.
+     * @param managerRut the rut of the manager.
+     * @return A list of the tickets that a manager have.
+     * Empty list if he doesn't have any.
+     */
     public List<Ticket> getTicketsByManager(final String managerRut) {
         return ticketRepository.findTicketByManagerRut(managerRut);
     }
 
+    /**
+     * Checks the information given to make a new ticket on
+     * the database.
+     * @param ticketRequest the request with the information
+     *                      about the ticket to be made.
+     * @param userRut the rut of the user that made the
+     *                ticket request.
+     */
     public void addNewTicket(final NewTicketRequest ticketRequest,
                              final String userRut) {
         User user = userService.getUsersByRut(userRut);
@@ -73,6 +134,13 @@ public class TicketService {
 
     }
 
+    /**
+     * Gives a list of all the tickets that the manager has
+     * taken under review, and are still not closed.
+     * @param userRut the rut of the manager.
+     * @return A list with tickets. Or an empty list in case
+     * the manager doesn't have any tickets under review.
+     */
     public List<Ticket> getTicketsTakenByManager(final String userRut) {
         User user = userService.getUsersByRut(userRut);
         Manager manager = managerService.getManagerByUser(user);
@@ -80,6 +148,14 @@ public class TicketService {
                 Ticket.enumStatesOfTicket.PENDING, manager);
     }
 
+    /**
+     * Allow a manager to take a ticket with the id
+     * given.
+     * @param userRut the rut of the Manager tha wants to
+     *                take the ticket.
+     * @param ticketId the id of the ticket that is
+     *                 going to be taken.
+     */
     @Transactional
     public void takeTicket(final String userRut, final Long ticketId) {
         User user = userService.getUsersByRut(userRut);
@@ -102,6 +178,14 @@ public class TicketService {
         ticket.setManager(manager);
     }
 
+    /**
+     * Close a ticket with the given id if is under review
+     * under the manager with the rut given.
+     * @param userRut the rut of the manager that is under
+     *                control of the ticket.
+     * @param ticketId the id of the ticket that
+     *                 is going to be closed.
+     */
     @Transactional
     public void closeTicket(final String userRut, final Long ticketId) {
         User user = userService.getUsersByRut(userRut);
