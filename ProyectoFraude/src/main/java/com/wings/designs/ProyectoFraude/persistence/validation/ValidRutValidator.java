@@ -7,11 +7,27 @@ package com.wings.designs.ProyectoFraude.persistence.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Class that validates the rut. It's used with
+ * Bean validation.
+ */
 public class ValidRutValidator implements
         ConstraintValidator<ValidRut, String> {
+    /**
+     * Initializes the validator.
+     * @param constraint the constraint applied for the validation.
+     */
     public void initialize(final ValidRut constraint) {
     }
 
+    /**
+     * Given a rut, checks if it's valid or not and
+     * send a boolean as a result.
+     * @param rut The rut to ve validate
+     * @param context Gives extra information of
+     *                the context of the validation.
+     * @return true if the rut is valid. False in the other case.
+     */
     public boolean isValid(String rut,
                            final ConstraintValidatorContext context) {
         boolean validation = false;
