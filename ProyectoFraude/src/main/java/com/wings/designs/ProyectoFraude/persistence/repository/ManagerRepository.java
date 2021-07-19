@@ -31,4 +31,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
      */
     @Query("SELECT m FROM manager m WHERE m.user.id = :#{#user.id}")
     Manager getManagerByUser(@Param("user") User user);
+
+    @Query("SELECT m FROM manager m WHERE m.rut=?1")
+    Manager getManagerByRut(String rut);
 }

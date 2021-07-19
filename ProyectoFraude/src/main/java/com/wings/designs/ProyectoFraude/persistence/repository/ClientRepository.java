@@ -58,6 +58,14 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     Client getClientById(Long id);
 
     /**
+     * Get the client with the given rut.
+     * @param rut The rut of the client wanted.
+     * @return A client with that id if exists, otherwise returns null.
+     */
+    @Query("SELECT c FROM client c WHERE c.rut=?1")
+    Client getClientByRut(String rut);
+
+    /**
      * Given the user assigned for a client, returns that client.
      * @param user the user associated with the client on the system.
      * @return A client with the given user. If the user

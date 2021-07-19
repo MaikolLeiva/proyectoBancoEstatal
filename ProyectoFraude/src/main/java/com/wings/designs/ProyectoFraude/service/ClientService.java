@@ -48,6 +48,10 @@ public class ClientService {
         return clientRepository.getClientById(id);
     }
 
+    public Client getClientByRut(final String rut) {
+        return clientRepository.getClientByRut(rut);
+    }
+
     public Client getClientByUser(final User user) {
         return clientRepository.getClientByUser(user);
     }

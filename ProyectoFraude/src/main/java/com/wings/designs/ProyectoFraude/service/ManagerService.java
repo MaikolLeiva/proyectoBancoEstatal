@@ -31,4 +31,8 @@ public class ManagerService {
     public Manager addNewManager(final Manager manager) {
         return this.managerRepository.save(manager);
     }
+
+    public Manager getManagerByRut(String rut) {
+        return managerRepository.getManagerByRut(rut);
+    }
 }

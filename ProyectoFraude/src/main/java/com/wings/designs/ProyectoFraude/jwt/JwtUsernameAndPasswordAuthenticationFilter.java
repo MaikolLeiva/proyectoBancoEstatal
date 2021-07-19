@@ -5,6 +5,11 @@
 package com.wings.designs.ProyectoFraude.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wings.designs.ProyectoFraude.persistence.model.Client;
+import com.wings.designs.ProyectoFraude.persistence.model.Manager;
+import com.wings.designs.ProyectoFraude.service.ClientService;
+import com.wings.designs.ProyectoFraude.service.ManagerService;
+import com.wings.designs.ProyectoFraude.service.RoleService;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,6 +49,18 @@ public class JwtUsernameAndPasswordAuthenticationFilter
     private final SecretKey secretKey;
 
     /**
+     * Necessary to give information about the user if
+     * it's a manager.
+     */
+    private final ManagerService managerService;
+
+    /**
+     * Necessary to give information about the user if
+     * it's a client.
+     */
+    private final ClientService clientService;
+
+    /**
      * Main constructor.
      * @param authenticationManager class that authenticate password
      *                              and username given.
@@ -53,10 +70,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter
     public JwtUsernameAndPasswordAuthenticationFilter(
             final AuthenticationManager authenticationManager,
             final JwtConfig jwtConfig,
-            final SecretKey secretKey) {
+            final SecretKey secretKey,
+            final ManagerService managerService,
+            final ClientService clientService) {
         this.authenticationManager = authenticationManager;
         this.jwtConfig = jwtConfig;
         this.secretKey = secretKey;
+        this.managerService = managerService;
+        this.clientService = clientService;
     }
 
     /**
@@ -106,13 +127,34 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                                             final Authentication authResult)
             throws IOException, ServletException {
 
+        System.out.println(authResult.getName());
+        System.out.println(authResult.getAuthorities());
+        System.out.println(authResult.getPrincipal());
+        String name = "";
+        Long id = null;
+        if(authResult.getAuthorities().toString().equals("[ROLE_CLIENT]")){
+            Client client = this.clientService
+                    .getClientByRut(authResult.getName());
+            name = client.getFullName();
+            id = client.getId();
+        }
+        if(authResult.getAuthorities().toString().equals("[ROLE_MANAGER]")){
+            Manager manager = this.managerService
+                    .getManagerByRut(authResult.getName());
+            name = manager.getFullName();
+            id = manager.getId();
+        }
         Calendar expirationDate = Calendar.getInstance();
         expirationDate.setTime(new Date());
         expirationDate.add(Calendar.HOUR_OF_DAY,
                 jwtConfig.getTokenExpirationAfterHours());
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
-                .claim("authorities", authResult.getAuthorities())
+                .claim("name", name)
+                .claim("id", id)
+                .claim("authority", authResult
+                        .getAuthorities()
+                        .toArray()[0].toString())
                 .setIssuedAt(new Date())
                 .setExpiration(expirationDate.getTime())
                 .signWith(secretKey)

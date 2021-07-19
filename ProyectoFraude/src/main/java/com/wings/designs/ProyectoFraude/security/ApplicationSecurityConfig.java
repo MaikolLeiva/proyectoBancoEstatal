@@ -7,6 +7,8 @@ package com.wings.designs.ProyectoFraude.security;
 import com.wings.designs.ProyectoFraude.jwt.JwtConfig;
 import com.wings.designs.ProyectoFraude.jwt.JwtTokenVerfier;
 import com.wings.designs.ProyectoFraude.jwt.JwtUsernameAndPasswordAuthenticationFilter;
+import com.wings.designs.ProyectoFraude.service.ClientService;
+import com.wings.designs.ProyectoFraude.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +41,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtConfig jwtConfig;
 
     /**
+     * Necessary to give information about the user if
+     * it's a manager.
+     */
+    private final ManagerService managerService;
+
+    /**
+     * Necessary to give information about the user if
+     * it's a client.
+     */
+    private final ClientService clientService;
+
+    /**
      * Main Constructor.
      * @param secretKey secret key used on the JWT token.
      * @param jwtConfig class with information about
@@ -46,9 +60,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     public ApplicationSecurityConfig(final SecretKey secretKey,
-                                     final JwtConfig jwtConfig) {
+                                     final JwtConfig jwtConfig,
+                                     final ClientService clientService,
+                                     final ManagerService managerService) {
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
+        this.managerService = managerService;
+        this.clientService = clientService;
     }
 
     /**
@@ -66,7 +84,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(
-                        authenticationManager(), jwtConfig, secretKey))
+                        authenticationManager(),
+                        jwtConfig,
+                        secretKey,
+                        managerService,
+                        clientService))
                 .addFilterAfter(new JwtTokenVerfier(secretKey, jwtConfig),
                         JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
