@@ -97,7 +97,7 @@ public class TicketController {
      *                 wants to take under review or close.
      */
     @RequestMapping(method = RequestMethod.PATCH, value = "/{id}/")
-    public void takeTicket(@PathVariable Long id, @RequestParam String status) {
+    public void changeTicketStatus(@PathVariable Long id, @RequestParam String status) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
         System.out.println(status);

@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -207,7 +209,9 @@ public class TicketService {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,
                     "the manager has not taken this ticket");
         }
+        LocalDate localDate = LocalDate.now();
         ticket.setStatus(Ticket.enumStatesOfTicket.CLOSED);
+        ticket.setEndDate(localDate);
         notificationService.sendNotificationToClient(ticket);
     }
 }

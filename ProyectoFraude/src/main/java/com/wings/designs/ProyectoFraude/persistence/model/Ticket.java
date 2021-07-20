@@ -3,7 +3,10 @@
  */
 package com.wings.designs.ProyectoFraude.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * Represents a ticket for a fraudulent case made for an user.
@@ -15,7 +18,7 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity(name = "Ticket")
-public class Ticket {
+public class Ticket implements Comparable<Ticket> {
     /**
      * It's the identifier of the ticket on the database.
      */
@@ -47,6 +50,13 @@ public class Ticket {
     @Column(name = "status", nullable = false)
     private enumStatesOfTicket status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "end_date")
+    private LocalDate endDate;
     /**
      * It's the client that made the ticket.
      */
@@ -86,6 +96,7 @@ public class Ticket {
         this.status = status;
         this.client = client;
         this.manager = null;
+        this.startDate = LocalDate.now();
     }
 
     /**
@@ -126,6 +137,7 @@ public class Ticket {
 
     /**
      * Change the status of the ticket with the given one.
+     *
      * @param status the new status of the ticket.
      */
     public void setStatus(final enumStatesOfTicket status) {
@@ -153,10 +165,53 @@ public class Ticket {
 
     /**
      * Set the manager on charge of the ticket with the given one.
+     *
      * @param manager the manager that is now in charge of the ticket.
      */
     public void setManager(final Manager manager) {
         this.manager = manager;
+    }
+
+    /**
+     * Returns the date in which the ticket was created
+     * by a client
+     * @return the creation date if the ticket has one or
+     * null in the other case.
+     */
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Returns the date in which the ticket was finally
+     * closed by a manager
+     * @return the end date if the ticket has one or
+     * null in the other case.
+     */
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * Set the end date of the ticket with
+     * the given date.
+     * @param endDate the end date of the ticket.
+     */
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    /**
+     * Compares the id of this ticket with the given ticket id,
+     * then returns an integer that represents with one have a
+     * greater id.
+     * @param o ticket to be compared by id.
+     * @return a negative integer, zero, or a positive integer as this Ticket
+     * is less than, equal to, or greater than the specified Ticket.
+     */
+    @Override
+    public int compareTo(Ticket o) {
+        return this.getId().compareTo(o.getId());
     }
 
 
