@@ -27,8 +27,10 @@ function Login() {
       token.replace("bearer ", "");
       let decoded = jwt_decode(token);
       localStorage.setItem("rol", decoded.authorities[0].authority);
+      localStorage.setItem("id",decoded.id)
+      localStorage.setItem("nombre",decoded.name)
       console.warn(localStorage.getItem("rol"))
-
+      console.warn(decoded)
       window.location.reload();
       history.push("/home")
 

@@ -5,7 +5,6 @@ function VerCasos() {
     const [data, setData] = useState([])
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState(null);
-    const [q, setQ] = useState("")
     const history = useHistory();
     useEffect(() => {
         fetch("http://localhost:8080/tickets?status=open", {

@@ -21,7 +21,7 @@ function NavbarWeb() {
                                 <>
                                     {localStorage.getItem('rol') == "ROLE_CLIENT" ?
                                         <>
-                                            <NavDropdown title={localStorage.getItem("usuario")} id="basic-nav-dropdown">
+                                            <NavDropdown title={localStorage.getItem("nombre")} id="basic-nav-dropdown">
                                                 <NavDropdown.Item href="/levantarTicket">Ingresar ticket</NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item onClick={logOut}>Cerrar sesión</NavDropdown.Item>
@@ -29,7 +29,7 @@ function NavbarWeb() {
                                         </>
                                         :
                                         <>
-                                            <NavDropdown title={localStorage.getItem("usuario")} id="basic-nav-dropdown">
+                                            <NavDropdown title={localStorage.getItem("nombre")} id="basic-nav-dropdown">
                                                 <NavDropdown.Item href="/verCasos">Ver Casos</NavDropdown.Item>
                                                 <NavDropdown.Item href="/home">Ver Casos Tomados</NavDropdown.Item>
                                                 <NavDropdown.Item href="/home">Generar PDF</NavDropdown.Item>

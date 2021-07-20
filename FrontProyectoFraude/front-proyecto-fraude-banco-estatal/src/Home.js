@@ -1,5 +1,6 @@
 import React from 'react';
 import CompanyLogo from './bancoestatal.jpg';
+import "./Home.css";
 function Home() {
  
 
