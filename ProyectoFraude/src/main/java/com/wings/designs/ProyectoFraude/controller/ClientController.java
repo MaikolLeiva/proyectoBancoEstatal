@@ -6,7 +6,6 @@ package com.wings.designs.ProyectoFraude.controller;
 
 import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.service.ClientService;
-import com.wings.designs.ProyectoFraude.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -25,26 +24,17 @@ import java.util.List;
 public class ClientController {
     /**
      * service that allow to take data from
-     * the ticket resource.
-     */
-    private final TicketService ticketService;
-    /**
-     * service that allow to take data from
      * the client resource.
      */
     private final ClientService clientService;
 
     /**
-     * Main constructor.
-     * @param ticketService service that allow to take data from
-     *                      the ticket resource. It's autowired.
+     * Main constructor..
      * @param clientService service that allow to take data from
      *                      the client resource. It's autowired.
      */
     @Autowired
-    public ClientController(final TicketService ticketService,
-                            final ClientService clientService) {
-        this.ticketService = ticketService;
+    public ClientController(final ClientService clientService) {
         this.clientService = clientService;
     }
 

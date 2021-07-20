@@ -93,6 +93,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/register/**").permitAll()
+                .antMatchers("/managers/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/tickets/**")
                 .hasRole("MANAGER")
                 .antMatchers(HttpMethod.PATCH, "/tickets/**")

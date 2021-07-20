@@ -126,10 +126,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                                             final FilterChain chain,
                                             final Authentication authResult)
             throws IOException, ServletException {
-
-        System.out.println(authResult.getName());
-        System.out.println(authResult.getAuthorities());
-        System.out.println(authResult.getPrincipal());
         String name = "";
         Long id = null;
         if(authResult.getAuthorities().toString().equals("[ROLE_CLIENT]")){
