@@ -152,9 +152,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                 .setSubject(authResult.getName())
                 .claim("name", name)
                 .claim("id", id)
-                .claim("authority", authResult
-                        .getAuthorities()
-                        .toArray()[0].toString())
+                .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(expirationDate.getTime())
                 .signWith(secretKey)
