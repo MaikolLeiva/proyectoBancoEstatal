@@ -30,11 +30,9 @@ public class Manager {
      * An identifier to difference a manager to another in the same table.
      */
     @Id
-    @SequenceGenerator(name = "client-sequence",
-            sequenceName = "client_sequence",
-            allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "client_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "manager_secuence")
+    @SequenceGenerator(name = "manager_secuence", sequenceName = "manager_secuence",
+            allocationSize = 1,initialValue=1)
     @Column(name = "id", updatable = false)
     private Long id;
 
