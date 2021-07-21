@@ -84,4 +84,13 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
      */
     @Query("FROM Ticket t WHERE t.id=?1")
     Ticket getTicketById(Long id);
+
+    /**
+     * Search for a ticket with the given id in the database,
+     * and returns and optional for checking if exists.
+     * @param id the id of the ticket looked.
+     * @return An Optional object in any case.
+     */
+    @Query("FROM Ticket t WHERE t.id=?1")
+    Optional<Ticket> findTicketById(Long id);
 }

@@ -214,4 +214,18 @@ public class TicketService {
         ticket.setEndDate(localDate);
         notificationService.sendNotificationToClient(ticket);
     }
+
+    /**
+     * Returns the ticket with the id given, if the ticket
+     * doesn't exist gives a 404 http response.
+     * @param id the ticket looked.
+     * @return the ticket with the id given.
+     */
+    public Ticket getTicket(Long id) {
+        if(!ticketRepository.findTicketById(id).isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "the ticket doesn't exists");
+        }
+        return ticketRepository.getTicketById(id);
+    }
 }
