@@ -50,6 +50,7 @@ public class PdfService {
                                      List<Ticket> tickets) {
         Long maxTimeTakenToResolve = 0L;
         Long averageTimeTakenToResolve = 0L;
+        Long numberOfTickets = 0L;
         for (Ticket ticket : tickets) {
             Period period;
             if (ticket.getStatus().equals(Ticket.enumStatesOfTicket.CLOSED)) {
@@ -69,14 +70,14 @@ public class PdfService {
                 if (timeTaken > maxTimeTakenToResolve) {
                     maxTimeTakenToResolve = timeTaken;
                 }
+                numberOfTickets = numberOfTickets+1L;
                 averageTimeTakenToResolve = averageTimeTakenToResolve
                         + timeTaken;
             }
         }
-        int numberOfTickets = tickets.size();
         averageTimeTakenToResolve = averageTimeTakenToResolve / numberOfTickets;
         List<Long> list = new ArrayList<Long>();
-        list.add((long) numberOfTickets);
+        list.add(numberOfTickets);
         list.add(averageTimeTakenToResolve);
         list.add(maxTimeTakenToResolve);
         return list;

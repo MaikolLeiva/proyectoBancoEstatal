@@ -114,7 +114,7 @@ public class TicketController {
      * @param id It's the id of the ticket that the manager
      *           wants to take under review or close.
      */
-    @RequestMapping(method = RequestMethod.PATCH, value = "/{id}/")
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}/")
     public void changeTicketStatus(@PathVariable Long id, @RequestParam String status) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
