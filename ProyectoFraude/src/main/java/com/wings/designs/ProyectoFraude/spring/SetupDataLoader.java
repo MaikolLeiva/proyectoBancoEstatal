@@ -7,8 +7,8 @@ package com.wings.designs.ProyectoFraude.spring;
 import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import com.wings.designs.ProyectoFraude.persistence.model.Role;
-import com.wings.designs.ProyectoFraude.persistence.repository.RoleRepository;
 import com.wings.designs.ProyectoFraude.service.ManagerService;
+import com.wings.designs.ProyectoFraude.service.RoleService;
 import com.wings.designs.ProyectoFraude.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -23,17 +23,46 @@ import java.util.*;
 @Component
 public class SetupDataLoader implements
         ApplicationListener<ContextRefreshedEvent> {
+    /**
+     * Flag to check if the method to
+     * set things at the start was executed already.
+     */
     private boolean alreadySetup = false;
+
+    /**
+     * Service to retrieve and send information
+     * to the user table in the database.
+     */
     @Autowired
     private UserService userService;
+
+    /**
+     * Service to retrieve and send information
+     * to the manager table in the database.
+     */
     @Autowired
     private ManagerService managerService;
+
+    /**
+     * Class that though his methods allow
+     * to make request or retrieve data to
+     * the role table in the database.
+     */
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleService roleService;
+
+    /**
+     * Encoder of passwords.
+     */
     @Autowired
     private PasswordEncoder passwordEncoder;
 
 
+    /**
+     * Set the database with the roles of the users,
+     * also insert all the managers in the database.
+     * @param event the event to respond to.
+     */
     @Override
     @TransactionalEventListener
     public void onApplicationEvent(final ContextRefreshedEvent event) {
@@ -43,7 +72,8 @@ public class SetupDataLoader implements
         }
         createRole(Role.enumRole.ROLE_MANAGER);
         createRole(Role.enumRole.ROLE_CLIENT);
-        Role managerRole = roleRepository.findByName(Role.enumRole.ROLE_MANAGER);
+        Role managerRole = roleService.findRoleByName(
+                Role.enumRole.ROLE_MANAGER);
         createManagerUsers("10744718-0", "correofalso@gmail.com",
                 "Marco Polo", "Calle falsa 123",
                 managerRole, "1234");
@@ -60,19 +90,26 @@ public class SetupDataLoader implements
      * name and privileges altogether.
      *
      * @param name it's the name of the Role.
-     * @return A role object that represents the role with his privileges
-     * if the role was added successfully, otherwise returns a null.
      */
     @Transactional
-    Role createRole(final Role.enumRole name) {
-        Role role = roleRepository.findByName(name);
+    void createRole(final Role.enumRole name) {
+        Role role = roleService.findRoleByName(name);
         if (role == null) {
             role = new Role(name);
         }
-        role = roleRepository.save(role);
-        return role;
+        role = roleService.save(role);
     }
 
+    /**
+     * Given all the information needed to create a manager,
+     * creates one.
+     * @param rut rut of the manager.
+     * @param email email of the manager.
+     * @param fullname complete name of the manager.
+     * @param address address of the manager.
+     * @param role role of the manager.
+     * @param password password of the manager.
+     */
     @Transactional
     void createManagerUsers(final String rut, final String email,
                             final String fullname, final String address,

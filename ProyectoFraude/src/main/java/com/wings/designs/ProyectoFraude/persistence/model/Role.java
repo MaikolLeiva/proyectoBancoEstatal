@@ -5,7 +5,6 @@
 package com.wings.designs.ProyectoFraude.persistence.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 /**
  * Represents a Role of the system in the Database.

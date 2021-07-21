@@ -200,7 +200,7 @@ public class Ticket implements Comparable<Ticket> {
      *
      * @param endDate the end date of the ticket.
      */
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -214,7 +214,7 @@ public class Ticket implements Comparable<Ticket> {
      * is less than, equal to, or greater than the specified Ticket.
      */
     @Override
-    public int compareTo(Ticket o) {
+    public int compareTo(final Ticket o) {
         return this.getId().compareTo(o.getId());
     }
 

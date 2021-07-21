@@ -24,10 +24,19 @@ import java.util.List;
 @Service
 public class PdfService {
 
+    /**
+     * Empty Constructor.
+     */
     public PdfService() {
+        //Nothing here.
     }
 
-    public void writeTableHeader(PdfPTable table) {
+    /**
+     * Given a table, write the headers needed to make
+     * the manager report on pdf.
+     * @param table the Pdf table where the headers will be.
+     */
+    public void writeTableHeader(final PdfPTable table) {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(Color.ORANGE.darker());
         cell.setPadding(5);
@@ -46,8 +55,16 @@ public class PdfService {
         }
     }
 
-    public List<Long> writeTableData(PdfPTable table,
-                                     List<Ticket> tickets) {
+    /**
+     *
+     * @param table the table where the data will be in.
+     * @param tickets the tickets of the manager that the
+     *                report is based of.
+     * @return Return a list of Long values with statistics
+     * of the report.
+     */
+    public List<Long> writeTableData(final PdfPTable table,
+                                     final List<Ticket> tickets) {
         Long maxTimeTakenToResolve = 0L;
         Long averageTimeTakenToResolve = 0L;
         Long numberOfTickets = 0L;
@@ -70,7 +87,7 @@ public class PdfService {
                 if (timeTaken > maxTimeTakenToResolve) {
                     maxTimeTakenToResolve = timeTaken;
                 }
-                numberOfTickets = numberOfTickets+1L;
+                numberOfTickets = numberOfTickets + 1L;
                 averageTimeTakenToResolve = averageTimeTakenToResolve
                         + timeTaken;
             }
@@ -84,16 +101,24 @@ public class PdfService {
 
     }
 
-    public void getManagerReport(List<Ticket> tickets,
-                                 String name,
-                                 HttpServletResponse response)
+    /**
+     *
+     * @param tickets the tickets of the manager.
+     * @param name the name of the manager.
+     * @param response the response needed to send the
+     *                pdf to the client.
+     * @throws IOException
+     */
+    public void getManagerReport(final List<Ticket> tickets,
+                                 final String name,
+                                 final HttpServletResponse response)
             throws IOException {
         Collections.sort(tickets);
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
         document.open();
-        document.add(new Paragraph
-                ("REPORT OF CLOSED TICKETS OF "
+        document.add(new Paragraph(
+                "REPORT OF CLOSED TICKETS OF "
                         + name.toUpperCase()));
         PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100);
@@ -102,8 +127,8 @@ public class PdfService {
         writeTableHeader(table);
         List<Long> list = writeTableData(table, tickets);
         document.add(table);
-        document.add(new Paragraph
-                ("Number of tickets: " + list.get(0) + "\n"
+        document.add(new Paragraph(
+                "Number of tickets: " + list.get(0) + "\n"
                         + "Average days taken to resolve: " + list.get(1) + "\n"
                         + "Maximum days taken to resolve: " + list.get(2) + "\n"));
         document.close();

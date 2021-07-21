@@ -21,8 +21,21 @@ import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
+    /**
+     * Exception handler for
+     * {@link MethodArgumentNotValidException MethodArgumentNotValidException}.
+     * @param ex the exception caught.
+     * @param headers headers that the client sent.
+     * @param status status sent by the client.
+     * @param request request sent by the client.
+     * @return Response entity with the information
+     * to be send about the error.
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             final MethodArgumentNotValidException ex,
@@ -34,7 +47,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
+            errors.add(error.getObjectName() + ": "
+                    + error.getDefaultMessage());
         }
 
         ApiError apiError =
@@ -44,6 +58,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 ex, apiError, headers, apiError.getStatus(), request);
     }
 
+    /**
+     *
+     * @param ex exception caught.
+     * @param request request sent by the client.
+     * @return Response entity with the information
+     * to be send about the error.
+     */
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintViolation(
             final ConstraintViolationException ex, final WebRequest request) {
@@ -61,6 +82,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
 
+    /**
+     * Custom exception handler for certain exceptions.
+     * {@link org.hibernate.TypeMismatchException TypeMismatchException}.
+     * @param ex exception handled.
+     * @param request request made.
+     * @return Response entity with the information
+     * to be send about the error.
+     */
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
             final MethodArgumentTypeMismatchException ex,

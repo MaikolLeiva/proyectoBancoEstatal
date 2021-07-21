@@ -3,7 +3,6 @@
  */
 package com.wings.designs.ProyectoFraude.service;
 
-import com.wings.designs.ProyectoFraude.controller.UserController;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import com.wings.designs.ProyectoFraude.persistence.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import java.util.Optional;
 
 /**
  * Serves as the layer that is behind the logic for the requests made in the
- * {@link UserController RestController} and also communicates with the
  * {@link UserRepository Repository layer}.
  */
 @Service

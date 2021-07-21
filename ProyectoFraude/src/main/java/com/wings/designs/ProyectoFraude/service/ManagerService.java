@@ -40,7 +40,7 @@ public class ManagerService {
      * @param pdfService Service used to make a pdf.
      */
     public ManagerService(final ManagerRepository managerRepository,
-                          PdfService pdfService) {
+                          final PdfService pdfService) {
         this.managerRepository = managerRepository;
         this.pdfService = pdfService;
     }
@@ -78,11 +78,19 @@ public class ManagerService {
      * @param rut the rut of the manager wanted.
      * @return A manager if found, null if not.
      */
-    public Manager getManagerByRut(String rut) {
+    public Manager getManagerByRut(final String rut) {
         return managerRepository.getManagerByRut(rut);
     }
 
-    public void exportPdf(HttpServletResponse response, Long managerId) throws IOException {
+    /**
+     *
+     * @param response The response given to the client.
+     * @param managerId the id of the manager where the report is
+     *                  based of.
+     * @throws IOException
+     */
+    public void exportPdf(final HttpServletResponse response,
+                          final Long managerId) throws IOException {
         Manager manager = managerRepository.getManagerById(managerId);
         List<Ticket> list = manager.getTicketList();
         this.pdfService.getManagerReport(list, manager.getFullName(), response);

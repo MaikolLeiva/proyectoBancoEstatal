@@ -51,7 +51,8 @@ public class ManagerController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/tickets/export")
     public void exportManagerReport(@PathVariable final Long id,
-                                    HttpServletResponse response) throws IOException {
+                                    final HttpServletResponse response)
+            throws IOException {
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename= report.pdf";

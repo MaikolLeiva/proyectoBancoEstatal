@@ -42,7 +42,7 @@ public class TicketController {
      *                      the ticket resource. It's autowired.
      */
     @Autowired
-    public TicketController(TicketService ticketService) {
+    public TicketController(final TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
@@ -63,7 +63,7 @@ public class TicketController {
      * @param id Id of the ticket looked.
      */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/")
-    public Ticket getTicket(@PathVariable Long id) {
+    public Ticket getTicket(@PathVariable final Long id) {
         return ticketService.getTicket(id);
     }
 
@@ -115,7 +115,8 @@ public class TicketController {
      *           wants to take under review or close.
      */
     @RequestMapping(method = RequestMethod.POST, value = "/{id}/")
-    public void changeTicketStatus(@PathVariable Long id, @RequestParam String status) {
+    public void changeTicketStatus(@PathVariable final Long id,
+                                   @RequestParam final String status) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
         System.out.println(status);

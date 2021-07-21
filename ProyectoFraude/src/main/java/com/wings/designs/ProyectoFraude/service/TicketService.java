@@ -230,7 +230,7 @@ public class TicketService {
      * @param id the ticket looked.
      * @return the ticket with the id given.
      */
-    public Ticket getTicket(Long id) {
+    public Ticket getTicket(final Long id) {
         if (!ticketRepository.findTicketById(id).isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "the ticket doesn't exists");
