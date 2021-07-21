@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
@@ -59,7 +58,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     *
+     * Exception handler for
+     * {@link ConstraintViolationException ConstraintViolationException}.
      * @param ex exception caught.
      * @param request request sent by the client.
      * @return Response entity with the information
