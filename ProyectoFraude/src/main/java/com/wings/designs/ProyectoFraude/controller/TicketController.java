@@ -74,7 +74,7 @@ public class TicketController {
      * be taken by the managers. If there's no ticket with that status, then gives
      * an empty list
      */
-    @GetMapping("?status=open")
+    @GetMapping("/open/")
     public List<Ticket> getTicketsAvailable() {
         return ticketService.getTicketsAvailable();
     }
@@ -86,7 +86,7 @@ public class TicketController {
      * by the managers. If there's no ticket with that status, then gives
      * an empty list
      */
-    @GetMapping("?status=pending")
+    @GetMapping("/pending/")
     public List<Ticket> getTicketsTaken() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userRut = (String) auth.getPrincipal();
