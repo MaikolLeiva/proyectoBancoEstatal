@@ -5,13 +5,10 @@
 package com.wings.designs.ProyectoFraude.persistence.repository;
 
 import com.wings.designs.ProyectoFraude.persistence.model.Manager;
-import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
 import com.wings.designs.ProyectoFraude.persistence.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 import java.util.Optional;
 
 public interface ManagerRepository extends JpaRepository<Manager, Long> {
@@ -35,9 +32,21 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
     @Query("SELECT m FROM manager m WHERE m.user.id = :#{#user.id}")
     Manager getManagerByUser(@Param("user") User user);
 
+    /**
+     * Return a manager with the rut given.
+     * @param rut rut of the manager wanted.
+     * @return a manager if found, or null in the
+     * other case.
+     */
     @Query("SELECT m FROM manager m WHERE m.rut=?1")
     Manager getManagerByRut(String rut);
 
+    /**
+     * Return a manager with the id given.
+     * @param managerId the id of the manager wanted.
+     * @return a manager if found, or null in the
+     * other case.
+     */
     @Query("SELECT m FROM manager m WHERE m.id=?1")
     Manager getManagerById(Long managerId);
 }

@@ -9,7 +9,6 @@ import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.persistence.model.Manager;
 import com.wings.designs.ProyectoFraude.service.ClientService;
 import com.wings.designs.ProyectoFraude.service.ManagerService;
-import com.wings.designs.ProyectoFraude.service.RoleService;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

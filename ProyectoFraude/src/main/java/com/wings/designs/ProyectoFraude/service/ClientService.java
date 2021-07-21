@@ -21,11 +21,43 @@ import java.util.Optional;
 
 @Service
 public class ClientService {
+    /**
+     * Used to make request or changes into the
+     * database client table through the methods defined in this
+     * service.
+     */
     private final ClientRepository clientRepository;
+
+    /**
+     * Used to make requests into the role table in
+     * the database through methods defined in this
+     * service.
+     */
     private final RoleService roleService;
+
+    /**
+     * Used to encrypt the password when a user
+     * make a register request.
+     */
     private final PasswordEncoder passwordEncoder;
+
+    /**
+     * Used to make request or changes into the
+     * database user table through the methods defined in this
+     * service.
+     */
     private final UserService userService;
 
+    /**
+     *
+     * @param clientRepository repository to make changes request or changes
+     *                         into the database client table
+     * @param roleService service to make changes request into the role table in
+     *                    the database
+     * @param passwordEncoder Encoder used to encrypt a password.
+     * @param userService service to make request or changes into the
+     *                    database user table.
+     */
     public ClientService(final ClientRepository clientRepository,
                          final RoleService roleService,
                          final PasswordEncoder passwordEncoder,
@@ -36,26 +68,44 @@ public class ClientService {
         this.userService = userService;
     }
 
+    /**
+     * Returns all the clients on the database.
+     * @return A List with all the clients.
+     * Empty list if there's no clients.
+     */
     public List<Client> getClients() {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> findClientById(final Long id) {
-        return clientRepository.findClientById(id);
-    }
-
-    public Client getClientById(final Long id) {
-        return clientRepository.getClientById(id);
-    }
-
+    /**
+     * Returns the client with the given rut.
+     * @param rut rut of the client wanted.
+     * @return A client if found, or a null in
+     * the other case.
+     */
     public Client getClientByRut(final String rut) {
         return clientRepository.getClientByRut(rut);
     }
 
+    /**
+     * Returns a client with the given user.
+     * @param user the user of the client wanted.
+     * @return A client if found, or a null in
+     * the other case.
+     */
     public Client getClientByUser(final User user) {
         return clientRepository.getClientByUser(user);
     }
 
+    /**
+     * Register a new client with the data given through
+     * the registration request.
+     * @param registrationRequest the request with all the
+     *                            information needed to register
+     *                            a client into the system.
+     * @throws ConstraintViolationException If the data given
+     * is not valid.
+     */
     @Transactional
     public void addNewClient(final RegistrationRequest registrationRequest)
             throws ConstraintViolationException {
@@ -85,9 +135,12 @@ public class ClientService {
                 passwordEncoder.encode(registrationRequest.getPassword()),
                 roleService.findRoleByName(Role.enumRole.ROLE_CLIENT));
         Client newClient = new Client(registrationRequest.getRut(),
-                registrationRequest.getFullName(), registrationRequest.getAddress(),
-                registrationRequest.getEmail(), registrationRequest.getAccount(),
-                registrationRequest.getPhoneNumber(), userForNewClient);
+                registrationRequest.getFullName(),
+                registrationRequest.getAddress(),
+                registrationRequest.getEmail(),
+                registrationRequest.getAccount(),
+                registrationRequest.getPhoneNumber(),
+                userForNewClient);
         clientRepository.save(newClient);
     }
 }

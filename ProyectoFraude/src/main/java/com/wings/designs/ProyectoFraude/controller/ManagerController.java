@@ -8,7 +8,6 @@ import com.wings.designs.ProyectoFraude.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -26,15 +25,32 @@ import java.io.IOException;
 @RequestMapping("/managers")
 public class ManagerController {
 
+    /**
+     * To make changes or request to the manager table
+     * in the database through the methods of this service.
+     */
     private final ManagerService managerService;
 
+    /**
+     * Main constructor. Autowired.
+     *
+     * @param managerService service used to retrieve data
+     *                       from the manager table in the
+     *                       database.
+     */
     @Autowired
     public ManagerController(final ManagerService managerService) {
         this.managerService = managerService;
     }
 
+    /**
+     * @param id       the Id of the manager.
+     * @param response Object used to save and send information
+     *                 to the client.
+     * @throws IOException when theres an error while making the pdf.
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/tickets/export")
-    public void exportManagerReport(@PathVariable Long id,
+    public void exportManagerReport(@PathVariable final Long id,
                                     HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";

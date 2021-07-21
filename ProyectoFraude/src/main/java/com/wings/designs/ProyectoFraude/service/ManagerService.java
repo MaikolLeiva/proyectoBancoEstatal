@@ -15,30 +15,69 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service that serves as a intermediary with the database,
+ * defining the method that will be used to communicate with the
+ * database.
+ */
 @Service
 public class ManagerService {
+    /**
+     * Class that allows to make direct request to the database table
+     * of managers.
+     */
     private final ManagerRepository managerRepository;
+    /**
+     * Service that allow to make a pdf.
+     */
     private final PdfService pdfService;
 
-
+    /**
+     *
+     * @param managerRepository repository used to make
+     *                          the request to the managers
+     *                          table on the database.
+     * @param pdfService Service used to make a pdf.
+     */
     public ManagerService(final ManagerRepository managerRepository,
                           PdfService pdfService) {
         this.managerRepository = managerRepository;
         this.pdfService = pdfService;
     }
 
+    /**
+     * Look for a manager with the given email and send
+     * an optional back based if the manager with
+     * the id exists or not.
+     * @param email the email of the manager wanted.
+     * @return An Optional object in any case.
+     */
     public Optional<Manager> findManagerByEmail(final String email) {
         return this.managerRepository.findManagerByEmail(email);
     }
 
+    /**
+     * Returns a manager that possess the user given.
+     * @param user the user of the manager wanted.
+     * @return A manager if found, null if not.
+     */
     public Manager getManagerByUser(final User user) {
         return managerRepository.getManagerByUser(user);
     }
 
-    public Manager addNewManager(final Manager manager) {
-        return this.managerRepository.save(manager);
+    /**
+     * Add the manager given to the database.
+     * @param manager the manager to be added.
+     */
+    public void addNewManager(final Manager manager) {
+        this.managerRepository.save(manager);
     }
 
+    /**
+     *
+     * @param rut the rut of the manager wanted.
+     * @return A manager if found, null if not.
+     */
     public Manager getManagerByRut(String rut) {
         return managerRepository.getManagerByRut(rut);
     }
@@ -47,7 +86,5 @@ public class ManagerService {
         Manager manager = managerRepository.getManagerById(managerId);
         List<Ticket> list = manager.getTicketList();
         this.pdfService.getManagerReport(list, manager.getFullName(), response);
-
-
     }
 }
