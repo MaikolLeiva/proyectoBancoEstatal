@@ -15,6 +15,7 @@ import java.io.IOException;
 /**
  * The rest Controller in charge of the manager
  * resource's endpoints on the API.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -31,12 +32,13 @@ public class ManagerController {
     public ManagerController(final ManagerService managerService) {
         this.managerService = managerService;
     }
+
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/tickets/export")
     public void exportManagerReport(@PathVariable Long id,
                                     HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename= report.pdf" ;
+        String headerValue = "attachment; filename= report.pdf";
         response.setHeader(headerKey, headerValue);
         managerService.exportPdf(response, id);
 

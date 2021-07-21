@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Represents a Manager of the system with his attributes
  * and it's representation in the Database. *
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -32,7 +33,7 @@ public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "manager_secuence")
     @SequenceGenerator(name = "manager_secuence", sequenceName = "manager_secuence",
-            allocationSize = 1,initialValue=1)
+            allocationSize = 1, initialValue = 1)
     @Column(name = "id", updatable = false)
     private Long id;
 

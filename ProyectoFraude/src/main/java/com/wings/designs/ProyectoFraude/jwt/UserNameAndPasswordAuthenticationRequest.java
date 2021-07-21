@@ -26,6 +26,7 @@ public class UserNameAndPasswordAuthenticationRequest {
 
     /**
      * Retrieves the actual username.
+     *
      * @return the username of the request
      */
     public String getUsername() {
@@ -34,6 +35,7 @@ public class UserNameAndPasswordAuthenticationRequest {
 
     /**
      * Set the username for the one given.
+     *
      * @param username
      */
     public void setUsername(final String username) {
@@ -42,6 +44,7 @@ public class UserNameAndPasswordAuthenticationRequest {
 
     /**
      * Get the actual password.
+     *
      * @return the password of the request.
      */
     public String getPassword() {
@@ -50,6 +53,7 @@ public class UserNameAndPasswordAuthenticationRequest {
 
     /**
      * Set the password for the one given.
+     *
      * @param password the new password.
      */
     public void setPassword(final String password) {

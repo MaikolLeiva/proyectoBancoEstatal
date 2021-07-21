@@ -58,6 +58,7 @@ public class SetupDataLoader implements
      * Receives the name of the Role, and if the name is
      * not found in the Role table, then add a Role to the table with that
      * name and privileges altogether.
+     *
      * @param name it's the name of the Role.
      * @return A role object that represents the role with his privileges
      * if the role was added successfully, otherwise returns a null.

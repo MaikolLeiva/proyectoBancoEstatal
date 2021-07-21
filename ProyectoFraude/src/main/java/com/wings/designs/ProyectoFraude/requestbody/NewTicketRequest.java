@@ -32,8 +32,9 @@ public class NewTicketRequest {
 
     /**
      * Main constructor.
+     *
      * @param cardType the card type of the Ticket Request.
-     * @param comment the comment of the Ticket Request.
+     * @param comment  the comment of the Ticket Request.
      */
     public NewTicketRequest(final Ticket.enumTypesOfCards cardType,
                             final String comment) {
@@ -43,6 +44,7 @@ public class NewTicketRequest {
 
     /**
      * Return the card type of the ticket request.
+     *
      * @return the card type of the Ticket request. Null if there's
      * no card type.
      */
@@ -52,6 +54,7 @@ public class NewTicketRequest {
 
     /**
      * Returns the comment of the ticket request.
+     *
      * @return the comment on the ticket request. Null if there's no
      * comment.
      */

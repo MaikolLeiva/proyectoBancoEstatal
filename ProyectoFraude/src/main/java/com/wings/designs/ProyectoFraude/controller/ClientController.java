@@ -8,11 +8,13 @@ import com.wings.designs.ProyectoFraude.persistence.model.Client;
 import com.wings.designs.ProyectoFraude.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
  * The rest Controller in charge of the {@link Client client}
  * resource's endpoints on the API.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -30,6 +32,7 @@ public class ClientController {
 
     /**
      * Main constructor..
+     *
      * @param clientService service that allow to take data from
      *                      the client resource. It's autowired.
      */
@@ -40,6 +43,7 @@ public class ClientController {
 
     /**
      * Get all the clients from the database.
+     *
      * @return A list of clients, if there's clients on the database.
      * Or an empty list in case there's no clients.
      */

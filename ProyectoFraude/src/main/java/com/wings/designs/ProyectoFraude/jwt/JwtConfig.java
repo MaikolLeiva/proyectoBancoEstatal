@@ -39,6 +39,7 @@ public class JwtConfig {
 
     /**
      * Returns the authorization header.
+     *
      * @return the authorization header.
      */
     public String getAuthorizationHeader() {
@@ -47,6 +48,7 @@ public class JwtConfig {
 
     /**
      * Returns the secret key of the jwt.
+     *
      * @return the secret key of the jwt.
      */
     public String getSecretKey() {
@@ -57,6 +59,7 @@ public class JwtConfig {
      * Change the secret key with the given one.
      * It's used automatically when setting the value
      * from the application.properties file at the start.
+     *
      * @param secretKey the new secret key.
      */
     public void setSecretKey(final String secretKey) {
@@ -65,6 +68,7 @@ public class JwtConfig {
 
     /**
      * Returns the actual token prefix.
+     *
      * @return the token prefix.
      */
     public String getTokenPrefix() {
@@ -75,6 +79,7 @@ public class JwtConfig {
      * Change the tokenPrefix with the given one.
      * It's used automatically when setting the value
      * from the application.properties file at the start.
+     *
      * @param tokenPrefix the new token prefix.
      */
     public void setTokenPrefix(final String tokenPrefix) {
@@ -83,6 +88,7 @@ public class JwtConfig {
 
     /**
      * Gives the expiration on hours of the token.
+     *
      * @return the actual expiration in hours of the token.
      */
     public Integer getTokenExpirationAfterHours() {
@@ -93,6 +99,7 @@ public class JwtConfig {
      * Change the expiration on hours of the token with the given value.
      * It's used automatically when setting the value
      * from the application.properties file at the start.
+     *
      * @param tokenExpirationAfterHours the new time on hours for expiration
      *                                  of the token.
      */

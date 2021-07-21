@@ -29,8 +29,9 @@ public class NotificationService {
 
     /**
      * Main constructor.
-     * @param javaMailSender Class that allows to send emails.
-     * @param notificationConfig  Class that allows to send emails.
+     *
+     * @param javaMailSender     Class that allows to send emails.
+     * @param notificationConfig Class that allows to send emails.
      */
     @Autowired
     public NotificationService(final JavaMailSender javaMailSender,
@@ -42,6 +43,7 @@ public class NotificationService {
     /**
      * Given a ticket, send and email to notify the client
      * of that ticket that it's now closed.
+     *
      * @param ticket the ticket closed that has the information
      *               needed in the email sent.
      * @throws MailException If there's an error sending the email.

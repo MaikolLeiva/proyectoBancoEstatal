@@ -38,6 +38,7 @@ public class NotificationConfig {
 
     /**
      * Gives the host.
+     *
      * @return the host.
      */
     public String getHost() {
@@ -46,6 +47,7 @@ public class NotificationConfig {
 
     /**
      * Gives the username.
+     *
      * @return the username.
      */
     public String getUsername() {
@@ -54,6 +56,7 @@ public class NotificationConfig {
 
     /**
      * Gives the password.
+     *
      * @return the password.
      */
     public String getPassword() {
@@ -64,6 +67,7 @@ public class NotificationConfig {
      * Set the host with the given one.
      * It's used automatically to bind
      * with the value in the application.properties file.
+     *
      * @param host host of the mail service.
      */
     public void setHost(final String host) {
@@ -74,6 +78,7 @@ public class NotificationConfig {
      * Set the username with the given one.
      * It's used automatically to bind
      * with the value in the application.properties file.
+     *
      * @param username the new username to send emails.
      */
     public void setUsername(final String username) {
@@ -84,6 +89,7 @@ public class NotificationConfig {
      * Set the password with the given one.
      * It's used automatically to bind
      * with the value in the application.properties file.
+     *
      * @param password the new password of the username
      *                 that sends the emails.
      */

@@ -15,6 +15,7 @@ public class ValidRutValidator implements
         ConstraintValidator<ValidRut, String> {
     /**
      * Initializes the validator.
+     *
      * @param constraint the constraint applied for the validation.
      */
     public void initialize(final ValidRut constraint) {
@@ -23,7 +24,8 @@ public class ValidRutValidator implements
     /**
      * Given a rut, checks if it's valid or not and
      * send a boolean as a result.
-     * @param rut The rut to ve validate
+     *
+     * @param rut     The rut to ve validate
      * @param context Gives extra information of
      *                the context of the validation.
      * @return true if the rut is valid. False in the other case.
@@ -32,7 +34,7 @@ public class ValidRutValidator implements
                            final ConstraintValidatorContext context) {
         boolean validation = false;
         try {
-            rut =  rut.toUpperCase();
+            rut = rut.toUpperCase();
             rut = rut.replace("-", "");
             int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
             char dv = rut.charAt(rut.length() - 1);
@@ -46,13 +48,12 @@ public class ValidRutValidator implements
             }
 
         } catch (java.lang.NumberFormatException e) {
-            return  false;
+            return false;
         } catch (Exception e) {
             return false;
         }
         return validation;
     }
-
 
 
 }

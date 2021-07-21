@@ -47,9 +47,9 @@ public class PdfService {
     }
 
     public List<Long> writeTableData(PdfPTable table,
-                                        List<Ticket> tickets) {
+                                     List<Ticket> tickets) {
         Long maxTimeTakenToResolve = 0L;
-        Long averageTimeTakenToResolve =0L;
+        Long averageTimeTakenToResolve = 0L;
         for (Ticket ticket : tickets) {
             Period period;
             if (ticket.getStatus().equals(Ticket.enumStatesOfTicket.CLOSED)) {
@@ -62,11 +62,11 @@ public class PdfService {
                 LocalDate endDate = ticket.getEndDate();
                 period = Period.between(starDate, endDate);
                 Long timeTaken = ChronoUnit.DAYS.between(starDate, endDate);
-                if(timeTaken<0){
-                    timeTaken=0L;
+                if (timeTaken < 0) {
+                    timeTaken = 0L;
                 }
                 table.addCell(String.valueOf(timeTaken));
-                if(timeTaken>maxTimeTakenToResolve) {
+                if (timeTaken > maxTimeTakenToResolve) {
                     maxTimeTakenToResolve = timeTaken;
                 }
                 averageTimeTakenToResolve = averageTimeTakenToResolve
@@ -74,7 +74,7 @@ public class PdfService {
             }
         }
         int numberOfTickets = tickets.size();
-        averageTimeTakenToResolve= averageTimeTakenToResolve/numberOfTickets;
+        averageTimeTakenToResolve = averageTimeTakenToResolve / numberOfTickets;
         List<Long> list = new ArrayList<Long>();
         list.add((long) numberOfTickets);
         list.add(averageTimeTakenToResolve);
@@ -99,12 +99,12 @@ public class PdfService {
         table.setSpacingBefore(20);
         table.setSpacingAfter(20);
         writeTableHeader(table);
-        List<Long> list =writeTableData(table, tickets);
+        List<Long> list = writeTableData(table, tickets);
         document.add(table);
         document.add(new Paragraph
                 ("Number of tickets: " + list.get(0) + "\n"
-                +"Average days taken to resolve: "+ list.get(1) + "\n"
-                +"Maximum days taken to resolve: "+ list.get(2) + "\n"));
+                        + "Average days taken to resolve: " + list.get(1) + "\n"
+                        + "Maximum days taken to resolve: " + list.get(2) + "\n"));
         document.close();
     }
 }

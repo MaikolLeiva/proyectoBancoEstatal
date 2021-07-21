@@ -46,6 +46,7 @@ public class UserController {
      * as list of instances of {@link User User}.
      * The number of instances is equal to the number of
      * users that the database of the system has.
+     *
      * @return a list of {@link User User}. If there's no users, returns an
      * empty list.
      */
@@ -58,6 +59,7 @@ public class UserController {
      * Receives a instance of an {@link User User} using the annotation
      * <Code>&#64;RequestBody</Code>.
      * Then proceeds to insert it in the system database.
+     *
      * @param user An instance of the class {@link User User}. This object will
      *             come in a JSON content type.
      */

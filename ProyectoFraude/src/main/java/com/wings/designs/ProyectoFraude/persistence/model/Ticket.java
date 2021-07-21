@@ -175,6 +175,7 @@ public class Ticket implements Comparable<Ticket> {
     /**
      * Returns the date in which the ticket was created
      * by a client
+     *
      * @return the creation date if the ticket has one or
      * null in the other case.
      */
@@ -185,6 +186,7 @@ public class Ticket implements Comparable<Ticket> {
     /**
      * Returns the date in which the ticket was finally
      * closed by a manager
+     *
      * @return the end date if the ticket has one or
      * null in the other case.
      */
@@ -195,6 +197,7 @@ public class Ticket implements Comparable<Ticket> {
     /**
      * Set the end date of the ticket with
      * the given date.
+     *
      * @param endDate the end date of the ticket.
      */
     public void setEndDate(LocalDate endDate) {
@@ -205,6 +208,7 @@ public class Ticket implements Comparable<Ticket> {
      * Compares the id of this ticket with the given ticket id,
      * then returns an integer that represents with one have a
      * greater id.
+     *
      * @param o ticket to be compared by id.
      * @return a negative integer, zero, or a positive integer as this Ticket
      * is less than, equal to, or greater than the specified Ticket.

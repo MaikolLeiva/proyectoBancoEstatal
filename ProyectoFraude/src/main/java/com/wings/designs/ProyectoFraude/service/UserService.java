@@ -23,8 +23,10 @@ public class UserService {
      * the table of users in the database.
      */
     private final UserRepository userRepository;
+
     /**
      * Main constructor.
+     *
      * @param userRepository An object of the class
      *                       {@link UserRepository UserRepository}
      *                       that is needed to communicate with
@@ -59,6 +61,7 @@ public class UserService {
     /**
      * Look if a user with given Rut exists by
      * providing an Optional object.
+     *
      * @param rut the rut of the user looked.
      * @return An optional in any case.
      */
@@ -68,6 +71,7 @@ public class UserService {
 
     /**
      * Retrieves a user that posses the given rut.
+     *
      * @param rut rut of the user wanted.
      * @return the User with the rut, if there's
      * no User with that rut, returns null.
@@ -80,11 +84,12 @@ public class UserService {
      * Take a instance of {@link User User} and before adding it to the system
      * look if other users has the same RUT or the same email, if that's the
      * case the user is not put in to the system. Otherwise, the user is added.
+     *
      * @param user An instance of {@link User User}.
      * @throws IllegalStateException If the user to be added has a RUT that
-     * other user has already taken in the system.
+     *                               other user has already taken in the system.
      * @throws IllegalStateException If the user to be added has an email that
-     * other user has already in the system.
+     *                               other user has already in the system.
      */
     public void addNewUser(final User user) {
         Optional<User> usersOptional =
@@ -98,6 +103,7 @@ public class UserService {
     /**
      * Given a rut return and Optional to check if a
      * user with that rut exists.
+     *
      * @param rut rut of the user looked.
      * @return Optional object in any case.
      */

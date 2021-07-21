@@ -57,14 +57,15 @@ public class TicketService {
 
     /**
      * Main constructor.
-     * @param ticketRepository Class that has access to the query's on the
-     *                         ticket table on the database.
-     * @param clientService class with methods to make query's or consults
-     *                     on the client table in the database.
-     * @param userService Service with methods to make query's or consults on
-     *                    the user_account table in the database.
-     * @param managerService Service with methods to make query's or consults
-     *                       on the manager table in the database.
+     *
+     * @param ticketRepository    Class that has access to the query's on the
+     *                            ticket table on the database.
+     * @param clientService       class with methods to make query's or consults
+     *                            on the client table in the database.
+     * @param userService         Service with methods to make query's or consults on
+     *                            the user_account table in the database.
+     * @param managerService      Service with methods to make query's or consults
+     *                            on the manager table in the database.
      * @param notificationService Service that allow to send emails.
      */
     public TicketService(final TicketRepository ticketRepository,
@@ -81,6 +82,7 @@ public class TicketService {
 
     /**
      * Get all the tickets on the database.
+     *
      * @return A list with all the tickets on the database.
      * An empty list if there's not one.
      */
@@ -91,6 +93,7 @@ public class TicketService {
     /**
      * Gives a list with all the tickets that a
      * manager can take.
+     *
      * @return A list with all the tickets that can be
      * taken by a manager.
      */
@@ -101,6 +104,7 @@ public class TicketService {
 
     /**
      * Gives all the tickets that a manager have.
+     *
      * @param managerRut the rut of the manager.
      * @return A list of the tickets that a manager have.
      * Empty list if he doesn't have any.
@@ -112,10 +116,11 @@ public class TicketService {
     /**
      * Checks the information given to make a new ticket on
      * the database.
+     *
      * @param ticketRequest the request with the information
      *                      about the ticket to be made.
-     * @param userRut the rut of the user that made the
-     *                ticket request.
+     * @param userRut       the rut of the user that made the
+     *                      ticket request.
      */
     public void addNewTicket(final NewTicketRequest ticketRequest,
                              final String userRut) {
@@ -139,6 +144,7 @@ public class TicketService {
     /**
      * Gives a list of all the tickets that the manager has
      * taken under review, and are still not closed.
+     *
      * @param userRut the rut of the manager.
      * @return A list with tickets. Or an empty list in case
      * the manager doesn't have any tickets under review.
@@ -153,8 +159,9 @@ public class TicketService {
     /**
      * Allow a manager to take a ticket with the id
      * given.
-     * @param userRut the rut of the Manager tha wants to
-     *                take the ticket.
+     *
+     * @param userRut  the rut of the Manager tha wants to
+     *                 take the ticket.
      * @param ticketId the id of the ticket that is
      *                 going to be taken.
      */
@@ -183,8 +190,9 @@ public class TicketService {
     /**
      * Close a ticket with the given id if is under review
      * under the manager with the rut given.
-     * @param userRut the rut of the manager that is under
-     *                control of the ticket.
+     *
+     * @param userRut  the rut of the manager that is under
+     *                 control of the ticket.
      * @param ticketId the id of the ticket that
      *                 is going to be closed.
      */
@@ -218,11 +226,12 @@ public class TicketService {
     /**
      * Returns the ticket with the id given, if the ticket
      * doesn't exist gives a 404 http response.
+     *
      * @param id the ticket looked.
      * @return the ticket with the id given.
      */
     public Ticket getTicket(Long id) {
-        if(!ticketRepository.findTicketById(id).isPresent()){
+        if (!ticketRepository.findTicketById(id).isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "the ticket doesn't exists");
         }

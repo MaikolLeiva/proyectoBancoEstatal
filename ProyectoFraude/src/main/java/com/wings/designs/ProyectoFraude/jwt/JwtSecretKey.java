@@ -25,6 +25,7 @@ public class JwtSecretKey {
 
     /**
      * Main constructor. Autowired.
+     *
      * @param jwtConfig the configuration class that has the raw secret key.
      */
     @Autowired
@@ -34,6 +35,7 @@ public class JwtSecretKey {
 
     /**
      * Returns the secret key.
+     *
      * @return the secret key.
      */
     @Bean

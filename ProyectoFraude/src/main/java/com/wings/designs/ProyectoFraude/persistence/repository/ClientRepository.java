@@ -16,6 +16,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     /**
      * Search for the client with the given id and returns and Optional object
      * to check if the client is present or not.
+     *
      * @param id The id of the client wanted
      * @return An optional instance in any case.
      */
@@ -25,6 +26,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     /**
      * Search for the client with the given rut and returns and Optional object
      * to check if the client is present or not.
+     *
      * @param rut The id of the client that is wanted.
      * @return An optional instance in any case.
      */
@@ -34,6 +36,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     /**
      * Search for the client with the given account number and returns
      * and Optional object to check if the client is present or not.
+     *
      * @param account It's the account number of the client wanted.
      * @return An optional instance in any case.
      */
@@ -43,6 +46,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     /**
      * Search for the client with the given email and returns
      * and Optional object to check if the client is present or not.
+     *
      * @param email The email of the client wanted.
      * @return An optional instance in any case.
      */
@@ -51,6 +55,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     /**
      * Get the client with the given id.
+     *
      * @param id The id of the client wanted.
      * @return A client with that id if exists, otherwise returns null.
      */
@@ -59,6 +64,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     /**
      * Get the client with the given rut.
+     *
      * @param rut The rut of the client wanted.
      * @return A client with that id if exists, otherwise returns null.
      */
@@ -67,6 +73,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     /**
      * Given the user assigned for a client, returns that client.
+     *
      * @param user the user associated with the client on the system.
      * @return A client with the given user. If the user
      * is not related to any client then returns null.

@@ -62,10 +62,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter
 
     /**
      * Main constructor.
+     *
      * @param authenticationManager class that authenticate password
      *                              and username given.
-     * @param jwtConfig information about the JWT token.
-     * @param secretKey the secret key for the JWT token.
+     * @param jwtConfig             information about the JWT token.
+     * @param secretKey             the secret key for the JWT token.
      */
     public JwtUsernameAndPasswordAuthenticationFilter(
             final AuthenticationManager authenticationManager,
@@ -82,7 +83,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter
 
     /**
      * Authenticates the  request given. And gives an authenticated object.
-     * @param request the http request given.
+     *
+     * @param request  the http request given.
      * @param response response of the request.
      * @return a fully authenticated object including credentials.
      * @throws AuthenticationException
@@ -99,7 +101,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                     new UsernamePasswordAuthenticationToken(
                             authenticationRequest.getUsername(),
                             authenticationRequest.getPassword()
-            );
+                    );
 
             return authenticationManager.authenticate(authentication);
         } catch (IOException e) {
@@ -111,13 +113,14 @@ public class JwtUsernameAndPasswordAuthenticationFilter
     /**
      * After a successful authentication, response to
      * the client with the token created.
-     * @param request request received.
-     * @param response response object that is going to be send.
-     * @param chain object used to process another filter.
+     *
+     * @param request    request received.
+     * @param response   response object that is going to be send.
+     * @param chain      object used to process another filter.
      * @param authResult class that provides all the information
      *                   of the user that passed the
      *                   authentication filter.
-     * @throws IOException For an input error when management of the data.
+     * @throws IOException      For an input error when management of the data.
      * @throws ServletException In any other error.
      */
     @Override
@@ -128,13 +131,13 @@ public class JwtUsernameAndPasswordAuthenticationFilter
             throws IOException, ServletException {
         String name = "";
         Long id = null;
-        if(authResult.getAuthorities().toString().equals("[ROLE_CLIENT]")){
+        if (authResult.getAuthorities().toString().equals("[ROLE_CLIENT]")) {
             Client client = this.clientService
                     .getClientByRut(authResult.getName());
             name = client.getFullName();
             id = client.getId();
         }
-        if(authResult.getAuthorities().toString().equals("[ROLE_MANAGER]")){
+        if (authResult.getAuthorities().toString().equals("[ROLE_MANAGER]")) {
             Manager manager = this.managerService
                     .getManagerByRut(authResult.getName());
             name = manager.getFullName();

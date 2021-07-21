@@ -10,6 +10,7 @@ import javax.persistence.*;
 /**
  * Represents a User of the system with his attributes and it's
  * representation in the Database.
+ *
  * @author Nicolas Henriquez
  * @author Sebastian Zapata
  * @author Ignacio Cabrera
@@ -77,6 +78,7 @@ public class User {
     /**
      * Returns the id of user. The user must be on the database already,
      * otherwise it will not have an id.
+     *
      * @return the id of the client if the client is on the database.
      * Otherwise returns null.
      */
@@ -86,6 +88,7 @@ public class User {
 
     /**
      * Returns the rut of the user.
+     *
      * @return the rut of the user.
      */
     public String getRut() {
@@ -94,6 +97,7 @@ public class User {
 
     /**
      * Returns the password of the user.
+     *
      * @return the password of the user.
      */
     public String getPassword() {
@@ -102,6 +106,7 @@ public class User {
 
     /**
      * Returns the role of the user.
+     *
      * @return the role of the user.
      */
     public Role getRole() {

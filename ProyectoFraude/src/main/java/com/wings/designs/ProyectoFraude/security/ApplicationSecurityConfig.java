@@ -54,6 +54,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * Main Constructor.
+     *
      * @param secretKey secret key used on the JWT token.
      * @param jwtConfig class with information about
      *                  the JWT token.
@@ -72,6 +73,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Set the security configuration for the HTTP
      * security.
+     *
      * @param http the HttpSecurity to be modified.
      * @throws Exception
      */
@@ -81,7 +83,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(
-                        SessionCreationPolicy.STATELESS)
+                SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(
                         authenticationManager(),
@@ -107,6 +109,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Change the Cors configuration with the
      * one set on this method.
+     *
      * @return Class with the new Configuration for
      * Cors policy.
      */

@@ -27,6 +27,7 @@ public interface ManagerRepository extends JpaRepository<Manager, Long> {
 
     /**
      * Given the user of a manager, gives that manager.
+     *
      * @param user the User of the manager that is looked.
      * @return the Manager with the given user. If there's no manager that
      * is related to the user given, then returns null.
