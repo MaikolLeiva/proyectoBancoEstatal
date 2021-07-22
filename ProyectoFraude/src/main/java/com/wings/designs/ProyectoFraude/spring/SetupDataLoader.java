@@ -74,12 +74,96 @@ public class SetupDataLoader implements
         createRole(Role.enumRole.ROLE_CLIENT);
         Role managerRole = roleService.findRoleByName(
                 Role.enumRole.ROLE_MANAGER);
-        createManagerUsers("10744718-0", "correofalso@gmail.com",
-                "Marco Polo", "Calle falsa 123",
-                managerRole, "1234");
-        createManagerUsers("13933875-8", "correo123@gmail.com",
-                "Juan Carlos", "Calle falsa 2234",
-                managerRole, "1234");
+        createManagerUsers("12803536-2","jacobquesada@bancoestatal.cl",
+                "Jacob Quesada",
+                "Cerro Negro 01656",
+                managerRole,
+                "9158");
+        createManagerUsers("7056270-7",
+                "manueljesus@bancoestatal.cl",
+                "Manuel Jesus Torregrosa",
+                "Eduardo Orchard 499",
+                managerRole,
+                "3280");
+        createManagerUsers("6147378-5",
+                "inmafuentes@bancoestatal.cl",
+                "Inma Fuentes",
+                "José Santos Ossa 2332,",
+                managerRole,
+                "8180");
+        createManagerUsers("13486185-1",
+                "felicianasuarez@bancoestatal.cl",
+                "Feliciana Suarez",
+                "Buenos Aires 902",
+                managerRole,
+                "6200");
+        createManagerUsers("19791362-2",
+                "amaiabuendia@bancoestatal.cl",
+                "Amaia Buendia",
+                "Maullín 6097",
+                managerRole,
+                "1992");
+        createManagerUsers("20249408-0",
+                "junebarbero@bancoestatal.cl",
+                "June Barbero",
+                "Av. Huamachuco 8797",
+                managerRole,
+                "6444");
+        createManagerUsers("21762215-8",
+                "josefaparada@bancoestatal.cl",
+                "Josefa Parada",
+                "Río Lontué 435",
+                managerRole,
+                "5590");
+        createManagerUsers("17026840-7",
+                "leandrocastello@bancoestatal.cl",
+                "Leandro Castello",
+                "Jardines del Nte. III 38",
+                managerRole,
+                "9926");
+        createManagerUsers("16051145-1",
+                "teodorobustos@bancoestatal.cl",
+                "Teodoro Bustos",
+                "Vilama 516",
+                managerRole,
+                "2207");
+        createManagerUsers("14163870-k",
+                "arseniogimenez@bancoestatal.cl",
+                "Arsenio Gimenez",
+                "Punta Arenas 5510",
+                managerRole,
+                "9894");
+        createManagerUsers("6084521-2",
+                "moussasalazar@bancoestatal.cl",
+                "Moussa Salazar",
+                "Chiloé 4100",
+                managerRole,
+                "7266");
+        createManagerUsers("16283355-3",
+                "danielventura@bancoestatal.cl",
+                "Daniel Ventura",
+                "Bellavista 3704",
+                managerRole,
+                "3840");
+        createManagerUsers("11891488-0",
+                "felicidadrobledo@bancoestatal.cl",
+                "Felicidad Robledo",
+                "Copiapó 900",
+                managerRole,
+                "8876");
+        createManagerUsers("23406814-8",
+                "ernestocamps@bancoestatal.cl",
+                "Ernesto Camps",
+                "Quillota 580",
+                managerRole,
+                "0189");
+        createManagerUsers("7112732-k",
+                "ivetespinosa@bancoestatal.cl",
+                "Ivet Espinosa",
+                "Gabriela Mistral 261",
+                managerRole,
+                "0006");
+
         alreadySetup = true;
 
     }
@@ -117,8 +201,8 @@ public class SetupDataLoader implements
         Optional<User> user = userService.findUserByRut(rut);
         Optional<Manager> manager = managerService.findManagerByEmail(email);
         if (!user.isPresent() && !manager.isPresent()) {
-            User newUser = new User(rut, passwordEncoder.encode(password), role);
-            Manager newManager = new Manager(rut, fullname, email,
+            User newUser = new User(rut.toUpperCase(), passwordEncoder.encode(password), role);
+            Manager newManager = new Manager(rut.toUpperCase(), fullname, email,
                     address, newUser);
             this.managerService.addNewManager(newManager);
         }

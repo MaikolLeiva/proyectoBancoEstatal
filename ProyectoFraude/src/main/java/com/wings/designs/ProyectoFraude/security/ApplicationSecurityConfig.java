@@ -27,7 +27,6 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * The secret key used on the JWT token.

@@ -92,7 +92,9 @@ public class PdfService {
                         + timeTaken;
             }
         }
-        averageTimeTakenToResolve = averageTimeTakenToResolve / numberOfTickets;
+        if(numberOfTickets!=0) {
+            averageTimeTakenToResolve = averageTimeTakenToResolve / numberOfTickets;
+        }
         List<Long> list = new ArrayList<Long>();
         list.add(numberOfTickets);
         list.add(averageTimeTakenToResolve);

@@ -56,9 +56,9 @@ public class NotificationService {
         String subject = "Your ticket has been closed";
         mail.setSubject(subject);
         String text = "Congratulations: " + ticket.getClient().getFullName()
-                + "the ticket with the id: " + ticket.getId()
-                + "associated with your" + ticket.getCardType()
-                + "has been closed by the manager: "
+                + " the ticket with the id: " + ticket.getId()
+                + " associated with your" + ticket.getCardType().name().toLowerCase()
+                + " card has been closed by the manager: "
                 + ticket.getManager().getFullName();
         mail.setText(text);
         javaMailSender.send(mail);

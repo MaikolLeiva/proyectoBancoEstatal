@@ -98,7 +98,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter
                             UserNameAndPasswordAuthenticationRequest.class);
             Authentication authentication =
                     new UsernamePasswordAuthenticationToken(
-                            authenticationRequest.getUsername(),
+                            authenticationRequest.getUsername().toUpperCase(),
                             authenticationRequest.getPassword()
                     );
 

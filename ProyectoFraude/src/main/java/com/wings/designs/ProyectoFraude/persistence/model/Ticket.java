@@ -4,6 +4,7 @@
 package com.wings.designs.ProyectoFraude.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -40,6 +41,8 @@ public class Ticket implements Comparable<Ticket> {
     /**
      * It's the comment made by the client about the ticket.
      */
+    @Length(max = 300, message = "maximun of 300 characters for" +
+            "a comment")
     @Column(name = "comment", updatable = false)
     private String comment;
 
