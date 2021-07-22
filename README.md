@@ -9,7 +9,7 @@ Mientras que los ejecutivos podrán ver y solucionar los casos de ser necesario.
 Este proyecto usa react para la creación de la página web que será utilizada en este proyecto.
 En la carpeta "FrontProyectoFraude" se encuentra el projecto creado en react, para poder trabajar con este proyecto se ejecutar los siguientes comandos en la dirección ../front-proyecto-fraude-banco-estatal
 
-- En caso de no tener instalado npm: npm install
+- En caso de no tener instalado npm: Instalación de node y npm install
 - npm -S i axios
 - npm install react-bootstrap bootstrap@4.6.0
 - Para poder ver la ejecución del código se utiliza: npm start
