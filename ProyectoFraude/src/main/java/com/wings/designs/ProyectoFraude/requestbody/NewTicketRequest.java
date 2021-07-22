@@ -6,6 +6,7 @@ package com.wings.designs.ProyectoFraude.requestbody;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wings.designs.ProyectoFraude.persistence.model.Ticket;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * Represent a Request with all the data needed to make a ticket in
@@ -21,6 +22,8 @@ public class NewTicketRequest {
     /**
      * the comment given by the client for the ticket.
      */
+    @Length(max = 300, message = "maximun of 300 characters for" +
+            "a comment")
     private String comment;
 
     /**

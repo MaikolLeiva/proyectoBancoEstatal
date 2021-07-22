@@ -81,7 +81,7 @@ public class RegistrationRequest {
                                final String fullName, final String address,
                                final String email, final String account,
                                final String phoneNumber) {
-        this.rut = rut;
+        this.rut = rut.toUpperCase();
         this.password = password;
         this.fullName = fullName;
         this.address = address;
