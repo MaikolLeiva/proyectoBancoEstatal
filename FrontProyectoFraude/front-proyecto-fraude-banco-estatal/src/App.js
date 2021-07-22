@@ -2,16 +2,13 @@ import React from 'react';
 import NavbarWeb from './NavbarWeb';
 import Login from './Login/Login';
 import Register from './Register/Register';
-import LevantarTicket from './Ticket/levantarTicket';
-import VerCasos from './Ticket/verCasos';
+import LevantarTicket from './Ticket/LevantarTicket';
+import VerCasos from './Ticket/VerCasos';
+import VerCasosTomados from './Ticket/VerCasosTomados';
+import VerTicket from './Ticket/VerTicket';
+import VerTicketTomado from './Ticket/verTicketTomado';
 import Home from  './Home';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  BrowserRouter
-} from "react-router-dom";
+import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
@@ -34,9 +31,17 @@ function App() {
         <Route path="/verCasos">
           <VerCasos />
         </Route>
+        <Route path="/verTicket">
+          <VerTicket />
+        </Route>
+        <Route path="/VerTicketTomado">
+          <VerTicketTomado />
+        </Route>
+        <Route path="/VerCasosTomados">
+          <VerCasosTomados />
+        </Route>
       </BrowserRouter>
     </div>
-
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import CompanyLogo from './bancoestatal.jpg';
+import fondoFraude from './fondoFraude.png';
 import "./Home.css";
 function Home() {
  
@@ -7,7 +7,7 @@ function Home() {
   return (
     <div>
         <center>
-            <img src={CompanyLogo} display="block" width="800" height="500" margin="100px" />
+            <img src={fondoFraude} display="block" width="500" height="400" margin="100px" />
         </center>
     </div>
   );

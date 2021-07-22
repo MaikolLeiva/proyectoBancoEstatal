@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./ticket.component.css";
 import { useHistory } from "react-router-dom";
-function VerCasos() {
-    const [data, setData] = useState([])
+function VerCasosTomados() {
+    const [data, setData] = useState([]);
     const [error, setError] = useState(null);
-    const [ticketId, setTicketId] = useState("");
     const history = useHistory();
     useEffect(() => {
-        fetch("http://localhost:8080/tickets/open/", {
+        fetch("http://localhost:8080/tickets/pending/", {
             method: 'GET',
             headers: {
                 'Authorization': localStorage.getItem('authorization'),
@@ -44,7 +43,7 @@ function VerCasos() {
                             <td>{item.comment}</td>
                             <td>{item.status}</td>
                             <td>
-                                <button onClick={function () { localStorage.setItem("ticketId", item.id); history.push("/verTicket"); history.push("#" + localStorage.getItem('ticketId')) }}>Ver</button>
+                                <button onClick={function () { localStorage.setItem("ticketId", item.id); history.push("/verTicketTomado"); history.push("#" + localStorage.getItem('ticketId')) }}>Ver</button>
                             </td>
                         </tr>
                     ))
@@ -55,4 +54,4 @@ function VerCasos() {
     )
 };
 
-export default VerCasos;
+export default VerCasosTomados;

@@ -1,13 +1,29 @@
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import axios from "axios";
 function NavbarWeb() {
     const history = useHistory();
     function logOut() {
+        history.push('/login')
         localStorage.clear();
         window.location.reload();
-        history.push('/login')
     }
+    async function generarPdf() {
+        axios.get("http://localhost:8080/managers/" + localStorage.getItem('id') + "/tickets/export", {
+        responseType: 'blob',   
+        headers: {
+                Authorization: localStorage.getItem('authorization')
+            }
+        })
+            .then(res => {
+                const file = new Blob(
+                    [res.data],
+                    { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            });
+    }
+
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -19,7 +35,7 @@ function NavbarWeb() {
                             <Nav.Link href="/home">Inicio</Nav.Link>
                             {localStorage.getItem('authorization') ?
                                 <>
-                                    {localStorage.getItem('rol') == "ROLE_CLIENT" ?
+                                    {localStorage.getItem('rol') === "ROLE_CLIENT" ?
                                         <>
                                             <NavDropdown title={localStorage.getItem("nombre")} id="basic-nav-dropdown">
                                                 <NavDropdown.Item href="/levantarTicket">Ingresar ticket</NavDropdown.Item>
@@ -31,8 +47,8 @@ function NavbarWeb() {
                                         <>
                                             <NavDropdown title={localStorage.getItem("nombre")} id="basic-nav-dropdown">
                                                 <NavDropdown.Item href="/verCasos">Ver Casos</NavDropdown.Item>
-                                                <NavDropdown.Item href="/home">Ver Casos Tomados</NavDropdown.Item>
-                                                <NavDropdown.Item href="/home">Generar PDF</NavDropdown.Item>
+                                                <NavDropdown.Item href="/VerCasosTomados">Ver Casos Tomados</NavDropdown.Item>
+                                                <NavDropdown.Item onClick={generarPdf}>Generar PDF</NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item onClick={logOut}>Cerrar sesión</NavDropdown.Item>
                                             </NavDropdown>

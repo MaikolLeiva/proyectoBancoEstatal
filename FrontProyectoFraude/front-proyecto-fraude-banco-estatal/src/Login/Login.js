@@ -15,7 +15,6 @@ function Login() {
   }, [])
   async function logIn() {
     const endpoint = "http://localhost:8080/login";
-    let item = { username, password };
     const user_object = {
       username: username,
       password: password
@@ -29,8 +28,6 @@ function Login() {
       localStorage.setItem("rol", decoded.authorities[0].authority);
       localStorage.setItem("id",decoded.id)
       localStorage.setItem("nombre",decoded.name)
-      console.warn(localStorage.getItem("rol"))
-      console.warn(decoded)
       window.location.reload();
       history.push("/home")
 
@@ -44,12 +41,12 @@ function Login() {
           <img src={CompanyLogo} width="300" height="150" />
         </div>
         <div className="input-group">
-          <label htmlFor="usuario">rut</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" className="login-input" placeholder="username" />
+          <label htmlFor="usuario">RUT</label>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} name="username" className="login-input" placeholder="RUT" />
         </div>
         <div className="input-group">
           <label htmlFor="contraseña">Contraseña</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="contraseña" className="login-input" placeholder="contraseña" />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="contraseña" className="login-input" placeholder="Contraseña" />
         </div>
 
 
